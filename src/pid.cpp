@@ -1307,5 +1307,5 @@ void wallResetF(int resetTime){
 }
 
 void Ring(int motorVoltage){
-    Conveyor.move(motorVoltage);
+    Hooks.move(motorVoltage);
 }

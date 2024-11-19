@@ -208,7 +208,8 @@ while (true){
 	if (arcToggle){
   int RX = con.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
   int power = con.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
-  int turn = int(abs(RX) * RX / 200);
+//   int turn = int(abs(RX) * RX / 127);
+  int turn = int(pow(RX, 5)/ pow(127, 4));
   int left = power + turn;
   int right = power - turn;
 
