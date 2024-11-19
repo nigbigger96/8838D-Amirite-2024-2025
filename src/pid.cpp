@@ -157,41 +157,42 @@ double calcPID3(double target3, double input3, int integralKI3, int maxIntegral3
 }
 
 
-void ColorSort(int color){
-    //red sort	
-    if (color == 1){
-    if (Eyesight.get_hue()<40 && Eyesight.get_hue()>12){
-	DaSortMaster = true;
-    }
-    }
-    //blue sort
-    if (color == 2){
-    if (Eyesight.get_hue()<110 && Eyesight.get_hue()>180){
-	DaSortMaster = true;
-    }
-    }
+// void ColorSort(int color){
+//     //red sort	
+//     if (color == 1){
+//     if (Eyesight.get_hue()<40 && Eyesight.get_hue()>12){
+// 	DaSortMaster = true;
+//     }
+//     }
+//     //blue sort
+//     if (color == 2){
+//     if (Eyesight.get_hue()<110 && Eyesight.get_hue()>180){
+// 	DaSortMaster = true;
+//     }
+//     }
 
 
-if (DaSortMaster == true){
+//if (DaSortMaster == true){
 	//int delayTime = 200;
-	ringTime += 1;
+	//ringTime += 1;
 	//
 	// DaSorter.set_value(true);
 
-	if (ringTime >= 1300) {
-		DaSortMaster = false;
-		ringTime=0;
+	// if (ringTime >= 1300) {
+	// 	DaSortMaster = false;
+	// 	ringTime=0;
 
-	} else if (ringTime>= 1000){
-		Conveyor.move(-127);
+// 	}
+//      else if (ringTime>= 1000){
+// 		Conveyor.move(-127);
 	
-	} else {
-		Conveyor.move(127);
-	}
-	} else{
-		Conveyor.move(127);
-	} 
-}
+// 	} else {
+// 		Conveyor.move(127);
+// 	}
+// 	} else{
+// 		Conveyor.move(127);
+// 	} 
+// }
 
 
 void driveStraight(int target) {

@@ -24,7 +24,7 @@ extern void driveArcL(double theta, double radius, int timeout);
 extern void driveArcR(double theta, double radius, int timeout);
 extern void driveArcLF(double theta, double radius, int timeout);
 extern void driveArcRF(double theta, double radius, int timeout);
-extern void ColorSort(int color);
+//extern void ColorSort(int color);
 extern void wallResetB(int resetTime);
 extern void wallResetF(int resetTime);
 extern void Rings(int motorVoltage);

@@ -166,7 +166,7 @@ void opcontrol() {
 	bool arcToggle = true;
 	bool tankToggle = false;
 	bool PistonsForMogo = true;
-	bool twoBar = false;
+	bool lift_toggle = false;
 	bool doinker = false;
 	bool NEWR1 = false;
 	bool NEWR2 = false;
@@ -176,7 +176,7 @@ void opcontrol() {
 	string blue;
 	
 	int color_selec = 1;
-	Eyesight.set_led_pwm(100);
+	//Eyesight.set_led_pwm(100);
 while (true){
 	// if (con.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){
 	// 	arcToggle = !arcToggle;
@@ -320,14 +320,14 @@ Doinker.set_value(doinker);
 
 
 if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
-	Snake.move(-127);
-	lift_angle = Snake.get_position();
+	LIFT.move(-127);
+	lift_angle = LIFT.get_position();
 } else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
-	Snake.move(127);
-	lift_angle = Snake.get_position();
+	LIFT.move(127);
+	lift_angle = LIFT.get_position();
 } else{
 	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-	Snake.move(calcPID(lift_angle, Snake.get_position(), 0, 0));
+	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
 }
 
 

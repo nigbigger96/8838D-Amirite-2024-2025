@@ -12,14 +12,14 @@ extern pros::Motor LB;
 extern pros::Motor RB;
 extern pros::Motor Intake;
 extern pros::Motor Conveyor;
-extern pros::Motor Snake;
+extern pros::Motor LIFT;
 extern pros::ADIDigitalOut Mogo;
-extern pros::ADIDigitalOut DaSorter;
+// extern pros::ADIDigitalOut DaSorter;
 extern pros::ADIDigitalOut Doinker;
 extern pros::ADIDigitalOut Flipout;
 extern pros::Controller con; 
 extern pros::Imu imu;
-extern pros::Optical Eyesight;
+//extern pros::Optical Eyesight;
 extern pros::ADIDigitalIn selec;
 
 #endif
