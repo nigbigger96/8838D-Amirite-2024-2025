@@ -49,6 +49,19 @@ int integral3;
 int derivitive3;
 int time4;
 
+double vKpl;
+double vKil;
+double vKdl;
+double prevPowerl;
+double currentpowerl;
+double prevErrorl;
+double hl;
+double powerl;
+float errorl;
+int integrall;
+int derivitivel;
+int timel;
+
 void setConstants(double kp, double ki, double kd){
 
     vKp = kp;
@@ -154,8 +167,44 @@ double calcPID3(double target3, double input3, int integralKI3, int maxIntegral3
 
     return power3;
 
-}
+} 
 
+double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegrall,int bias){
+
+    int integrall;
+    prevErrorl = errorl;
+    errorl = targetl - inputl;
+
+    if(abs(errorl) < integralKIl){
+        integrall += error3;
+    }
+    else{
+        integrall = 0;
+    }
+    if(integrall >= 0){
+        integrall = min(integrall, maxIntegrall);
+    }
+    else{
+        integrall = max(integrall, -maxIntegrall);
+    }
+    derivitivel = errorl - prevErrorl;
+
+    powerl = (vKp * errorl) + (vKi * integrall) + (vKd * derivitivel);
+///// first way of powering lift ( only multiplying on the way up)
+    // if(error > 0 ) {
+    //     powerl= powerl * bias;
+    // }
+///// second way of powering lift( multipling on the way up and dividing on the way down)
+    if(errorl < 0) {
+        powerl = powerl * bias;
+    } else {
+        powerl = powerl/ bias;
+    }
+///// Third way of powering lift 
+//  powerl += bias;
+/////
+   return powerl;
+} 
 
 // void ColorSort(int color){
 //     //red sort	
