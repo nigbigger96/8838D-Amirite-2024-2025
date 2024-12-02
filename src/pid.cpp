@@ -1356,5 +1356,5 @@ void wallResetF(int resetTime){
 }
 
 void Ring(int motorVoltage){
-    Hooks.move(motorVoltage);
+    Intake.move(motorVoltage);
 }

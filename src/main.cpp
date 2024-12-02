@@ -172,6 +172,7 @@ void opcontrol() {
 	bool NEWR1 = false;
 	bool NEWR2 = false;
 	double lift_angle = 0;
+	
 	int time = 0;
 	//bool Intakepiston = false;
 	string red;
@@ -213,7 +214,6 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_LEFT)) {
 	if (arcToggle){
   int RX = con.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
   int power = con.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
-//   int turn = int(abs(RX) * RX / 127);
   int turn = int(pow(RX, 5)/ pow(127, 4));
   int left = power + turn;
   int right = power - turn;
@@ -299,24 +299,25 @@ if(atn == 0) {
 	// 	Rings(0);
 	// }
 
+
 	if (con.get_digital(E_CONTROLLER_DIGITAL_R2)){
-	Hooks.move(-127);
+	Intake.move(-127);
 	} else if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
-	Hooks.move(127);
+	Intake.move(127);
 	} else {
-	Hooks.move(0);
+	Intake.move(0);
 	}
 
-if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
-	PistonsForMogo = !PistonsForMogo;
-}
-Mogo.set_value(PistonsForMogo);
-////////////////////////////////////////////////////////////// make this a piston flip out 
-if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
-	doinker = !doinker;
-}
-Doinker.set_value(doinker);
-
+// if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
+// 	PistonsForMogo = !PistonsForMogo;
+// }
+// Mogo.set_value(PistonsForMogo);
+// ////////////////////////////////////////////////////////////// make this a piston flip out 
+// if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
+// 	doinker = !doinker;
+// }
+// Doinker.set_value(doinker);
+////
 
 
 // if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
@@ -326,47 +327,51 @@ Doinker.set_value(doinker);
 
 
 
-// if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
-// 	LIFT.move(-127);
-// 	lift_angle = LIFT.get_position();
-// } else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
-// 	LIFT.move(127);
-// 	lift_angle = LIFT.get_position();
-// } else{
-// 	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-// 	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
-// } 
-
-if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
+if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 	LIFT.move(-127);
-	lift_toggle = false;
-} else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)) {
+	lift_angle = LIFT.get_position();
+} else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
 	LIFT.move(127);
-	lift_toggle = false;
-} else {
-	LIFT.move(0);
-	}
+	lift_angle = LIFT.get_position();
+} else{
+	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
+} 
+
+///
+// if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
+// 	LIFT.move(-127);
+// 	lift_toggle = false;
+// } else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)) {
+// 	LIFT.move(127);
+// 	lift_toggle = false;
+// } else {
+// 	LIFT.move(0);
+// 	}
 
 
-if ( con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)) {
-	lift_macro++;
-	lift_toggle = true;
-}
+// if ( con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)) {
+// 	lift_macro++;
+// 	lift_toggle = true;
+// }
+///
 
-if (lift_toggle){
-	if (lift_macro == 0) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(0, roto.get_angle(), 0, 0, 2));
-	} else if (lift_macro == 1) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(1000, roto.get_angle(), 0, 0, 2));
-	} else if (lift_macro == 2) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(3000, roto.get_angle(), 0, 0, 2));
-	} else if (lift_macro >= 3) {
-		lift_macro = 0;
-	}
-}
+
+
+// if (lift_toggle){
+// 	if (lift_macro == 0) {
+// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(0, roto.get_angle(), 0, 0, 2));
+// 	} else if (lift_macro == 1) {
+// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(1000, roto.get_angle(), 0, 0, 2));
+// 	} else if (lift_macro == 2) {
+// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(3000, roto.get_angle(), 0, 0, 2));
+// 	} else if (lift_macro >= 3) {
+// 		lift_macro = 0;
+// 	}
+// }
 
 
 
