@@ -8,9 +8,10 @@
 
 extern float error;
 extern int time2;
-double calcPID(double target, double input, int integralKI, int maxIntegral);
-double calcPID2(double target2, double input2, int integralKI2, int maxIntegral2);
-double calcPID3(double target3, double input3, int integralKI3, int maxIntegral3);
+extern double calcPID(double target, double input, int integralKI, int maxIntegral);
+extern double calcPID2(double target, double input, int integralKI, int maxIntegral);
+extern double calcPID3(double target, double input, int integralKI, int maxIntegral);
+extern double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegrall, int bias);
 extern void setConstants(double kp, double ki, double kd);
 extern void driveStraight(int target);
 extern void driveTurn(int target);

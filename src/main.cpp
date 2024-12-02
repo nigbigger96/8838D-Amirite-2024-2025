@@ -173,6 +173,7 @@ void opcontrol() {
 	bool NEWR2 = false;
 	double lift_angle = 0;
 	int time = 0;
+	//bool Intakepiston = false;
 	string red;
 	string blue;
 	
@@ -195,7 +196,11 @@ while (true){
 		NEWR2 = false;
 	}
 
-
+if (con.get_digital(E_CONTROLLER_DIGITAL_LEFT)) {
+	Intakepiston.set_value(true);
+} else {
+	Intakepiston.set_value(false);
+}
 
 	if (tankToggle){
  LF.move(con.get_analog(E_CONTROLLER_ANALOG_LEFT_Y));
@@ -351,13 +356,13 @@ if ( con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)) {
 if (lift_toggle){
 	if (lift_macro == 0) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPID(0, roto.get_angle(), 0, 0));
+ 		LIFT.move(calcPIDlift(0, roto.get_angle(), 0, 0, 2));
 	} else if (lift_macro == 1) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPID(1000, roto.get_angle(), 0, 0));
+ 		LIFT.move(calcPIDlift(1000, roto.get_angle(), 0, 0, 2));
 	} else if (lift_macro == 2) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPID(3000, roto.get_angle(), 0, 0));
+ 		LIFT.move(calcPIDlift(3000, roto.get_angle(), 0, 0, 2));
 	} else if (lift_macro >= 3) {
 		lift_macro = 0;
 	}
@@ -367,9 +372,9 @@ if (lift_toggle){
 
 
 
-if (con.get_digital(E_CONTROLLER_DIGITAL_X)){
-	driveArcL(90, 1000, 10000);
-}
+// if (con.get_digital(E_CONTROLLER_DIGITAL_X)){
+// 	driveArcL(90, 1000, 10000);
+// }
 }
 
 // if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
