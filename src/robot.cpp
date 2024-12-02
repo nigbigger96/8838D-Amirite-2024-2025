@@ -11,9 +11,9 @@ using namespace pros;
 #define LB_PORT 3 //correct
 #define RB_PORT 6 //correct    
 #define IMU_PORT 12 // plugged in
- #define INTAKE_PORT 7 //front roller
+#define INTAKE_PORT 8 //front roller
 // #define HOOKS_PORT 8 //hooks 
-#define LIFT_PORT 8 //lift
+#define LIFT_PORT 7 //lift
 #define OPTICAL_PORT  // color switch, maybe prob not
 #define ROTO_PORT 21
 
@@ -28,7 +28,7 @@ pros::Motor RM (RM_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor LB (LB_PORT, pros::E_MOTOR_GEARSET_06,true);
 pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06,false);
 // pros::Motor Intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_06);
-pros::Motor INTAKE(INTAKE_PORT, pros::E_MOTOR_GEARSET_06);
+pros::Motor Intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_06);
 //pros::Optical Eyesight7 (OPTICAL_PORT);
 pros::Motor LIFT(LIFT_PORT, pros::E_MOTOR_GEARSET_18, false);
 pros::ADIDigitalOut Mogo ('D', false);

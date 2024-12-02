@@ -300,18 +300,18 @@ if(atn == 0) {
 	// }
 
 
-	if (con.get_digital(E_CONTROLLER_DIGITAL_R2)){
+	if (con.get_digital(E_CONTROLLER_DIGITAL_R1)){
 	Intake.move(-127);
-	} else if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+	} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
 	Intake.move(127);
 	} else {
 	Intake.move(0);
 	}
 
-// if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
-// 	PistonsForMogo = !PistonsForMogo;
-// }
-// Mogo.set_value(PistonsForMogo);
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
+	PistonsForMogo = !PistonsForMogo;
+}
+Mogo.set_value(PistonsForMogo);
 // ////////////////////////////////////////////////////////////// make this a piston flip out 
 // if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
 // 	doinker = !doinker;

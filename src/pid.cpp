@@ -1355,6 +1355,6 @@ void wallResetF(int resetTime){
     }
 }
 
-void Ring(int motorVoltage){
-    Intake.move(motorVoltage);
-}
+// void Ring(int motorVoltage){
+//     Intake.move(motorVoltage);
+// }
