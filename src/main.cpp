@@ -313,11 +313,11 @@ if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
 }
 Mogo.set_value(PistonsForMogo);
 // ////////////////////////////////////////////////////////////// make this a piston flip out 
-// if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
-// 	doinker = !doinker;
-// }
-// Doinker.set_value(doinker);
-////
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
+	doinker = !doinker;
+}
+Doinker.set_value(doinker);
+//
 
 
 // if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
