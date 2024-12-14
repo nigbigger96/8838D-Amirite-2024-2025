@@ -197,11 +197,11 @@ while (true){
 		NEWR2 = false;
 	}
 
-if (con.get_digital(E_CONTROLLER_DIGITAL_LEFT)) {
-	Intakepiston.set_value(true);
-} else {
-	Intakepiston.set_value(false);
-}
+// if (con.get_digital(E_CONTROLLER_DIGITAL_LEFT)) {
+// 	Intakepiston.set_value(true);
+// } else {
+// 	Intakepiston.set_value(false);
+// }
 
 	if (tankToggle){
  LF.move(con.get_analog(E_CONTROLLER_ANALOG_LEFT_Y));
@@ -313,7 +313,7 @@ if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
 }
 Mogo.set_value(PistonsForMogo);
 // ////////////////////////////////////////////////////////////// make this a piston flip out 
-if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){
 	doinker = !doinker;
 }
 Doinker.set_value(doinker);
@@ -328,35 +328,35 @@ Doinker.set_value(doinker);
 
 
 if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
-	LIFT.move(-127);
-	lift_angle = LIFT.get_position();
-} else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
 	LIFT.move(127);
 	lift_angle = LIFT.get_position();
+	lift_toggle = false;
+} else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
+	LIFT.move(-127);
+	lift_angle = LIFT.get_position();
+	lift_toggle = false;
 } else{
 	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
 	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
 } 
 
-///
-// if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
+
+// if(con.get_digital(E_CONTROLLER_DIGITAL_L2)){
 // 	LIFT.move(-127);
 // 	lift_toggle = false;
-// } else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)) {
+// } else if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
 // 	LIFT.move(127);
 // 	lift_toggle = false;
 // } else {
 // 	LIFT.move(0);
+// 	LIFT.brake();
 // 	}
 
 
-// if ( con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)) {
+// if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)) {
 // 	lift_macro++;
 // 	lift_toggle = true;
 // }
-///
-
-
 
 // if (lift_toggle){
 // 	if (lift_macro == 0) {
@@ -364,7 +364,7 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 //  		LIFT.move(calcPIDlift(0, roto.get_angle(), 0, 0, 2));
 // 	} else if (lift_macro == 1) {
 // 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-//  		LIFT.move(calcPIDlift(1000, roto.get_angle(), 0, 0, 2));
+//  		LIFT.move(calcPIDlift(200, roto.get_angle(), 3, 5, 2));
 // 	} else if (lift_macro == 2) {
 // 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
 //  		LIFT.move(calcPIDlift(3000, roto.get_angle(), 0, 0, 2));

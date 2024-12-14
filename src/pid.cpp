@@ -191,9 +191,9 @@ double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegr
 
     powerl = (vKp * errorl) + (vKi * integrall) + (vKd * derivitivel);
 ///// first way of powering lift ( only multiplying on the way up)
-    // if(error > 0 ) {
-    //     powerl= powerl * bias;
-    // }
+    if(error > 0 ) {
+        powerl= powerl * bias;
+    }
 ///// second way of powering lift( multipling on the way up and dividing on the way down)
     if(errorl < 0) {
         powerl = powerl * bias;
@@ -201,10 +201,12 @@ double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegr
         powerl = powerl/ bias;
     }
 ///// Third way of powering lift 
-//  powerl += bias;
+  powerl += bias;
 /////
    return powerl;
+
 } 
+
 
 // void ColorSort(int color){
 //     //red sort	
