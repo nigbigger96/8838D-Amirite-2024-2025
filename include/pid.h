@@ -13,7 +13,7 @@ extern double calcPID2(double target, double input, int integralKI, int maxInteg
 extern double calcPID3(double target, double input, int integralKI, int maxIntegral);
 extern double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegrall, int bias);
 extern void setConstants(double kp, double ki, double kd);
-extern void driveStraight(int target);
+extern void driveStraight(int target, int macro);
 extern void driveTurn(int target);
 extern void driveTurn2(int target);
 extern void driveStraight2(int target);

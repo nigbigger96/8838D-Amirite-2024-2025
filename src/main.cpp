@@ -327,7 +327,7 @@ if(atn == 0) {
 
 
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_LEFT)){
-driveStraight(2000);
+driveStraight(300, 1);
 }
 
 

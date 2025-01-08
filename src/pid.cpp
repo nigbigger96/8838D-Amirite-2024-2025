@@ -62,6 +62,23 @@ int integrall;
 int derivitivel;
 int timel;
 
+void liftauton(int lift_macro){
+    if (lift_macro == 0) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
+	} else if (lift_macro == 1) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(3600, roto.get_angle(), .01, 1, 3));
+	} else if (lift_macro == 2) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(4800, roto.get_angle(), 0, 0, 3));
+    } else {
+        LIFT.move(0);
+        LIFT.brake();
+    }
+
+}
+
 void setConstants(double kp, double ki, double kd){
 
     vKp = kp;
@@ -248,8 +265,8 @@ double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegr
 // }
 
 
-void driveStraight(int target) {
-
+void driveStraight(int target, int macro = 4) {
+  
     int timeout = 30000;
 
     double x = 0;
@@ -277,6 +294,7 @@ void driveStraight(int target) {
     resetEncoders();
 
     while (true){
+          liftauton(macro);
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
          setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
@@ -337,6 +355,7 @@ void driveStraight(int target) {
     LB.brake();
     RB.brake();
 
+    liftauton(4);
     
 }
 
