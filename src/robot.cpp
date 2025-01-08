@@ -10,12 +10,12 @@ using namespace pros;
 #define RM_PORT 5 //correct
 #define LB_PORT 3 //correct
 #define RB_PORT 6 //correct    
-#define IMU_PORT 12 // plugged in
+#define IMU_PORT 21 // plugged in
 #define INTAKE_PORT 8 //front roller
 // #define HOOKS_PORT 8 //hooks 
 #define LIFT_PORT 7 //lift
 #define OPTICAL_PORT  // color switch, maybe prob not
-#define ROTO_PORT 20
+#define ROTO_PORT 10
 
 
 
@@ -34,7 +34,7 @@ pros::Motor LIFT(LIFT_PORT, pros::E_MOTOR_GEARSET_18, false);
 pros::ADIDigitalOut Mogo ('B', false);
 // pros::ADIDigitalOut DaSorter ('B', false);
 pros::ADIDigitalOut Doinker ('A', false);
-pros::ADIDigitalIn selec ('C');
+pros::ADIDigitalIn selec ('D');
 pros::ADIDigitalOut Intakepiston ('C');
 //pros::ADIAnalogIn DistanceSense ('A');
 pros::Controller con (pros::E_CONTROLLER_MASTER);

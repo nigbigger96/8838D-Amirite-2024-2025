@@ -7,7 +7,6 @@
 //#include "odometry.h"
 using namespace std;
 using namespace pros;
-#define target
 
 
 /**
@@ -16,6 +15,10 @@ using namespace pros;
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
+
+
+
+
 void on_center_button() {
 	static bool pressed = false;
 	pressed = !pressed;
@@ -37,6 +40,7 @@ void initialize() {
 	pros::lcd::set_text(1, "It's go time!! ");
 
 	pros::lcd::register_btn1_cb(on_center_button);
+
 }
 
 /**
@@ -88,7 +92,7 @@ while(true){
 	//autons here ===>
 
 	if(atn == 0) {
-		autstr = "RedLeft";
+		autstr = "RedRight";
 		con.print(0,0, "aut 0: %s", autstr);
 	}
 	else if(atn == 1) {
@@ -96,7 +100,7 @@ while(true){
 		con.print(0,0, "aut 1: %s", autstr);
 	}
 	else if(atn == 2) {
-		autstr = "RedRight";
+		autstr = "Red Left";
 		con.print(0,0, "aut 2: %s", autstr);
 	}
 	else if(atn == 3) {
@@ -104,32 +108,33 @@ while(true){
 		con.print(0,0, "aut 3: %s", autstr);
 	}
 	else if(atn == 4) {
-		autstr = "RedLeftElims";
+		autstr = "Red Right Safe";
 		con.print(0,0, "aut 4: %s", autstr);
 	}
 	else if(atn == 5) {
-		autstr = "BlueRightElims";
+		autstr = "Blue Left Safe";
 		con.print(0,0, "aut 5: %s", autstr);
 	}
 	else if(atn == 6) {
-		autstr = "RedRightElims";
+		autstr = "Skills";
 		con.print(0,0, "aut 6: %s", autstr);
 	}
 	else if(atn == 7) {
-		autstr = "BlueLeftElimsElims";
-		con.print(0,0, "aut 7: %s", autstr);
-	}
-	else if(atn == 8) {
-		autstr = "Skills";
-		con.print(0,0, "aut 8: %s", autstr);
-	}
-	else if(atn == 9) {
 		autstr = "Safety";
-		con.print(0,0, "aut 9: %s", autstr);
-	}
-	else if(atn == 10){
+		con.print(0,0, "aut 7: %s", autstr);
 		atn = 0;
 	}
+	// else if(atn == 8) {
+	// 	autstr = "Skills";
+	// 	con.print(0,0, "aut 8: %s", autstr);
+	// }
+	// else if(atn == 9) {
+	// 	autstr = "Safety";
+	// 	con.print(0,0, "aut 9: %s", autstr);
+	// }
+	// else if(atn == 10){
+	// 	atn = 0;
+	// }
 
 	con.clear();}
 	
@@ -161,30 +166,42 @@ while(true){
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
+
+
+
 void opcontrol() {
 	LF.set_brake_mode(E_MOTOR_BRAKE_COAST);
 	bool arcToggle = true;
 	bool tankToggle = false;
-	bool PistonsForMogo = true;
+	bool PistonsForMogo = false;
 	int lift_macro = 0;
 	bool lift_toggle = false;
 	bool doinker = false;
+	bool intakepiston = false;
 	bool NEWR1 = false;
 	bool NEWR2 = false;
 	double lift_angle = 0;
-	
+
+
 	int time = 0;
-	//bool Intakepiston = false;
 	string red;
 	string blue;
 	
 	int color_selec = 1;
 	//Eyesight.set_led_pwm(100);
 while (true){
-	// if (con.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){
-	// 	arcToggle = !arcToggle;
-	// 	tankToggle = !tankToggle;
-	// }
+	   
+
+
+
+
+
+	if (con.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
+		arcToggle = !arcToggle;
+		tankToggle = !tankToggle;
+	}
+
 	if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_R1)){
 		NEWR1 = true;
 	} else {
@@ -308,6 +325,14 @@ if(atn == 0) {
 	Intake.move(0);
 	}
 
+
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_LEFT)){
+driveStraight(2000);
+}
+
+
+
+
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
 	PistonsForMogo = !PistonsForMogo;
 }
@@ -317,13 +342,33 @@ if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){
 	doinker = !doinker;
 }
 Doinker.set_value(doinker);
+
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
+	intakepiston = !intakepiston;
+}
+Intakepiston.set_value(intakepiston);
+
+
+
+
 //
 
 
-// if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)){
-// 	flipout = !flipout;
-// }
-// Flipout.set_value(flipout);
+
+// 	if (roto.get_position() < 300) {
+// 	LIFT.move(127);
+// 	lift_angle = LIFT.get_position();
+// 	lift_toggle = false;
+// 	} else {
+// 	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+// 	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
+// 	}}
+
+
+
+
+
+
 
 
 
@@ -335,10 +380,28 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 	LIFT.move(-127);
 	lift_angle = LIFT.get_position();
 	lift_toggle = false;
-} else{
+} else {
 	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
 	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
 } 
+
+
+
+// if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_RIGHT)){
+// while (roto.get_position() > LIFT_TARGET_HEIGHT){
+// 	LIFT.move(-127);
+// 	lift_angle = LIFT.get_position();
+// 	lift_toggle = false;
+// 	delay(20);
+// } 	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+// 	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
+// }
+
+
+
+
+
+
 
 
 // if(con.get_digital(E_CONTROLLER_DIGITAL_L2)){
@@ -353,27 +416,38 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 // 	}
 
 
-// if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)) {
-// 	lift_macro++;
-// 	lift_toggle = true;
-// }
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_RIGHT)) {
+	lift_macro++;
+	lift_toggle = true;
+}
 
-// if (lift_toggle){
-// 	if (lift_macro == 0) {
-// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-//  		LIFT.move(calcPIDlift(0, roto.get_angle(), 0, 0, 2));
-// 	} else if (lift_macro == 1) {
-// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-//  		LIFT.move(calcPIDlift(200, roto.get_angle(), 3, 5, 2));
-// 	} else if (lift_macro == 2) {
-// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-//  		LIFT.move(calcPIDlift(3000, roto.get_angle(), 0, 0, 2));
-// 	} else if (lift_macro >= 3) {
-// 		lift_macro = 0;
-// 	}
-// }
+if (lift_toggle){
+	if (lift_macro == 0) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
+	} else if (lift_macro == 1) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(3600, roto.get_angle(), .01, 1, 3));
+	} else if (lift_macro == 2) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(4800, roto.get_angle(), 0, 0, 3));
+	} else if (lift_macro >= 3) {
+		lift_macro = 0;
+	}
+}
 
+pros::delay(1);
+time += 1;
 
+if (time % 50 == 0 && time % 100 !=0 && time % 150 != 0){
+con.print(0, 0, "Auton: %s			", autstr);
+} else if (time % 100 == 0 && time % 150 != 0){
+con.print(1, 0, "ERROR %f 			", float (error));
+} else if (time % 150 == 0){
+	con.print(2, 0, " Roto: %f 			", float (roto.get_angle()));
+}
+
+}
 
 
 
@@ -387,18 +461,7 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 // }
 
 
-pros::delay(1);
-time += 1;
 
-if (time % 50 == 0 && time % 100 !=0 && time % 150 != 0){
-con.print(0, 0, "Auton: %s			", autstr);
-} else if (time % 100 == 0 && time % 150 != 0){
-con.print(1, 0, "ERROR %f 			", float (error));
-} else if (time % 150 == 0){
-	con.print(2, 0, " Time: %f 			", float (time2));
-}
-
-}
 
 
 

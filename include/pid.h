@@ -19,8 +19,10 @@ extern void driveTurn2(int target);
 extern void driveStraight2(int target);
 extern void driveStraightC(int target);
 extern void driveClamp(int target, int clampDistance);
-extern void driveStraightSlow(int target, int timeout);
-extern void driveClampS(int target, int clampDistanceFromTarget, int timeout);
+extern void driveStraightSlow(int target, int speed);
+extern void driveClampS(int target, int clampDistanceFromTarget, int speed);
+extern void driveArcLS(double theta, double radius, int timeout, int speed);
+extern void driveArcRS(double theta, double radius, int timeout, int speed);
 extern void driveArcL(double theta, double radius, int timeout);
 extern void driveArcR(double theta, double radius, int timeout);
 extern void driveArcLF(double theta, double radius, int timeout);
@@ -28,20 +30,23 @@ extern void driveArcRF(double theta, double radius, int timeout);
 //extern void ColorSort(int color);
 extern void wallResetB(int resetTime);
 extern void wallResetF(int resetTime);
-extern void Rings(int motorVoltage);
+extern void moveLift(int targetHeight);
+
+
+
 extern double totalError;
 
 // straight stuff
-#define STRAIGHT_KP 2//3
+#define STRAIGHT_KP 2.25 //3
 #define STRAIGHT_KI 0
-#define STRAIGHT_KD 3
+#define STRAIGHT_KD 2.5
 #define STRAIGHT_INTEGRAL_KI 40
 #define STRAIGHT_MAX_INTEGRAL 14.5
 
 // turn stuff
-#define TURN_KP 5
+#define TURN_KP 6
 #define TURN_KI 0
-#define TURN_KD 33.5
+#define TURN_KD 30
 #define TURN_INTEGRAL_KI 30
 #define TURN_MAX_INTEGRAL 25
 
@@ -54,14 +59,14 @@ extern double totalError;
 #define HEADING_MAX_INTEGRAL 0
 #define HEADING_INTEGRAL_KI 0
 
-#define ARC_HEADING_KP 35
+#define ARC_HEADING_KP 6
 #define ARC_HEADING_KI 0.01
-#define ARC_HEADING_KD 15
+#define ARC_HEADING_KD 1
 #define ARC_HEADING_MAX_INTEGRAL 0
 #define ARC_HEADING_INTEGRAL_KI 0
 
-#define LIFT_KP 3
-# define LIFT_KI 0
-# define LIFT_KD 2
+#define LIFT_KP 0.2
+#define LIFT_KI 0
+#define LIFT_KD 0
 
 #endif
