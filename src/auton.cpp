@@ -12,40 +12,38 @@ void autonomous() {
 
     
     if(atn == 0){
-   
-    // Intake.move(127);
-    // Mogo.set_value(true);
-    // driveStraightC(900);
-    // driveArcL(45, 400, 1500);
-    // driveStraightSlow(350, 80);
-    driveTurn(-45);
-    driveStraight2(900);
-    // delay(100);
-    // Intake.move(0);
-    // driveClampS(-1000, 50, 85);
-    // Intake.move(0);
-    // driveTurn2(-52);
-    // driveClampS(-600, 50, 50);
-    // Intake.move(127);
-    // driveTurn2(-55);
-    // driveStraightC(400);
-    // driveStraightSlow(450, 60);
-    // driveStraightC(-350);
-    // driveTurn2(-100);
-    // driveArcL(70, 700, 2000);
-    // driveStraightC(400);
-    // driveTurn2(-125);
-    // driveStraight2(400);
-    // driveTurn2(-125);
-    // driveStraightC(-200);
-    // driveTurn2(110);
-    // driveStraight2(500);
-    // driveTurn2(80);
-    // Intakepiston.set_value(true);
-    // driveStraightSlow(780, 60);
-    // Intakepiston.set_value(false);
-    // delay(400);
-    // driveStraightSlow(-300, 60);
+    imu.tare();
+    Intake.move(127);
+    Mogo.set_value(true);
+    driveStraightC(900);
+    driveArcL(45, 400, 1500);
+    driveStraightSlow(150, 80);
+    delay(100);
+    Intake.move(0);
+    driveClampS(-1000, 50, 85);
+    Intake.move(0);
+    driveTurn2(-52);
+    driveClampS(-600, 50, 50);
+    Intake.move(127);
+    driveTurn2(-55);
+    driveStraightC(400);
+    driveStraightSlow(450, 60);
+    driveStraightC(-350);
+    driveTurn2(-100);
+    driveArcL(70, 700, 2000);
+    driveStraightC(400);
+    driveTurn2(-125);
+    driveStraight2(400);
+    driveTurn2(-125);
+    driveStraightC(-200);
+    driveTurn2(110);
+    driveStraight2(500);
+    driveTurn2(80);
+    Intakepiston.set_value(true);
+    driveStraightSlow(780, 60);
+    Intakepiston.set_value(false);
+    delay(400);
+    driveStraightSlow(-300, 60);
   
 
     // Ring rush red non elim

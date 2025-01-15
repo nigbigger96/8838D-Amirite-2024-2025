@@ -422,6 +422,7 @@ void driveStraight(int target){ //int macro = 4)
 }
 
  void driveTurn2(int target){
+   
     int turnv;
     double voltage;
     double position;
@@ -483,6 +484,7 @@ void driveStraight(int target){ //int macro = 4)
      } else {
         turnv = abs(abs(position) - abs(target));
      }
+
         voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 
         chasMove(voltage, voltage, voltage, - voltage, - voltage, - voltage);
@@ -491,7 +493,7 @@ void driveStraight(int target){ //int macro = 4)
 
         if (count >= 20 || time2 > timeout) {
 
-            //break;
+        break;
         }
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
             con.print(0,0, "ERROR: %f           ", float(error));
@@ -521,7 +523,7 @@ void driveStraight2(int target) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0.0000000000012454 * pow(x,5)) +  (-0.00000000628396 * pow(x,4)) + (0.0000116915 * pow(x,3)) + (-0.00965384 * pow(x,2)) + (3.66673 * x) + 249.09666;
+    timeout = (-0.000000000000230017 * pow(x,5)) +  (0.00000000111736 * pow(x,4)) + (-0.0000014531 * pow(x,3)) + (0.000174391 * pow(x,2)) + (0.850178 * x) + 450.9095;
     double voltage;
     double encoderAVG;
     int count = 0;
@@ -610,7 +612,7 @@ void driveStraightSlow(int target, int speed) {
     int timeout = 30000;
     
     double x = 0;
-    timeout = (0.0000000000012454 * pow(x,5)) +  (-0.00000000628396 * pow(x,4)) + (0.0000116915 * pow(x,3)) + (-0.00965384 * pow(x,2)) + (3.66673 * x) + 249.09666;
+    timeout = (-0.000000000000230017 * pow(x,5)) +  (0.00000000111736 * pow(x,4)) + (-0.0000014531 * pow(x,3)) + (0.000174391 * pow(x,2)) + (0.850178 * x) + 450.9095;
     x = double(abs(target));
     timeout = timeout * (2 - (double(speed)/100.0));
     double voltage;
@@ -707,7 +709,7 @@ void driveStraightC(int target) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0.0000000000012454 * pow(x,5)) +  (-0.00000000628396 * pow(x,4)) + (0.0000116915 * pow(x,3)) + (-0.00965384 * pow(x,2)) + (3.66673 * x) + 249.09666;
+    timeout = (-0.000000000000230017 * pow(x,5)) +  (0.00000000111736 * pow(x,4)) + (-0.0000014531 * pow(x,3)) + (0.000174391 * pow(x,2)) + (0.850178 * x) + 450.9095;
 
  if (target > 0){
     target = target + 500;
@@ -812,7 +814,7 @@ void driveClamp(int target, int clampDistance) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0.0000000000012454 * pow(x,5)) +  (-0.00000000628396 * pow(x,4)) + (0.0000116915 * pow(x,3)) + (-0.00965384 * pow(x,2)) + (3.66673 * x) + 249.09666;
+    timeout = (-0.000000000000230017 * pow(x,5)) +  (0.00000000111736 * pow(x,4)) + (-0.0000014531 * pow(x,3)) + (0.000174391 * pow(x,2)) + (0.850178 * x) + 450.9095;
 
     double voltage;
     double encoderAVG;
@@ -909,7 +911,7 @@ void driveClampS(int target, int clampDistance, int speed) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0.0000000000012454 * pow(x,5)) +  (-0.00000000628396 * pow(x,4)) + (0.0000116915 * pow(x,3)) + (-0.00965384 * pow(x,2)) + (3.66673 * x) + 249.09666;
+    timeout = (-0.000000000000230017 * pow(x,5)) +  (0.00000000111736 * pow(x,4)) + (-0.0000014531 * pow(x,3)) + (0.000174391 * pow(x,2)) + (0.850178 * x) + 450.9095;
 
     double voltage;
     double encoderAVG;

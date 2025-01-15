@@ -30,7 +30,7 @@ pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06,false);
 // pros::Motor Intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_06);
 pros::Motor Intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_06);
 //pros::Optical Eyesight7 (OPTICAL_PORT);
-pros::Motor LIFT(LIFT_PORT, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor LIFT(LIFT_PORT, pros::E_MOTOR_GEARSET_18, false);
 pros::ADIDigitalOut Mogo ('B', false);
 // pros::ADIDigitalOut DaSorter ('B', false);
 pros::ADIDigitalOut Doinker ('A', false);

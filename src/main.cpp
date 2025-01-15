@@ -332,12 +332,13 @@ if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_LEFT)){
 //   driveArcLF(90, 400, 1500);
 //       driveStraight2(500);
 
- automacro = 1;
- driveStraight2(550);
- automacro = 2;
- driveStraight2(500);
- automacro = 3;
- driveStraight2(600);
+driveTurn2(50);
+//  automacro = 1;
+//  driveStraight2(550);
+//  automacro = 2;
+//  driveStraight2(500);
+//  automacro = 3;
+//  driveStraight2(600);
 
 
 // driveArcLF(90, 250, 15000);
@@ -412,9 +413,6 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 // 	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
 // }
 
-if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
-driveStraight(2500);
-}
 
 
 
