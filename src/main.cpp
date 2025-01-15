@@ -92,38 +92,39 @@ while(true){
 	//autons here ===>
 
 	if(atn == 0) {
-		autstr = "RedRight";
+		autstr = "RedLeft";
 		con.print(0,0, "aut 0: %s", autstr);
 	}
 	else if(atn == 1) {
-		autstr = "BlueLeft";
+		autstr = "BlueRight";
 		con.print(0,0, "aut 1: %s", autstr);
 	}
 	else if(atn == 2) {
-		autstr = "Red Left";
+		autstr = "RedRight";
 		con.print(0,0, "aut 2: %s", autstr);
 	}
 	else if(atn == 3) {
-		autstr = "BlueRight";
+		autstr = "BlueLeft";
 		con.print(0,0, "aut 3: %s", autstr);
 	}
 	else if(atn == 4) {
-		autstr = "Red Right Safe";
+		autstr = "Sig Awp Red";
 		con.print(0,0, "aut 4: %s", autstr);
 	}
 	else if(atn == 5) {
-		autstr = "Blue Left Safe";
+		autstr = "Sig Awp Blue";
 		con.print(0,0, "aut 5: %s", autstr);
 	}
 	else if(atn == 6) {
 		autstr = "Skills";
 		con.print(0,0, "aut 6: %s", autstr);
-	}
-	else if(atn == 7) {
-		autstr = "Safety";
-		con.print(0,0, "aut 7: %s", autstr);
 		atn = 0;
 	}
+	// else if(atn == 7) {
+	// 	autstr = "Safety";
+	// 	con.print(0,0, "aut 7: %s", autstr);
+	// 	atn = 0;
+	// }
 	// else if(atn == 8) {
 	// 	autstr = "Skills";
 	// 	con.print(0,0, "aut 8: %s", autstr);
@@ -244,16 +245,16 @@ while (true){
 }
 //auton selector
 if(atn == 0) {
-		autstr = "RedLeft";
+		autstr = "Red ring";
 	}
 	if(atn == 1) {
-		autstr = "BlueRight";
+		autstr = "Blue ring";
 	}
 	if(atn == 2) {
-		autstr = "RedRight";
+		autstr = "Blue mogo";
 	}
 	if(atn == 3) {
-		autstr = "BlueLeft";
+		autstr = "Red mogo";
 	}
 	if(atn == 4) {
 		autstr = "RedLeftElims";
@@ -327,7 +328,21 @@ if(atn == 0) {
 
 
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_LEFT)){
-driveStraight(300, 1);
+//   driveStraightC(500);
+//   driveArcLF(90, 400, 1500);
+//       driveStraight2(500);
+
+ automacro = 1;
+ driveStraight2(550);
+ automacro = 2;
+ driveStraight2(500);
+ automacro = 3;
+ driveStraight2(600);
+
+
+// driveArcLF(90, 250, 15000);
+
+// driveStraight2(1000);
 }
 
 
@@ -397,6 +412,10 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 // 	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
 // }
 
+if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
+driveStraight(2500);
+}
+
 
 
 
@@ -427,11 +446,14 @@ if (lift_toggle){
  		LIFT.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
 	} else if (lift_macro == 1) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(3600, roto.get_angle(), .01, 1, 3));
+ 		LIFT.move(calcPIDlift(3800, roto.get_angle(), .01, 1, 3));
 	} else if (lift_macro == 2) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(4800, roto.get_angle(), 0, 0, 3));
-	} else if (lift_macro >= 3) {
+ 		LIFT.move(calcPIDlift(5300, roto.get_angle(), 0, 0, 3));
+	} else if (lift_macro == 3){
+        setConstants(TOP_KP, TOP_KI, TOP_KD);
+ 		LIFT.move(calcPIDlift(15000, roto.get_angle(), 0, 0, 1));
+    } else {
 		lift_macro = 0;
 	}
 }
@@ -444,7 +466,7 @@ con.print(0, 0, "Auton: %s			", autstr);
 } else if (time % 100 == 0 && time % 150 != 0){
 con.print(1, 0, "ERROR %f 			", float (error));
 } else if (time % 150 == 0){
-	con.print(2, 0, " Roto: %f 			", float (roto.get_angle()));
+	con.print(2, 0, " Time: %f 			", float (time2));
 }
 
 }
@@ -456,9 +478,6 @@ con.print(1, 0, "ERROR %f 			", float (error));
 // }
 }
 
-// if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
-// driveTurn(10);
-// }
 
 
 

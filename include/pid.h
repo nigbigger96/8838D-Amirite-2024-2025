@@ -8,12 +8,13 @@
 
 extern float error;
 extern int time2;
+extern int automacro;
 extern double calcPID(double target, double input, int integralKI, int maxIntegral);
 extern double calcPID2(double target, double input, int integralKI, int maxIntegral);
 extern double calcPID3(double target, double input, int integralKI, int maxIntegral);
 extern double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegrall, int bias);
 extern void setConstants(double kp, double ki, double kd);
-extern void driveStraight(int target, int macro);
+extern void driveStraight(int target);
 extern void driveTurn(int target);
 extern void driveTurn2(int target);
 extern void driveStraight2(int target);
@@ -37,7 +38,7 @@ extern void moveLift(int targetHeight);
 extern double totalError;
 
 // straight stuff
-#define STRAIGHT_KP 2.25 //3
+#define STRAIGHT_KP 2.25 //3 
 #define STRAIGHT_KI 0
 #define STRAIGHT_KD 2.5
 #define STRAIGHT_INTEGRAL_KI 40
@@ -68,5 +69,9 @@ extern double totalError;
 #define LIFT_KP 0.2
 #define LIFT_KI 0
 #define LIFT_KD 0
+
+#define TOP_KP 0.1
+#define TOP_KI 0
+#define TOP_KD 1
 
 #endif
