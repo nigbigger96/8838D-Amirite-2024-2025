@@ -19,7 +19,7 @@ void autonomous() {
     // driveArcL(45, 400, 1500);
     // driveStraightSlow(350, 80);
     driveTurn(-45);
-    driveStraight2(800);
+    driveStraight2(900);
     // delay(100);
     // Intake.move(0);
     // driveClampS(-1000, 50, 85);
