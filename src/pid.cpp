@@ -460,7 +460,7 @@ void driveStraight(int target){ //int macro = 4)
    variKD = (0.0000000033099 * pow(x,5)) + (-0.00000155578 * pow(x,4)) + (0.000278878 * pow(x,3)) + (-0.0246144 * pow(x,2)) + (1.11037 * x) + 21.40372;
    timeout = (0.000000145743 *pow(x,5)) + (-0.0000623335 *pow(x,4)) + (0.00939835 *pow(x,3)) + (-0.616968 *pow(x,2)) + (23.02438 *(x)) + 308.28113;
     //variKP = (0 *pow(x,5)) + (0 *pow(x,4)) + (0 *pow(x,3)) + (0 *pow(x,2)) + (0 *(x)) + 0;
-    setConstants(TURN_KP, TURN_KI, variKD);
+    setConstants(TURN_KP, TURN_KI, TURN_KD);
     while(true) { 
     position = imu.get_heading();
      if(position > 180){
@@ -493,7 +493,7 @@ void driveStraight(int target){ //int macro = 4)
 
         if (count >= 20 || time2 > timeout) {
 
-        break;
+        //break;
         }
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
             con.print(0,0, "ERROR: %f           ", float(error));
@@ -502,7 +502,7 @@ void driveStraight(int target){ //int macro = 4)
             con.print(2,0, "EncoderAVG: %f           ", float(imu.get_heading()));
         }
          if(time2 % 50 == 0){
-            con.print(1,0, "Time: %f           ", float(time2));
+            con.print(1,0, "Power: %f           ", float((power)));
         }
         
         time2 += 10;
