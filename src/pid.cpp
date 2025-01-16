@@ -389,7 +389,7 @@ void driveStraight(int target){ //int macro = 4)
             position = ((360 - position) * -1);
 
         }
-        voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
+        voltage = calcPID2(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 
         chasMove(voltage, voltage, voltage, - voltage, - voltage, - voltage);
 
@@ -460,7 +460,7 @@ void driveStraight(int target){ //int macro = 4)
    variKD = (0.0000000033099 * pow(x,5)) + (-0.00000155578 * pow(x,4)) + (0.000278878 * pow(x,3)) + (-0.0246144 * pow(x,2)) + (1.11037 * x) + 21.40372;
    timeout = (0.000000145743 *pow(x,5)) + (-0.0000623335 *pow(x,4)) + (0.00939835 *pow(x,3)) + (-0.616968 *pow(x,2)) + (23.02438 *(x)) + 308.28113;
     //variKP = (0 *pow(x,5)) + (0 *pow(x,4)) + (0 *pow(x,3)) + (0 *pow(x,2)) + (0 *(x)) + 0;
-    setConstants(TURN_KP, TURN_KI, TURN_KD);
+    setConstants(TURN_KP, TURN_KI, variKD);
     while(true) { 
     position = imu.get_heading();
      if(position > 180){
@@ -485,7 +485,7 @@ void driveStraight(int target){ //int macro = 4)
         turnv = abs(abs(position) - abs(target));
      }
 
-        voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
+        voltage = calcPID2(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 
         chasMove(voltage, voltage, voltage, - voltage, - voltage, - voltage);
 
