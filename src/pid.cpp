@@ -64,25 +64,25 @@ int integrall;
 int derivitivel;
 int timel;
 
-void liftauton(){
-    if (automacro == 0) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
-	} else if (automacro == 1) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(3800, roto.get_angle(), .01, 1, 3));
-	} else if (automacro == 2) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(5300, roto.get_angle(), 0, 0, 3));
-    } else if (automacro == 3){
-        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(15000, roto.get_angle(), 0, 0, 1));
-    } else {
-        LIFT.move(0);
-        LIFT.brake();
-    }
+// void liftauton(){
+//     if (automacro == 0) {
+// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
+// 	} else if (automacro == 1) {
+// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(3800, roto.get_angle(), .01, 1, 3));
+// 	} else if (automacro == 2) {
+// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(5300, roto.get_angle(), 0, 0, 3));
+//     } else if (automacro == 3){
+//         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(15000, roto.get_angle(), 0, 0, 1));
+//     } else {
+//         LIFT.move(0);
+//         LIFT.brake();
+//     }
 
-}
+// }
 
 void setConstants(double kp, double ki, double kd){
 
@@ -113,7 +113,7 @@ void chasMove(int voltageLF, int voltageLM, int voltageLB, int voltageRF, int vo
 }
 
 double calcPID(double target, double input, int integralKI, int maxIntegral){
-    liftauton();
+    // liftauton();
     int integral;
     prevError = error;
     error = target - input;
@@ -493,7 +493,7 @@ void driveStraight(int target){ //int macro = 4)
 
         if (count >= 20 || time2 > timeout) {
 
-        //break;
+        break;
         }
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
             con.print(0,0, "ERROR: %f           ", float(error));
@@ -1005,6 +1005,124 @@ if(init_heading > 180) {
 
     
 }
+
+
+
+void driveClampSC(int target, int clampDistance, int speed) {
+
+    int timeout = 30000;
+
+    double x = 0;
+    x = double(abs(target));
+    timeout = (-0.000000000000230017 * pow(x,5)) +  (0.00000000111736 * pow(x,4)) + (-0.0000014531 * pow(x,3)) + (0.000174391 * pow(x,2)) + (0.850178 * x) + 450.9095;
+
+    double voltage;
+    double encoderAVG;
+    int count = 0;
+    double init_heading = imu.get_heading();
+    double headingError = 0;
+    int cycleTime = 0;
+    time2 = 0;
+    bool over = false;
+
+    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    
+    resetEncoders();
+
+    while (true){
+        encoderAVG = (LF.get_position() + RF.get_position()) / 2;
+        setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
+        voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
+
+if(init_heading > 180) {
+    init_heading = (360 - init_heading);
+}
+
+
+        
+       double position = imu.get_heading();
+
+      if(position > 180){
+        position = position - 360;
+      }
+
+    if((init_heading < 0) && (position > 0)){
+        if((position - init_heading ) >= 180){
+            init_heading = init_heading + 360;
+            position = imu.get_heading();
+        }
+    } else if((init_heading > 0) && (position < 0)){
+        if ((init_heading - position) >= 180){
+            position = imu.get_heading();
+        }
+     }
+    
+    setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
+        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        headingError = 0;
+
+
+        if(voltage > 127 * double(speed)/100){
+            voltage = 127 * double(speed)/100;
+        } else if (voltage < -127 * double(speed)/100){
+            voltage = -127 * double(speed)/100;
+        }
+        if(voltage > 127){
+            voltage = 127;
+        } else if (voltage < -127){
+            voltage = -127;
+        }
+
+         if(abs(target - encoderAVG) < clampDistance){
+            Mogo.set_value(false);
+        }
+
+
+        chasMove((voltage + headingError), (voltage + headingError), (voltage + headingError), (voltage - headingError), (voltage - headingError),(voltage - headingError));
+        if (abs(target - encoderAVG) <= 4) count++;
+        // if (count >= 20 || time2 > timeout){
+        //    break;
+        // }
+
+        if(target > 0){
+            if((encoderAVG - (target-500)) > 0){
+                over = true;
+            }
+        } else if(((target+500) - encoderAVG) > 0){
+        over = true;
+        }
+
+        if(over || time2 > timeout){
+            break;
+        }
+
+        delay(10);
+        if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
+            con.print(0,0, "ERROR: %f           ", float(error));
+        }
+         if(time2 % 50 == 0 && time2 % 100 != 0){
+            con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
+        }
+         if(time2 % 50 == 0){
+            con.print(1,0, "Time2: %f           ", float(time2));
+        }
+        
+        
+        time2 += 10;
+
+
+    }
+    LF.brake();
+    RF.brake();
+    LM.brake();
+    RM.brake();
+    LB.brake();
+    RB.brake();
+
+    
+}
+
+
 
 
 void driveArcL(double theta, double radius, int timeout){

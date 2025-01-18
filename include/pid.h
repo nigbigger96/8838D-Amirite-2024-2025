@@ -9,6 +9,7 @@
 extern float error;
 extern int time2;
 extern int automacro;
+extern void liftauton();
 extern double calcPID(double target, double input, int integralKI, int maxIntegral);
 extern double calcPID2(double target, double input, int integralKI, int maxIntegral);
 extern double calcPID3(double target, double input, int integralKI, int maxIntegral);
@@ -19,6 +20,7 @@ extern void driveTurn(int target);
 extern void driveTurn2(int target);
 extern void driveStraight2(int target);
 extern void driveStraightC(int target);
+extern void driveClampSC(int target, int clampDistance, int speed);
 extern void driveClamp(int target, int clampDistance);
 extern void driveStraightSlow(int target, int speed);
 extern void driveClampS(int target, int clampDistanceFromTarget, int speed);
@@ -60,7 +62,7 @@ extern double totalError;
 #define HEADING_MAX_INTEGRAL 0
 #define HEADING_INTEGRAL_KI 0
 
-#define ARC_HEADING_KP 6
+#define ARC_HEADING_KP 4
 #define ARC_HEADING_KI 0.01
 #define ARC_HEADING_KD 1
 #define ARC_HEADING_MAX_INTEGRAL 0

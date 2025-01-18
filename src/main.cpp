@@ -118,13 +118,12 @@ while(true){
 	else if(atn == 6) {
 		autstr = "Skills";
 		con.print(0,0, "aut 6: %s", autstr);
+	}
+	else if(atn == 7) {
+		autstr = "Safety";
+		con.print(0,0, "aut 7: %s", autstr);
 		atn = 0;
 	}
-	// else if(atn == 7) {
-	// 	autstr = "Safety";
-	// 	con.print(0,0, "aut 7: %s", autstr);
-	// 	atn = 0;
-	// }
 	// else if(atn == 8) {
 	// 	autstr = "Skills";
 	// 	con.print(0,0, "aut 8: %s", autstr);
