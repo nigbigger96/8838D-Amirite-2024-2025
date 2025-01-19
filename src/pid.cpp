@@ -1703,8 +1703,8 @@ void wallResetF(int resetTime){
         RF.move(127);
         RM.move(127);
         RB.move(127);
-        if (abs(RF.get_actual_velocity()) < 2) count ++;
-        if (count >= 20) break;
+        if (abs(RF.get_actual_velocity()) < 10) count ++;
+        if (count >= 5) break;
     }
 }
 

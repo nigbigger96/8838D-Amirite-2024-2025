@@ -443,7 +443,7 @@ if (lift_toggle){
  		LIFT.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
 	} else if (lift_macro == 1) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(3800, roto.get_angle(), .01, 1, 3));
+ 		LIFT.move(calcPIDlift(4000, roto.get_angle(), .01, 1, 3));
 	} else if (lift_macro == 2) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFT.move(calcPIDlift(5300, roto.get_angle(), 0, 0, 3));
