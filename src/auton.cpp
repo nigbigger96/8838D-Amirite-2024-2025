@@ -243,121 +243,44 @@ void autonomous() {
       Mogo.set_value(true);
       Intake.move(127);
       driveStraightC(925);
-      driveArcL(45, 400, 900);
+      driveArcL(45, 420, 900);
       driveStraightSlow(170, 80);
       delay(100);
-      Intake.move(0);
+      Intake.move(20);
       driveTurn2(-54);
-      driveClampS(-775, 50, 90);
+      delay(50);
+      driveClampS(-775, 85, 93); //1st mogo
       Intake.move(127);
       driveTurn2(-90);
       driveStraightC(500);
-      driveStraightSlow(400, 70);
-      Intake.move(20);
-      driveTurn2(130);
+      driveStraightSlow(400, 70); //first ring
+      Intake.move(-10);
+      driveTurn2(135);
       Intake.move(127);
-      driveStraightC(400);
+      driveStraightC(400); //2nd ring
       Mogo.set_value(true);
-      // driveStraightC(1400);
-      // driveStraightSlow(100, 50);
-      driveStraightC(1000);
-      LIFT.move(20);
-      driveTurn2(180);
+      driveStraightC(1050);
+      driveTurn2(177);
       LIFT.move(127); //alliance stake
-      delay(200);
-      driveStraight2(500);
+      driveStraightSlow(330, 50);
+      delay(50);
+      driveStraight2(60);
       LIFT.move(-127);
       driveTurn2(180);
       driveStraightC(-325);
-      driveTurn2(-130);
+      driveTurn2(-132.5);
       driveStraightC(-800);
-      driveClampS(-500, 50, 70);
+      driveClampS(-480, 80, 80);
       LIFT.move(0);
-      driveTurn2(90);
+      driveTurn2(93);
       Intake.move(127);
       driveStraightC(600);
-      driveStraightSlow(300, 20);
+      driveStraightSlow(300, 45);
       LIFT.move(127);
       driveStraightC(-800);
-      driveTurn2(-90);
-      driveStraightSlow(300, 50);
-      driveStraightSlow(300, 50);
-
-
-      // Intake.move(127);
-      // driveStraight2(320); //corner
-      // driveStraightC(-800); //back
-      // Intake.move(0);
-      // driveClampS(-1200, 110, 85);
-      // //169 degrees is zero
-      // Intake.move(127);
-      // delay(200);
-      // Intake.move(-20);
-      // driveTurn2(45);
-      // Intake.move(127);
-      // driveStraightC(400);
-      // driveStraightSlow(400, 60);
-      // driveTurn2(-104);
-      // Mogo.set_value(true);
-      // Intake.move(-127);
-      // driveStraightC(1475);
-      // driveStraightSlow(525, 66);
-      // driveTurn2(-46);
-      // Intake.move(0);
-      // LIFT.move(127); //alliance stake
-      // delay(100);
-      // driveStraight2(430);
-      // LIFT.move(-127);
-      // LIFT.move(0);
-      // driveTurn2(-33);
-      // driveClampS(-1180, 105, 93);
-      // driveTurn2(-135);
-      // Intake.move(127);
-      // driveStraightC(400);
-      // driveStraightSlow(400, 60);
-      // driveTurn2(45);
-      // driveStraight2(1000);
-      // driveStraightSlow(250, 80);
-
-
-      
-      
-      
-      
-      //First sigawp
-      /* Mogo.set_value(true);
-      driveStraightC(-500);
-      driveClampS(-800, 100, 60);
-      Intake.move(127);
-      driveTurn2(90);
-      driveStraightSlow(820, 80);
-       */
-
-
-
-
-      
-
-
-
-      /* Mogo.set_value(true);
-      Intakepiston.set_value(true);
-      driveTurn2(-68);
-      driveStraightSlow(1100, 60);
-      Intakepiston.set_value(false);
-      delay(200);
-      driveStraightSlow(150, 70);
-      Intake.move(60);
-      driveTurn2(176);
-      driveStraightSlow(-590, 50);
-      driveTurn2(173.6);
-      Intake.move(127);
-      delay(500);
-      driveStraight2(700);
-      driveTurn2(47);
-      driveClampS(-700, 80, 80);
-      driveTurn2(-83);
-      driveStraightC(700); */
+      driveTurn2(-37);
+      driveStraightSlow(270, 90);
+      //driveTurn2(-65);
 
 
 
@@ -370,8 +293,51 @@ void autonomous() {
 
 
     if(atn == 5) {
-    //sigawp blue
-
+      
+      Intake.move(127);
+      Mogo.set_value(true);
+      driveStraightC(925);
+      driveArcR(45, 400, 900);
+      driveStraightSlow(200, 80);
+      delay(100);
+      Intake.move(20);
+      driveClampS(-825, 50, 70); //1st mogo
+      delay(100);
+      Intake.move(127); //first ring
+      driveTurn2(90);
+      driveStraightC(500);
+      driveStraightSlow(400, 70); //2nd ring
+      Intake.move(-15);
+      driveTurn2(-126);
+      Intake.move(127);
+      driveStraightC(400);
+      Mogo.set_value(true);
+      Intake.move(-127);
+      driveStraightC(1700);
+      driveStraightC(-150); //to alliance stake
+      driveTurn2(-180);
+      LIFT.move(127); //alliance stake
+      Intake.move(127);
+      delay(150);
+      driveStraightSlow(600, 60);
+      Intake.move(-127);
+      LIFT.move(-127);
+      driveTurn2(-180);
+      driveStraightC(-325);
+      Intake.move(127);
+      driveTurn2(125); //turn for mogo
+      driveStraightC(-800);
+      driveClampS(-520, 80, 80); //2nd mogo
+      Intake.move(127);
+      LIFT.move(0);
+      driveTurn2(-93); //start to get 3rd ring
+      Intake.move(127);
+      driveStraightC(600);
+      driveStraightSlow(300, 45);
+      LIFT.move(127); //ladybrown up
+      driveStraightC(-800);
+      driveTurn2(37);
+      driveStraightSlow(270, 90); //hang
     }
     
 
