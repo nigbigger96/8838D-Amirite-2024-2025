@@ -184,14 +184,34 @@ void autonomous() {
 
     if(atn == 3){
     //Blue left
-    driveStraightC(1300);
-    driveTurn2(25);
+    Mogo.set_value(true);
+    driveStraightC(1200);
+    driveTurn2(30);
     Doinker.set_value(true);
-    driveArcR(-25, 400, 1000);
+    delay(200);
+    driveTurn2(60);
     Doinker.set_value(false);
-    driveStraight2(-200);
-    driveTurn2(180);
-    driveClampS(-500, 50, 70);
+    driveTurn2(45);
+    driveClampS(-700, 50, 80);
+    driveTurn2(90);
+    Intake.move(127);
+    driveStraightSlow(700, 60);
+    delay(700);
+    driveStraightC(-300);
+    Mogo.set_value(true);
+    driveStraightC(400);
+    driveTurn2(150);
+    delay(400);
+    driveClampS(-450, 50, 60);
+    driveStraight2(2200);
+    driveTurn2(135);
+    driveStraightSlow(300, 60);
+    delay(300);
+    driveStraightSlow(-300, 50);
+    driveStraightC(-600);
+    driveTurn2(-70);
+    driveStraight2(1200);
+    driveStraightSlow(400, 50);
  
   
     // driveTurn2(-175);
@@ -222,43 +242,83 @@ void autonomous() {
       //sigawp red
       Mogo.set_value(true);
       Intake.move(127);
-      driveStraight2(320); //corner
-      delay(200);
-      driveStraightC(-800); //back
+      driveStraightC(925);
+      driveArcL(45, 400, 900);
+      driveStraightSlow(170, 80);
+      delay(100);
       Intake.move(0);
-      driveClampS(-1200, 105, 85);
-      //169 degrees is zero
+      driveTurn2(-54);
+      driveClampS(-775, 50, 90);
       Intake.move(127);
-      delay(150);
-      driveTurn2(45);
-      driveStraightSlow(800, 70);
-      driveTurn2(-104);
+      driveTurn2(-90);
+      driveStraightC(500);
+      driveStraightSlow(400, 70);
+      Intake.move(20);
+      driveTurn2(130);
+      Intake.move(127);
+      driveStraightC(400);
       Mogo.set_value(true);
-      Intake.move(-127);
-      driveStraightC(1950);
-      driveStraightSlow(525, 70);
-      driveTurn2(-45);
-      Intake.move(0);
-      LIFT.move(127); //wallstake
-      delay(150);
-      driveStraight2(430);
-      /* driveStraightSlow(350, 90);
-      driveStraight2(100); */
+      // driveStraightC(1400);
+      // driveStraightSlow(100, 50);
+      driveStraightC(1000);
+      LIFT.move(20);
+      driveTurn2(180);
+      LIFT.move(127); //alliance stake
+      delay(200);
+      driveStraight2(500);
       LIFT.move(-127);
-      driveTurn2(-45);
-      driveStraight2(-500);
+      driveTurn2(180);
+      driveStraightC(-325);
+      driveTurn2(-130);
+      driveStraightC(-800);
+      driveClampS(-500, 50, 70);
       LIFT.move(0);
-      driveTurn2(-8);
-      driveClampS(-1300, 115, 100);
-      driveTurn2(-135);
+      driveTurn2(90);
       Intake.move(127);
-      driveStraight2(800);
-      driveTurn2(47);
-      driveStraight2(950);
-      driveStraightSlow(200, 80);
-   /*    driveTurn2(-75);
-      driveStraightC(1300);
-      driveStraightSlow(-2000, 70); */
+      driveStraightC(600);
+      driveStraightSlow(300, 20);
+      LIFT.move(127);
+      driveStraightC(-800);
+      driveTurn2(-90);
+      driveStraightSlow(300, 50);
+      driveStraightSlow(300, 50);
+
+
+      // Intake.move(127);
+      // driveStraight2(320); //corner
+      // driveStraightC(-800); //back
+      // Intake.move(0);
+      // driveClampS(-1200, 110, 85);
+      // //169 degrees is zero
+      // Intake.move(127);
+      // delay(200);
+      // Intake.move(-20);
+      // driveTurn2(45);
+      // Intake.move(127);
+      // driveStraightC(400);
+      // driveStraightSlow(400, 60);
+      // driveTurn2(-104);
+      // Mogo.set_value(true);
+      // Intake.move(-127);
+      // driveStraightC(1475);
+      // driveStraightSlow(525, 66);
+      // driveTurn2(-46);
+      // Intake.move(0);
+      // LIFT.move(127); //alliance stake
+      // delay(100);
+      // driveStraight2(430);
+      // LIFT.move(-127);
+      // LIFT.move(0);
+      // driveTurn2(-33);
+      // driveClampS(-1180, 105, 93);
+      // driveTurn2(-135);
+      // Intake.move(127);
+      // driveStraightC(400);
+      // driveStraightSlow(400, 60);
+      // driveTurn2(45);
+      // driveStraight2(1000);
+      // driveStraightSlow(250, 80);
+
 
       
       

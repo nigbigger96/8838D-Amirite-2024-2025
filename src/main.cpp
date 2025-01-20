@@ -331,7 +331,7 @@ if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_LEFT)){
 //   driveArcLF(90, 400, 1500);
 //       driveStraight2(500);
 
-driveTurn2(50);
+driveTurn2(165);
 //  automacro = 1;
 //  driveStraight2(550);
 //  automacro = 2;

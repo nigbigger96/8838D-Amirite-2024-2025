@@ -376,10 +376,11 @@ void driveStraight(int target){ //int macro = 4)
     double variKD = 0;
     double variKP = 0;
     x = double(abs(target));
-   variKD = (0.0000000033099 * pow(x,5)) + (-0.00000155578 * pow(x,4)) + (0.000278878 * pow(x,3)) + (-0.0246144 * pow(x,2)) + (1.11037 * x) + 21.40372;
-    timeout = (0.000000145743 *pow(x,5)) + (-0.0000623335 *pow(x,4)) + (0.00939835 *pow(x,3)) + (-0.616968 *pow(x,2)) + (23.02438 *(x)) + 308.28113;
+    variKD = ( 0.00000000186281 * pow(x,5)) + (-0.000000270115 * pow(x,4)) + (-0.0000705196 * pow(x,3)) + (0.0131334 * pow(x,2)) + (-0.175109 * x) + 20.51079;
+    timeout = (0.000000063756 *pow(x,5)) + (-0.0000388041 *pow(x,4)) + (0.00842825 *pow(x,3)) + (-0.793364 *pow(x,2)) + (31.75284 *(x)) + 333.7614;
+
     //variKP = ((0) * pow(x,5)) + (0 * pow(x,4)) + (0.000015948* pow(x,3)) + (-0.00128717 * pow(x,2)) + (0.041072 * x) + 6.7388;
-    setConstants(TURN_KP, TURN_KI, variKD);
+    setConstants(TURN_KP, TURN_KI, TURN_KD);
     imu.tare_heading();
 
     while(true) { 
@@ -397,7 +398,7 @@ void driveStraight(int target){ //int macro = 4)
 
         if (count >= 20 || time2 > timeout) {
 
-        break;
+        //break;
         }
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
             con.print(0,0, "ERROR: %f           ", float(error));
@@ -457,8 +458,8 @@ void driveStraight(int target){ //int macro = 4)
     double variKD = 0;
     double variKP = 0;
     x = double(abs(turnv));
-   variKD = (0.0000000033099 * pow(x,5)) + (-0.00000155578 * pow(x,4)) + (0.000278878 * pow(x,3)) + (-0.0246144 * pow(x,2)) + (1.11037 * x) + 21.40372;
-   timeout = (0.000000145743 *pow(x,5)) + (-0.0000623335 *pow(x,4)) + (0.00939835 *pow(x,3)) + (-0.616968 *pow(x,2)) + (23.02438 *(x)) + 308.28113;
+    variKD = ( 0.00000000186281 * pow(x,5)) + (-0.000000270115 * pow(x,4)) + (-0.0000705196 * pow(x,3)) + (0.0131334 * pow(x,2)) + (-0.175109 * x) + 20.51079;
+    timeout = (0.000000063756 *pow(x,5)) + (-0.0000388041 *pow(x,4)) + (0.00842825 *pow(x,3)) + (-0.793364 *pow(x,2)) + (31.75284 *(x)) + 333.7614;
     //variKP = (0 *pow(x,5)) + (0 *pow(x,4)) + (0 *pow(x,3)) + (0 *pow(x,2)) + (0 *(x)) + 0;
     setConstants(TURN_KP, TURN_KI, variKD);
     while(true) { 
@@ -499,10 +500,10 @@ void driveStraight(int target){ //int macro = 4)
             con.print(0,0, "ERROR: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
-            con.print(2,0, "EncoderAVG: %f           ", float(imu.get_heading()));
+            con.print(1,0, "EncoderAVG: %f           ", float(imu.get_heading()));
         }
          if(time2 % 50 == 0){
-            con.print(1,0, "Power: %f           ", float((power)));
+            con.print(2,0, "Time2: %f           ", float((time2)));
         }
         
         time2 += 10;
@@ -1703,8 +1704,8 @@ void wallResetF(int resetTime){
         RF.move(127);
         RM.move(127);
         RB.move(127);
-        if (abs(RF.get_actual_velocity()) < 10) count ++;
-        if (count >= 5) break;
+        if (abs(RF.get_actual_velocity()) < 2) count ++;
+        if (count >= 20) break;
     }
 }
 

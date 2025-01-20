@@ -49,7 +49,7 @@ extern double totalError;
 // turn stuff
 #define TURN_KP 6
 #define TURN_KI 0
-#define TURN_KD 30
+#define TURN_KD 60
 #define TURN_INTEGRAL_KI 30
 #define TURN_MAX_INTEGRAL 25
 
