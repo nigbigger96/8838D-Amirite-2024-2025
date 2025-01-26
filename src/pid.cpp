@@ -733,7 +733,7 @@ void driveStraightC(int target) {
     while (true){
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
-        voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
+        voltage = calcPID2(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 if(init_heading > 180) {
     init_heading = (init_heading - 360);
@@ -1633,10 +1633,10 @@ if(((init_heading + rightcorrect) < 0) && (position > 0)){
     }
 
     int voltageR = calcPID2(rtarget, encoderAVGR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
-    if (voltageR > 40){
-        voltageR = 40;
-    }else if(voltageR < -40){
-        voltageR = -40;
+    if (voltageR > 127){
+        voltageR = 127;
+    }else if(voltageR < -127){
+        voltageR = -127;
     }
     rightcorrect = (encoderAVGR * 360) / (2 * pi * radius);
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
