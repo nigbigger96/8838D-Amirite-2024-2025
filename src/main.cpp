@@ -182,8 +182,7 @@ void opcontrol() {
 	bool NEWR1 = false;
 	bool NEWR2 = false;
 	double lift_angle = 0;
-
-
+	double rotoangle = 0;
 	int time = 0;
 	string red;
 	string blue;
@@ -429,6 +428,11 @@ if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_RIGHT)) {
 	lift_toggle = true;
 }
 
+rotoangle = roto.get_angle();
+if (rotoangle > 33000){
+	rotoangle = rotoangle - 36000;
+}
+
 if (lift_toggle){
 	if (lift_macro == 0) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
@@ -436,16 +440,18 @@ if (lift_toggle){
 	} else if (lift_macro == 1) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFT.move(calcPIDlift(3850, roto.get_angle(), .01, 1, 3));
-	} else if (lift_macro == 2) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(5300, roto.get_angle(), 0, 0, 3));
-	} else if (lift_macro == 3){
+	} else if (lift_macro == 2){
         setConstants(TOP_KP, TOP_KI, TOP_KD);
  		LIFT.move(calcPIDlift(15000, roto.get_angle(), 0, 0, 1));
     } else {
 		lift_macro = 0;
 	}
 }
+
+// else if (lift_macro == 2) {
+// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(5300, roto.get_angle(), 0, 0, 3));
+// 	} 
 
 pros::delay(1);
 time += 1;
