@@ -34,7 +34,7 @@ extern void driveArcRF(double theta, double radius, int timeout);
 extern void wallResetB(int resetTime);
 extern void wallResetF(int resetTime);
 extern void moveLift(int targetHeight);
-
+extern void driveDoink(int target, int doinkDistance);
 
 
 extern double totalError;
