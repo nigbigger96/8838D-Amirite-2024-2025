@@ -35,6 +35,7 @@ extern void wallResetB(int resetTime);
 extern void wallResetF(int resetTime);
 extern void moveLift(int targetHeight);
 extern void driveDoink(int target, int doinkDistance);
+extern void driveDoinkC(int target, int doinkDistance);
 
 
 extern double totalError;
