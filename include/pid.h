@@ -69,9 +69,9 @@ extern double totalError;
 #define ARC_HEADING_MAX_INTEGRAL 0
 #define ARC_HEADING_INTEGRAL_KI 0
 
-#define LIFT_KP 0.2
+#define LIFT_KP 0.005
 #define LIFT_KI 0
-#define LIFT_KD 0
+#define LIFT_KD 5
 
 #define TOP_KP 0.1
 #define TOP_KI 0

@@ -14,8 +14,9 @@ using namespace pros;
 #define INTAKE_PORT 7 //front roller
 // #define HOOKS_PORT 8 //hooks 
 #define LIFT_PORT 8 //lift
+#define LIFTTWO_PORT 19 //lifttwo
 #define OPTICAL_PORT  // color switch, maybe prob not
-#define ROTO_PORT 10
+#define ROTO_PORT 21
 
 
 
@@ -29,11 +30,13 @@ pros::Motor RM (RM_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor Intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_06);
 //pros::Optical Eyesight7 (OPTICAL_PORT);
-pros::Motor LIFT(LIFT_PORT, pros::E_MOTOR_GEARSET_36);
+pros::Motor LIFT(LIFT_PORT, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor LIFTTWO(LIFTTWO_PORT, pros::E_MOTOR_GEARSET_18, false);
+pros::MotorGroup LIFTS({Motor(8), Motor(19)});
 pros::ADIDigitalOut Mogo ('A', false);
 // pros::ADIDigitalOut DaSorter ('B', false);
 pros::ADIDigitalOut Doinker ('B', false);
-pros::ADIDigitalOut DoinkerTwo ('C' false);
+pros::ADIDigitalOut DoinkerTwo ('C', false);
 pros::ADIDigitalIn selec ('D');
 // pros::ADIDigitalOut Intakepiston ('C');
 //pros::ADIAnalogIn DistanceSense ('A');

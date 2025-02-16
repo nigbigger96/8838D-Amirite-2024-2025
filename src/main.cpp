@@ -350,47 +350,42 @@ DoinkerTwo.set_value(doinkertwo);
 
 
 if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
-	LIFT.move(127);
+	LIFTS.move(127);
 	lift_angle = LIFT.get_position();
 	lift_toggle = false;
 } else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
-	LIFT.move(-127);
+	LIFTS.move(-127);
 	lift_angle = LIFT.get_position();
 	lift_toggle = false;
 } else {
 	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
+	LIFTS.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
 } 
 
-if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_LEFT)){
-	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-    LIFT.move(calcPIDlift(4850, roto.get_angle(), .01, 1, 3));
+
+
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)) {
+	lift_macro++;
+	lift_toggle = true;
+rotoangle = roto.get_angle();
+if (rotoangle > 33000){
+	rotoangle = rotoangle - 36000;
+}}
+
+if (lift_toggle){
+	if (lift_macro == 0) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFTS.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
+	} else if (lift_macro == 1) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFTS.move(calcPIDlift(8500, roto.get_angle(), 0, 0, 1));
+	} else if (lift_macro == 2){
+        setConstants(TOP_KP, TOP_KI, TOP_KD);
+ 		LIFTS.move(calcPIDlift(18000, roto.get_angle(), 0, 0, 1));
+    } else {
+		lift_macro = 0;
+	}
 }
-
-// if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_RIGHT)) {
-// 	lift_macro++;
-// 	lift_toggle = true;
-// }
-
-// rotoangle = roto.get_angle();
-// if (rotoangle > 33000){
-// 	rotoangle = rotoangle - 36000;
-// }
-
-// if (lift_toggle){
-// 	if (lift_macro == 0) {
-// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-//  		LIFT.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
-// 	} else if (lift_macro == 1) {
-// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-//  		LIFT.move(calcPIDlift(4850, roto.get_angle(), .01, 1, 3));
-// 	} else if (lift_macro == 2){
-//         setConstants(TOP_KP, TOP_KI, TOP_KD);
-//  		LIFT.move(calcPIDlift(15000, roto.get_angle(), 0, 0, 1));
-//     } else {
-// 		lift_macro = 0;
-// 	}
-// }
 
 pros::delay(1);
 time += 1;

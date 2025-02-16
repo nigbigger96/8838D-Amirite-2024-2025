@@ -13,6 +13,7 @@ extern pros::Motor RB;
 extern pros::Motor Intake;
 // extern pros::Motor Hooks;
 extern pros::Motor LIFT;
+extern pros::Motor LIFTTWO;
 extern pros::ADIDigitalOut Mogo;
 // extern pros::ADIDigitalOut DaSorter;
 extern pros::ADIDigitalOut Doinker;
@@ -24,5 +25,6 @@ extern pros::Imu imu;
 //extern pros::Optical Eyesight;
 extern pros::ADIDigitalIn selec;
 extern pros::Rotation roto;
+extern pros::MotorGroup LIFTS;
 
 #endif

@@ -192,7 +192,7 @@ double calcPID3(double target3, double input3, int integralKI3, int maxIntegral3
 } 
 
 double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegrall,int bias){
-
+    setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
     int integrall;
     prevErrorl = errorl;
     errorl = targetl - inputl;
