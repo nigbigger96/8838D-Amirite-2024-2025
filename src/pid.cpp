@@ -7,7 +7,9 @@ using namespace pros;
 using namespace c;
 using namespace std;
 
-int automacro = 0;
+
+int color = 2;
+int automacro = 4;
 
 double totalError;
 bool DaSortMaster = false;
@@ -64,25 +66,26 @@ int integrall;
 int derivitivel;
 int timel;
 
-// void liftauton(){
-//     if (automacro == 0) {
-// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-//  		LIFT.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
-// 	} else if (automacro == 1) {
-// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-//  		LIFT.move(calcPIDlift(3800, roto.get_angle(), .01, 1, 3));
-// 	} else if (automacro == 2) {
-// 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-//  		LIFT.move(calcPIDlift(5300, roto.get_angle(), 0, 0, 3));
-//     } else if (automacro == 3){
-//         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-//  		LIFT.move(calcPIDlift(15000, roto.get_angle(), 0, 0, 1));
-//     } else {
-//         LIFT.move(0);
-//         LIFT.brake();
-//     }
+void liftauton(){
+    if (automacro == 0) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
+	} else if (automacro == 1) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(3800, roto.get_angle(), .01, 1, 3));
+	} else if (automacro == 2) {
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(5300, roto.get_angle(), 0, 0, 3));
+    } else if (automacro == 3){
+        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(15000, roto.get_angle(), 0, 0, 1));
+    } 
+    // else {
+    //     LIFT.move(0);
+    //     LIFT.brake();
+    // }
 
-// }
+}
 
 void setConstants(double kp, double ki, double kd){
 
@@ -113,7 +116,8 @@ void chasMove(int voltageLF, int voltageLM, int voltageLB, int voltageRF, int vo
 }
 
 double calcPID(double target, double input, int integralKI, int maxIntegral){
-    // liftauton();
+    liftauton();
+    ColorSort();
     int integral;
     prevError = error;
     error = target - input;
@@ -140,6 +144,7 @@ double calcPID(double target, double input, int integralKI, int maxIntegral){
 }
 
 double calcPID2(double target2, double input2, int integralKI2, int maxIntegral2){
+
 
     int integral2;
     prevError2 = error2;
@@ -229,6 +234,58 @@ double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegr
 
 } 
 
+bool InitColor = false;
+bool InitCorrect = false;
+int ColorCount;
+bool Backwards = false;
+void ColorSort(){
+    if (color == 0){ //blue
+        if(Opticala.get_hue()<250 && Opticala.get_hue()>180){
+            InitColor = true;
+        }
+
+        if(InitColor){
+            if(Backwards == false){
+                Intake.move(127);
+                if(Intake.get_position() > 500){ //need to tune. Encoder units for how far from sensed position to fling
+                    Backwards = true;
+                }
+            } else {
+                Intake.move(-127);
+                if(Intake.get_position() < 200){
+                    Backwards = false;
+                    InitColor = false;
+                }
+            }
+        } else {
+            Intake.move(127);
+            Intake.tare_position();
+        }
+
+    }  else if (color == 1){ //red
+        if(Opticala.get_hue()<30 && Opticala.get_hue()>330){
+            InitColor = true;
+        }
+
+        if(InitColor){
+            if(Backwards == false){
+                Intake.move(127);
+                if(Intake.get_position() > 500){ //need to tune. Encoder units for how far from sensed position to fling
+                    Backwards = true;
+                }
+            } else {
+                Intake.move(-127);
+                if(Intake.get_position() < 200){
+                    Backwards = false;
+                    InitColor = false;
+                }
+            }
+        } else {
+            Intake.move(127);
+            Intake.tare_position();
+        }
+    }
+}
 
 
 
@@ -299,7 +356,6 @@ void driveStraight(int target){ //int macro = 4)
     resetEncoders();
 
     while (true){
-        //liftauton(macro);
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
          setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);

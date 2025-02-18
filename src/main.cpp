@@ -176,6 +176,7 @@ void opcontrol() {
 	bool tankToggle = false;
 	bool PistonsForMogo = false;
 	int lift_macro = 0;
+	int color = 2;
 	bool lift_toggle = false;
 	bool doinker = false;
 	bool doinkertwo = false;
@@ -364,6 +365,7 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 
 
 
+
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)) {
 	lift_macro++;
 	lift_toggle = true;
@@ -375,17 +377,19 @@ if (rotoangle > 33000){
 if (lift_toggle){
 	if (lift_macro == 0) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
+ 		LIFTS.move(-calcPIDlift(35000, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 1) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(calcPIDlift(8500, roto.get_angle(), 0, 0, 1));
+ 		LIFTS.move(-calcPIDlift(32000, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 2){
         setConstants(TOP_KP, TOP_KI, TOP_KD);
- 		LIFTS.move(calcPIDlift(18000, roto.get_angle(), 0, 0, 1));
-    } else {
+ 		LIFTS.move(-calcPIDlift(28000, roto.get_angle(), 0, 0, 1));
+    } else  {
 		lift_macro = 0;
 	}
 }
+
+
 
 pros::delay(1);
 time += 1;
@@ -395,7 +399,7 @@ con.print(0, 0, "Auton: %s			", autstr);
 } else if (time % 100 == 0 && time % 150 != 0){
 con.print(1, 0, "ERROR %f 			", float (error));
 } else if (time % 150 == 0){
-	con.print(2, 0, " Time: %f 			", float (time2));
+	con.print(2, 0, " Roto: %f 			", float (roto.get_angle()));
 }
 
 }

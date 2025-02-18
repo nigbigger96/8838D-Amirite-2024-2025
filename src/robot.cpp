@@ -15,7 +15,7 @@ using namespace pros;
 // #define HOOKS_PORT 8 //hooks 
 #define LIFT_PORT 8 //lift
 #define LIFTTWO_PORT 19 //lifttwo
-#define OPTICAL_PORT  // color switch, maybe prob not
+#define OPTICAL_PORT 10 // color switch, maybe prob not
 #define ROTO_PORT 21
 
 
@@ -29,7 +29,7 @@ pros::Motor RF (RF_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor RM (RM_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor Intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_06);
-//pros::Optical Eyesight7 (OPTICAL_PORT);
+pros::Optical Opticala (OPTICAL_PORT);
 pros::Motor LIFT(LIFT_PORT, pros::E_MOTOR_GEARSET_18, true);
 pros::Motor LIFTTWO(LIFTTWO_PORT, pros::E_MOTOR_GEARSET_18, false);
 pros::MotorGroup LIFTS({Motor(8), Motor(19)});

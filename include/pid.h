@@ -9,7 +9,9 @@
 extern float error;
 extern int time2;
 extern int automacro;
+extern int color;
 extern void liftauton();
+extern void ColorSort(); //i added
 extern double calcPID(double target, double input, int integralKI, int maxIntegral);
 extern double calcPID2(double target, double input, int integralKI, int maxIntegral);
 extern double calcPID3(double target, double input, int integralKI, int maxIntegral);
@@ -69,7 +71,7 @@ extern double totalError;
 #define ARC_HEADING_MAX_INTEGRAL 0
 #define ARC_HEADING_INTEGRAL_KI 0
 
-#define LIFT_KP 0.005
+#define LIFT_KP 0.015
 #define LIFT_KI 0
 #define LIFT_KD 5
 
