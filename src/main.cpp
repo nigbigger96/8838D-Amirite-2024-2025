@@ -172,12 +172,15 @@ while(true){
 
 void opcontrol() {
 	LF.set_brake_mode(E_MOTOR_BRAKE_COAST);
+	//color = 0;
 	bool arcToggle = true;
 	bool tankToggle = false;
-	bool PistonsForMogo = false;
+	bool PistonsForMogo = true;
+	int lift_macroDA = 0;
 	int lift_macro = 0;
 	int color = 2;
 	bool lift_toggle = false;
+	bool lift_toggleDA = false;
 	bool doinker = false;
 	bool doinkertwo = false;
 	// bool intakepiston = true;
@@ -188,7 +191,6 @@ void opcontrol() {
 	int time = 0;
 	string red;
 	string blue;
-	
 	int color_selec = 1;
 	//Eyesight.set_led_pwm(100);
 while (true){
@@ -244,45 +246,6 @@ while (true){
  RB.move(right);
 }
 //auton selector
-if(atn == 0) {
-		autstr = "Red ring";
-	}
-	if(atn == 1) {
-		autstr = "Blue ring";
-	}
-	if(atn == 2) {
-		autstr = "Red mogo";
-	}
-	if(atn == 3) {
-		autstr = "Blue mogo";
-	}
-	if(atn == 4) {
-		autstr = "Sigawp Red";
-	}
-	if(atn == 5) {
-		autstr = "Sigawp Blue";
-	}
-	if(atn == 6) {
-		autstr = "Red ring elims";
-	}
-	if(atn == 7) {
-		autstr = "Blue ring elims";
-	}
-	if(atn == 8) {
-		autstr = "Red Mogo elims";
-	}
-	if(atn == 9) {
-		autstr = "Blue mogo elims";
-	}
-	if(atn == 10){
-		autstr = "Skills";
-	}
-	if(atn == 11){
-		autstr = "Safety";
-	}
-	else if(atn == 12){
-		atn = 0;
-	}
 
 	
 
@@ -326,6 +289,9 @@ if(atn == 0) {
 
 	if (con.get_digital(E_CONTROLLER_DIGITAL_R1)){
 	Intake.move(127);
+	if (lift_macro == 1){
+		Intake.move(115);
+	}
 	} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
 	Intake.move(-127);
 	} else {
@@ -361,32 +327,70 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 } else {
 	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
 	LIFTS.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
+	LIFTS.set_brake_modes(E_MOTOR_BRAKE_HOLD);
 } 
 
 
 
 
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)) {
-	lift_macro++;
+	lift_macro = (lift_macro + 1) % 3;
+	lift_toggle = true;
+rotoangle = roto.get_angle();
+if (rotoangle > 33000){
+	rotoangle = rotoangle - 36000;
+
+}}
+
+
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)) {
+	lift_macro = 6;
+	lift_toggle = true;
+rotoangle = roto.get_angle();
+if (rotoangle > 33000){
+	rotoangle = rotoangle - 36000;
+
+}}
+
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_LEFT)) {
+	if (lift_macro < 3){
+		lift_macro = 3;
+	} else {
+	lift_macro = (lift_macro < 5) ? lift_macro + 1 : 3;
+}
 	lift_toggle = true;
 rotoangle = roto.get_angle();
 if (rotoangle > 33000){
 	rotoangle = rotoangle - 36000;
 }}
 
+
+
 if (lift_toggle){
 	if (lift_macro == 0) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(35000, roto.get_angle(), 0, 0, 1));
+ 		LIFTS.move(-calcPIDlift(35450, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 1) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(32000, roto.get_angle(), 0, 0, 1));
+ 		LIFTS.move(-calcPIDlift(32700, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 2){
-        setConstants(TOP_KP, TOP_KI, TOP_KD);
+        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFTS.move(-calcPIDlift(28000, roto.get_angle(), 0, 0, 1));
-    } else  {
+    } else if (lift_macro == 3){
+        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFTS.move(-calcPIDlift(19000, roto.get_angle(), 0, 0, 1)); 
+	} else if (lift_macro == 4){
+        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFTS.move(-calcPIDlift(21100, roto.get_angle(), 0, 0, 1)); 
+	}  else if (lift_macro == 5){
+        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFTS.move(-calcPIDlift(35450, roto.get_angle(), 0, 0, 1)); 
+	} else if (lift_macro == 6){
+        setConstants(TOP_KP, TOP_KI, TOP_KD);
+ 		LIFTS.move(-calcPIDlift(29800, roto.get_angle(), 0, 0, 1)); 
+	} else  {
 		lift_macro = 0;
-	}
+	} 
 }
 
 
@@ -399,9 +403,8 @@ con.print(0, 0, "Auton: %s			", autstr);
 } else if (time % 100 == 0 && time % 150 != 0){
 con.print(1, 0, "ERROR %f 			", float (error));
 } else if (time % 150 == 0){
-	con.print(2, 0, " Roto: %f 			", float (roto.get_angle()));
+	con.print(2, 0, " Time: %f 			", float (time2));
 }
-
 }
 
 

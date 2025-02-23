@@ -247,18 +247,18 @@ void ColorSort(){
         if(InitColor){
             if(Backwards == false){
                 Intake.move(127);
-                if(Intake.get_position() > 500){ //need to tune. Encoder units for how far from sensed position to fling
+                if(Intake.get_position() > 650){ //need to tune. Encoder units for how far from sensed position to fling
                     Backwards = true;
                 }
             } else {
                 Intake.move(-127);
-                if(Intake.get_position() < 200){
+                if(Intake.get_position() < 100){
                     Backwards = false;
                     InitColor = false;
-                }
+                } 
             }
         } else {
-            Intake.move(127);
+            Intake.move(126);
             Intake.tare_position();
         }
 
@@ -333,7 +333,7 @@ void driveStraight(int target){ //int macro = 4)
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
+    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
 
     imu.tare();
 
@@ -516,7 +516,7 @@ void driveStraight(int target){ //int macro = 4)
     double variKP = 0;
     x = double(abs(turnv));
     variKD = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
-    timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
+    //timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
 
     //variKP = (0 *pow(x,5)) + (0 *pow(x,4)) + (0 *pow(x,3)) + (0 *pow(x,2)) + (0 *(x)) + 0;
     setConstants(TURN_KP, TURN_KI, TURN_KD);
@@ -555,13 +555,13 @@ void driveStraight(int target){ //int macro = 4)
         break;
         }
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
-            con.print(0,0, "ERROR: %f           ", float(error));
+            con.print(0,0, "error: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
             con.print(1,0, "EncoderAVG: %f           ", float(imu.get_heading()));
         }
          if(time2 % 50 == 0){
-            con.print(2,0, "Time2: %f           ", float((time2)));
+            con.print(2,0, "error: %f           ", float((error)));
         }
         
         time2 += 10;
@@ -582,7 +582,7 @@ void driveStraight2(int target) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
+    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
     double voltage;
     double encoderAVG;
     int count = 0;
@@ -633,6 +633,10 @@ if(init_heading > 180) {
             voltage = -127;
         }
 
+        // if(abs(target - encoderAVG) < (target * .10)){
+        //     STRAIGHT_KD * 2;
+        // }
+
         chasMove((voltage + headingError), (voltage + headingError), (voltage + headingError), (voltage - headingError), (voltage - headingError),(voltage - headingError));
         if (abs(target - encoderAVG) <= 4) count++;
         if (count >= 20 || time2 > timeout){
@@ -641,7 +645,7 @@ if(init_heading > 180) {
 
         delay(10);
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
-            con.print(0,0, "ERROR: %f           ", float(error));
+            con.print(0,0, "error: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
             con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
@@ -671,7 +675,7 @@ void driveStraightSlow(int target, int speed) {
     int timeout = 30000;
     
     double x = 0;
-    timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
+    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
     x = double(abs(target));
     timeout = timeout * (2 - (double(speed)/100.0));
     double voltage;
@@ -732,7 +736,7 @@ if(init_heading > 180) {
 
         delay(10);
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
-            con.print(0,0, "ERROR: %f           ", float(error));
+            con.print(0,0, "error: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
             con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
@@ -768,7 +772,7 @@ void driveStraightC(int target) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
+    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
 
 
  if (target > 0){
@@ -844,7 +848,7 @@ if(init_heading > 180) {
 
         delay(10);
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
-            con.print(0,0, "ERROR: %f           ", float(time2));
+            con.print(0,0, "error: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
             con.print(2,0, "EncoderAVG: %f           ", float(LF.get_encoder_units()));
@@ -876,8 +880,7 @@ void driveClamp(int target, int clampDistance) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
-
+    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
     double voltage;
     double encoderAVG;
     int count = 0;
@@ -941,7 +944,7 @@ if(init_heading > 180) {
 
         delay(10);
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
-            con.print(0,0, "ERROR: %f           ", float(error));
+            con.print(0,0, "error: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
             con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
@@ -973,7 +976,7 @@ void driveClampS(int target, int clampDistance, int speed) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
+    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
     double voltage;
     double encoderAVG;
     int count = 0;
@@ -1075,7 +1078,7 @@ void driveClampSC(int target, int clampDistance, int speed) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
+    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
 
     double voltage;
     double encoderAVG;
@@ -1159,7 +1162,7 @@ if(init_heading > 180) {
 
         delay(10);
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
-            con.print(0,0, "ERROR: %f           ", float(error));
+            con.print(0,0, "error: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
             con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
@@ -1255,7 +1258,7 @@ if((leftcorrect < 0) && (position > 0)){
         }
 
      if(time % 50 == 0 && time % 100 != 0 && time % 150!= 0){
-            con.print(0,0, "ERROR: %f           ", float(time));
+            con.print(0,0, "error: %f           ", float(error));
         }
          if(time % 50 == 0 && time % 100 != 0){
             con.print(2,0, "Voltage: %f           ",float(voltageL));
@@ -1959,7 +1962,7 @@ if(init_heading > 180) {
             con.print(2,0, "EncoderAVG: %f           ", float(LF.get_encoder_units()));
         }
          if(time2 % 50 == 0){
-            con.print(1,0, "Time2: %f           ", float(time2));
+            con.print(1,0, "error: %f           ", float(error));
         }
         
         

@@ -14,7 +14,9 @@ void autonomous() {
     
     if(atn == 0){    
     //Red Ring
+
     color = 0;
+
     
 
     }
@@ -59,7 +61,7 @@ void autonomous() {
     if(atn == 6) {
     // red ring elim
     color = 0;
-    
+
     }
 
 
