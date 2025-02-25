@@ -10,7 +10,9 @@
 extern float error;
 extern int time2;
 extern int automacro;
+extern int color;
 extern void liftauton();
+extern void ColorSort(); //i added
 extern double calcPID(double target, double input, int integralKI, int maxIntegral);
 extern double calcPID2(double target, double input, int integralKI, int maxIntegral);
 extern double calcPID3(double target, double input, int integralKI, int maxIntegral);
@@ -41,10 +43,10 @@ extern void driveDoinkC(int target, int doinkDistance);
 
 extern double totalError;
 
-//straight stuff
-#define STRAIGHT_KP 1 //3 
-#define STRAIGHT_KI 0
-#define STRAIGHT_KD 0
+// straight stuff
+#define STRAIGHT_KP 14 //3 
+#define STRAIGHT_KI 0.04
+#define STRAIGHT_KD 0//90
 #define STRAIGHT_INTEGRAL_KI 40
 #define STRAIGHT_MAX_INTEGRAL 14.5
 
@@ -55,10 +57,10 @@ extern double totalError;
 #define TURN_INTEGRAL_KI 30
 #define TURN_MAX_INTEGRAL 25
 
-
+////////////////////952813
 //arc turn stiff
 //#define driveArcL 10
-#define HEADING_KP 6
+#define HEADING_KP 8
 #define HEADING_KI 0
 #define HEADING_KD 0
 #define HEADING_MAX_INTEGRAL 0
@@ -70,12 +72,15 @@ extern double totalError;
 #define ARC_HEADING_MAX_INTEGRAL 0
 #define ARC_HEADING_INTEGRAL_KI 0
 
-#define LIFT_KP 0.005
+#define LIFT_KP 0.0205
 #define LIFT_KI 0
 #define LIFT_KD 5
+
 
 #define TOP_KP 0.1
 #define TOP_KI 0
 #define TOP_KD 1
+
+
 
 #endif

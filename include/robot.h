@@ -22,7 +22,7 @@ extern pros::ADIDigitalOut DoinkerTwo;
 // extern pros::ADIDigitalOut Flipout;
 extern pros::Controller con; 
 extern pros::Imu imu;
-//extern pros::Optical Eyesight;
+extern pros::Optical Opticala;
 extern pros::ADIDigitalIn selec;
 extern pros::Rotation roto;
 extern pros::MotorGroup LIFTS;
