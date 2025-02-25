@@ -520,6 +520,12 @@ void driveStraight(int target){ //int macro = 4)
 
     //variKP = (0 *pow(x,5)) + (0 *pow(x,4)) + (0 *pow(x,3)) + (0 *pow(x,2)) + (0 *(x)) + 0;
     setConstants(TURN_KP, TURN_KI, TURN_KD);
+    // if (fabs(error2) <= 2) {
+    //     setConstants(9, 0, 0);
+    // } else {
+    // setConstants(TURN_KP, TURN_KI, TURN_KD);
+    // }
+
     while(true) { 
     position = imu.get_heading();
      if(position > 180){
@@ -552,16 +558,16 @@ void driveStraight(int target){ //int macro = 4)
 
         if (count >= 20 || time2 > timeout) {
 
-        break;
+        //break;
         }
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
-            con.print(0,0, "error: %f           ", float(error));
+            con.print(0,0, "error2: %f           ", float(error2));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
             con.print(1,0, "EncoderAVG: %f           ", float(imu.get_heading()));
         }
          if(time2 % 50 == 0){
-            con.print(2,0, "error: %f           ", float((error)));
+            con.print(2,0, "error2: %f           ", float((error2)));
         }
         
         time2 += 10;
@@ -597,7 +603,14 @@ void driveStraight2(int target) {
 
     while (true){
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
+
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
+        if(abs(target - encoderAVG) < 25) {
+            setConstants(2.5, 0, 0);
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        }
+
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 if(init_heading > 180) {
@@ -1296,7 +1309,7 @@ resetEncoders();
 
 
 ltarget = double((theta/360) *2 * pi * radius);
-rtarget = double((theta / 360) * 2 * pi *(radius + 480));
+rtarget = double((theta / 360) * 2 * pi *(radius + 475));
 //570
 while(true){
 
@@ -1463,7 +1476,7 @@ time2 = 0;
 resetEncoders();
 
 rtarget = double((theta/360) *2 * pi * radius);
-ltarget = double((theta / 360) * 2 * pi *(radius + 480)); 
+ltarget = double((theta / 360) * 2 * pi *(radius + 475)); 
 
 while (true){
 
@@ -1548,10 +1561,10 @@ int count = 0;
 bool over = false;
 resetEncoders();
 ltargetF = double(( theta/360) *2 * pi * radius);
-rtargetF = double((theta / 360) * 2 * pi *(radius + 480 ));
+rtargetF = double((theta / 360) * 2 * pi *(radius + 475 ));
 theta = theta + 45;
 ltarget = double(( theta/360) *2 * pi * radius);
-rtarget = double((theta / 360) * 2 * pi *(radius + 480 ));
+rtarget = double((theta / 360) * 2 * pi *(radius + 475 ));
 while(true){
 
 if(init_heading > 180){
@@ -1659,10 +1672,10 @@ int count = 0;
 int time2 = 0;
 resetEncoders();
 rtargetF = double((theta/360) *2 * pi * radius);
-ltargetF= double((theta / 360) * 2 * pi *(radius + 480)); 
+ltargetF= double((theta / 360) * 2 * pi *(radius + 475)); 
 theta = theta + 45;
 rtarget = double((theta/360) *2 * pi * radius);
-ltarget = double((theta / 360) * 2 * pi *(radius + 480)); 
+ltarget = double((theta / 360) * 2 * pi *(radius + 475)); 
 
 while (true){
 

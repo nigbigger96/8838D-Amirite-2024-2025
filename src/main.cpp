@@ -365,7 +365,9 @@ if (rotoangle > 33000){
 }}
 
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-	driveStraight2(500);
+	driveStraightC(1000);
+	driveArcLF(90, 500, 1000);
+	driveStraight2(100);
 }
 
 
