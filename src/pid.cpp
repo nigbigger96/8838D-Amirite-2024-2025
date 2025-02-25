@@ -582,7 +582,7 @@ void driveStraight2(int target) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
+   // timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
     double voltage;
     double encoderAVG;
     int count = 0;
