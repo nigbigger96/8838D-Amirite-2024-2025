@@ -44,9 +44,9 @@ extern void driveDoinkC(int target, int doinkDistance);
 extern double totalError;
 
 // straight stuff
-#define STRAIGHT_KP 2.25 //14 //3 
-#define STRAIGHT_KI 0 ///0.04
-#define STRAIGHT_KD 25 //90
+#define STRAIGHT_KP 2// 2.2 //14 //3 
+#define STRAIGHT_KI 0.0175 ///0.04
+#define STRAIGHT_KD 12.5 //22.5 //90
 #define STRAIGHT_INTEGRAL_KI 40
 #define STRAIGHT_MAX_INTEGRAL 14.5
 
@@ -72,7 +72,7 @@ extern double totalError;
 #define ARC_HEADING_MAX_INTEGRAL 0
 #define ARC_HEADING_INTEGRAL_KI 0
 
-#define LIFT_KP 0.0205
+#define LIFT_KP 0.02
 #define LIFT_KI 0
 #define LIFT_KD 5
 

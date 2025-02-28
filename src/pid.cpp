@@ -80,12 +80,13 @@ void liftauton(){
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFT.move(calcPIDlift(15000, roto.get_angle(), 0, 0, 1));
     } 
-    // else {
-    //     LIFT.move(0);
-    //     LIFT.brake();
-    // }
+    else {
+        LIFT.move(0);
+        LIFT.brake();
+    }}
 
-}
+
+
 
 void setConstants(double kp, double ki, double kd){
 
@@ -516,7 +517,7 @@ void driveStraight(int target){ //int macro = 4)
     double variKP = 0;
     x = double(abs(turnv));
     variKD = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
-    //timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
+    timeout = (0.0000000654554 * pow(x,5)) +  (-0.0000302086 * pow(x,4)) + (0.0051858 * pow(x,3)) + (-0.428661 * pow(x,2)) + (20.4707 * x) + 214.65689;
 
     //variKP = (0 *pow(x,5)) + (0 *pow(x,4)) + (0 *pow(x,3)) + (0 *pow(x,2)) + (0 *(x)) + 0;
     setConstants(TURN_KP, TURN_KI, TURN_KD);
@@ -558,7 +559,7 @@ void driveStraight(int target){ //int macro = 4)
 
         if (count >= 20 || time2 > timeout) {
 
-        //break;
+        break;
         }
         if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
             con.print(0,0, "error2: %f           ", float(error2));
@@ -567,7 +568,7 @@ void driveStraight(int target){ //int macro = 4)
             con.print(1,0, "EncoderAVG: %f           ", float(imu.get_heading()));
         }
          if(time2 % 50 == 0){
-            con.print(2,0, "error2: %f           ", float((error2)));
+            con.print(2,0, "time2: %f           ", float((time2)));
         }
         
         time2 += 10;
@@ -588,7 +589,7 @@ void driveStraight2(int target) {
 
     double x = 0;
     x = double(abs(target));
-   // timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
+    timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
     double voltage;
     double encoderAVG;
     int count = 0;
@@ -605,8 +606,8 @@ void driveStraight2(int target) {
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
 
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
-        if(abs(target - encoderAVG) < 25) {
-            setConstants(2.5, 0, 0);
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0);
         } else {
             setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         }
@@ -688,7 +689,7 @@ void driveStraightSlow(int target, int speed) {
     int timeout = 30000;
     
     double x = 0;
-    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
+    timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
     x = double(abs(target));
     timeout = timeout * (2 - (double(speed)/100.0));
     double voltage;
@@ -785,7 +786,7 @@ void driveStraightC(int target) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
+   timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
 
 
  if (target > 0){
@@ -889,11 +890,11 @@ if(init_heading > 180) {
 
 void driveClamp(int target, int clampDistance) {
 
-    int timeout = 30000;
+    int timeout = 0;
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
+  timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
     double voltage;
     double encoderAVG;
     int count = 0;
@@ -945,7 +946,7 @@ if(init_heading > 180) {
         }
 
          if(abs(target - encoderAVG) < clampDistance){
-            Mogo.set_value(false);
+            Mogo.set_value(true);
         }
 
 
@@ -989,7 +990,7 @@ void driveClampS(int target, int clampDistance, int speed) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
+    timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
     double voltage;
     double encoderAVG;
     int count = 0;
@@ -1047,7 +1048,7 @@ if(init_heading > 180) {
         }
 
          if(abs(target - encoderAVG) < clampDistance){
-            Mogo.set_value(false);
+            Mogo.set_value(true);
         }
 
 
@@ -1091,8 +1092,7 @@ void driveClampSC(int target, int clampDistance, int speed) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
-
+   timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
     double voltage;
     double encoderAVG;
     int count = 0;

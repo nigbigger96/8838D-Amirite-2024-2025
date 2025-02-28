@@ -14,21 +14,120 @@ void autonomous() {
     
     if(atn == 0){    
     //Red Ring
+      color= 2;
+    
+////////////////safe redmo
 
-    color = 0;
+  
+
+
+
+
+
+
+
+
+
+      Intake.move(0);
+    LIFTS.move(127);
+    delay(550);
+    LIFTS.move(0);
+    driveStraight2(-375);
+    LIFTS.move(-127);
+    driveTurn2(51.5);
+    driveClampS(-1100, 50, 62.5);
+    Intake.move(127);
+    driveTurn2(187.5);
+    driveStraight2(540);
+    driveTurn2(166);
+    driveStraightSlow(307.5, 92.5);
+    driveStraight2(-375);
+    driveTurn2(110);
+    driveStraight2(425);
+    driveTurn2(42);
+    driveStraightC(475);
+    driveTurn2(105);
+    driveStraightSlow(2350, 62.5);
+    delay(250);
+    driveStraight2(-1750);
+    driveTurn2(-72.5);
+    delay(50);
+    LIFTS.move(127);
+    delay(250);
+    LIFTS.move(0);
+  
+  
+
+
+ 
+
+
+  
 
     
 
     }
     if(atn == 1) {
       //Blue Ring
-    color = 1;
+
+    color = 2;
+    Intake.move(0);
+  LIFTS.move(127);
+  delay(550);
+  LIFTS.move(0);
+  driveStraight2(-375);
+  LIFTS.move(-127);
+  driveTurn2(-51.5);
+  driveClampS(-1100, 50, 62.5);
+  Intake.move(127);
+  driveTurn2(-187.5);
+  driveStraight2(550);
+  driveTurn2(-167);
+  driveStraightSlow(310, 92.5);
+  driveStraight2(-375);
+  driveTurn2(-110);
+  driveStraight2(425);
+  driveTurn2(-42);
+  driveStraightC(450);
+  driveTurn2(-105);
+  driveStraightSlow(2000, 62.5);
+  delay(200);
+  driveStraight2(-1750);
+  driveTurn2(75);
+  delay(50);
+  LIFTS.move(127);
+  delay(250);
+  LIFTS.move(0);
+
 
     }
 
     if(atn == 2){ 
     //red mogo
-    color = 0;
+    color = 2;
+
+
+    LIFTS.move(127);
+    delay(550);
+    Intake.move(127);
+    LIFTS.move(0);
+    driveStraight2(-375);
+    LIFTS.move(-127);
+    driveTurn2(-51.5);
+    driveClampS(-1100, 50, 62.5);
+    driveTurn2(-140);
+    driveStraight2(500);
+    delay(200);
+    driveStraightC(-300);
+    driveTurn2(880);
+    Intake.move(0);
+    driveStraight2(300);
+    Doinker.set_value(true);
+    delay(200);
+    driveStraight2(-500);
+    Doinker.set_value(false);
+  
+
    //
     }
 

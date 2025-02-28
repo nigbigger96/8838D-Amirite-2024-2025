@@ -289,9 +289,9 @@ while (true){
 
 	if (con.get_digital(E_CONTROLLER_DIGITAL_R1)){
 	Intake.move(127);
-	// if (lift_macro == 1){
-	// 	Intake.move(126.99);
-	// }
+	if (lift_macro == 1){
+		Intake.move(127);
+	}
 	} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
 	Intake.move(-127);
 	} else {
@@ -365,9 +365,7 @@ if (rotoangle > 33000){
 }}
 
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-	driveStraightC(1000);
-	driveArcLF(90, 500, 1000);
-	driveStraight2(100);
+	driveStraight2(400);
 }
 
 
@@ -377,19 +375,19 @@ if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
 if (lift_toggle){
 	if (lift_macro == 0) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(36250, roto.get_angle(), 0, 0, 1));
+ 		LIFTS.move(-calcPIDlift(36000, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 1) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(33200, roto.get_angle(), 0, 0, 1));
+ 		LIFTS.move(-calcPIDlift(33050, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 2){
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFTS.move(-calcPIDlift(30000, roto.get_angle(), 0, 0, 1));
     } else if (lift_macro == 3){
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(17400, roto.get_angle(), 0, 0, 1)); 
+ 		LIFTS.move(-calcPIDlift(17000, roto.get_angle(), 0, 0, 1)); 
 	} else if (lift_macro == 4){
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(21100, roto.get_angle(), 0, 0, 1)); 
+ 		LIFTS.move(-calcPIDlift(20400, roto.get_angle(), 0, 0, 1)); 
 	}  else if (lift_macro == 5){
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFTS.move(-calcPIDlift(35450, roto.get_angle(), 0, 0, 1)); 
