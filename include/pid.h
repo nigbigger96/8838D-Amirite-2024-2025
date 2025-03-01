@@ -23,6 +23,7 @@ extern void driveTurn(int target);
 extern void driveTurn2(int target);
 extern void driveStraight2(int target);
 extern void driveStraightC(int target);
+extern void driveStraightSC(int target, int speed);
 extern void driveClampSC(int target, int clampDistance, int speed);
 extern void driveClamp(int target, int clampDistance);
 extern void driveStraightSlow(int target, int speed);
