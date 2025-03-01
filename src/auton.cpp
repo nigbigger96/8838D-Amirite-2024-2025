@@ -33,8 +33,8 @@ void autonomous() {
       driveTurn2(-29);
       Mogo.set_value(false);
       driveStraightSlow(700, 40);
-      delay(675);
-      driveStraightSlow(500, 55);
+      delay(650);
+      driveStraightSlow(525, 55);
       Intake.move(0);
       driveTurn2(85);
       driveClampS(-950, 50, 60);
