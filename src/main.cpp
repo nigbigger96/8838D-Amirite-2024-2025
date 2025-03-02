@@ -289,9 +289,6 @@ while (true){
 
 	if (con.get_digital(E_CONTROLLER_DIGITAL_R1)){
 	Intake.move(127);
-	if (lift_macro == 1){
-		Intake.move(127);
-	}
 	} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
 	Intake.move(-127);
 	} else {
@@ -378,7 +375,7 @@ if (lift_toggle){
  		LIFTS.move(-calcPIDlift(36000, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 1) {
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(33050, roto.get_angle(), 0, 0, 1));
+ 		LIFTS.move(-calcPIDlift(32925, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 2){
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFTS.move(-calcPIDlift(30000, roto.get_angle(), 0, 0, 1));
