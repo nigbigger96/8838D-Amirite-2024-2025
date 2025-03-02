@@ -14,72 +14,38 @@ void autonomous() {
     
     if(atn == 0){    
     //Red Ring      
-      color= 2;
-      LIFTS.move(127);
-      delay(550);
-      LIFTS.move(0);
-      LIFTS.move(-127);
-      delay(500);
-      driveTurn2(42);
-      driveStraightSC(-700, 80);
-      driveClampS(-700, 100, 40);
-      driveTurn2(150);
-      Intake.move(127);
-      driveStraightSC(500, 70);
-      Intake.move(70);
-      driveTurn2(10);
-      Intake.move(127);
-      driveStraightSC(910, 60);
-      driveTurn2(-29);
-      Mogo.set_value(false);
-      driveStraightSlow(700, 40);
-      delay(650);
-      driveStraightSlow(525, 55);
-      Intake.move(0);
-      driveTurn2(85);
-      driveClampS(-950, 50, 60);
-      driveTurn2(-31);
-      Intake.move(127);
-      driveStraightSlow(700, 70);
-      delay(200);
-      driveTurn2(150);
-      driveStraightSlow(825, 60);
-      LIFTS.move(127);
+  
+    Intake.move(0);
+    LIFTS.move(127);
+    delay(550);
+    LIFTS.move(0);
+    driveStraight2(-255);
+    LIFTS.move(-127);
+    driveTurn2(45.75);
+    driveStraightSlow(341.5, 55);
+    Doinker.set_value(true);
+    driveStraightC(-100);
+    driveArcR(-125, 100, 1000);
+    driveClampS(-1000, 50, 62.5);
+    Doinker.set_value(false);
+    driveTurn2(-77);
+    Intake.move(127);
+    driveStraight2(100);
+    driveTurn2(-151);
+    driveStraightC(550);
+    driveTurn2(-85);
+    driveStraightSlow(5000, 65);
+
+ 
+
+ 
+  
 
 
+    
 
       
 
-      // LIFTS.move(127);
-      // delay(550);
-      // LIFTS.move(0);
-      // LIFTS.move(-127);
-      // delay(500);
-      // driveTurn2(51.5);
-      // driveClampS(-1125, 50, 62.5);
-      // LIFTS.move(0);
-      // LIFTS.set_brake_modes(E_MOTOR_BRAKE_HOLD);
-      // driveTurn2(140);
-      // Intake.move(127);
-      // driveStraight2(750);
-      // delay(225);
-      // driveTurn2(-10);
-      // Mogo.set_value(false);
-      // driveStraightC(855);
-      // driveTurn2(-33.5);
-      // driveStraightSlow(850, 37.5);
-      // delay(375);
-      // Intake.move(0);
-      // driveTurn2(60);
-      // driveClampS(-650, 50, 75);
-      // Intake.move(127);
-      // driveTurn2(-37.5);
-      // driveStraight2(800);
-      // driveStraightC(-400);
-      // driveTurn2(90);
-      // LIFTS.move(127);
-      // delay(450);
-      // LIFTS.move(0);
 
 
       // driveStraightSlow(500, 80);
@@ -216,15 +182,77 @@ driveStraightSlow(1000, 80);
       // safe sigawp red
       color = 0;
      
+      color= 2;
+      LIFTS.move(127);
+      delay(550);
+      LIFTS.move(0);
+      LIFTS.move(-127);
+      delay(500);
+      driveTurn2(42);
+      driveStraightSC(-700, 80);
+      driveClampS(-700, 100, 40);
+      driveTurn2(150);
+      Intake.move(127);
+      driveStraightSC(500, 70);
+      Intake.move(70);
+      driveTurn2(10);
+      Intake.move(127);
+      driveStraightSC(910, 60);
+      driveTurn2(-29);
+      Mogo.set_value(false);
+      driveStraightSlow(700, 40);
+      delay(625);
+      driveStraightSlow(580, 55);
+      Intake.move(0);
+      driveTurn2(85);
+      driveClampS(-950, 50, 60);
+      driveTurn2(-31);
+      Intake.move(127);
+      driveStraightSlow(700, 70);
+      delay(200);
+     driveStraightC(-400);
+     driveTurn2(166);
+     LIFTS.move(127);
 
     }
 
 
 
     if(atn == 5) {
-      //blue sigawp
+      //safe blue sigawp
       color = 1;
       
+    color= 2;
+    LIFTS.move(127);
+    delay(550);
+    LIFTS.move(0);
+    LIFTS.move(-127);
+    delay(500);
+    driveTurn2(-42);
+    driveStraightSC(-700, 80);
+    driveClampS(-700, 100, 40);
+    driveTurn2(-150);
+    Intake.move(127);
+    driveStraightSC(500, 70);
+    Intake.move(70);
+    driveTurn2(-10);
+    Intake.move(127);
+    driveStraightSC(910, 60);
+    driveTurn2(29);
+    Mogo.set_value(false);
+    driveStraightSlow(700, 40);
+    delay(625);
+    driveStraightSlow(600, 55);
+    Intake.move(0);
+    driveTurn2(-85);
+    driveClampS(-950, 50, 60);
+    driveTurn2(31);
+    Intake.move(127);
+    driveStraightSlow(700, 70);
+    delay(200);
+   driveStraightC(-400);
+   driveTurn2(-166);
+   LIFTS.move(127);
       
     }
     
