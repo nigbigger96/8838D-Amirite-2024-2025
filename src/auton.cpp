@@ -19,22 +19,33 @@ void autonomous() {
     LIFTS.move(127);
     delay(550);
     LIFTS.move(0);
-    driveStraight2(-255);
+    driveStraight2(-199);
     LIFTS.move(-127);
-    driveTurn2(45.75);
-    driveStraightSlow(341.5, 55);
+    driveTurn2(45.485);
+    driveStraight2(290.3);
     Doinker.set_value(true);
     driveStraightC(-100);
-    driveArcR(-125, 100, 1000);
-    driveClampS(-1000, 50, 62.5);
+    driveArcR(-125, 90, 1000);
+    driveClampS(-1050, 50, 62.5);
+    delay(50);
     Doinker.set_value(false);
     driveTurn2(-77);
     Intake.move(127);
     driveStraight2(100);
     driveTurn2(-151);
     driveStraightC(550);
-    driveTurn2(-85);
-    driveStraightSlow(5000, 65);
+    driveTurn2(-73);
+    driveStraightSlow(9000, 50);
+    driveTurn2(-100);
+    driveStraightSlow(600, 60);
+    delay(400);
+    driveStraight2(-500);
+    driveTurn2(-102.5);
+    driveStraight2(600);
+    // driveStraight2(1800);
+    // driveTurn2(-290);
+    // driveStraight2(2500);
+    // LIFTS.move(127);
 
  
 
