@@ -894,7 +894,7 @@ void driveClamp(int target, int clampDistance) {
 
     double x = 0;
     x = double(abs(target));
-  timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
+    timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
     double voltage;
     double encoderAVG;
     int count = 0;
