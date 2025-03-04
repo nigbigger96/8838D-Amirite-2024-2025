@@ -13,7 +13,7 @@ void autonomous() {
 
     
     if(atn == 0){    
-    //Red Ring     
+    //Red left Safe    
  
     color= 2;
     LIFTS.move(127);
@@ -23,47 +23,32 @@ void autonomous() {
     delay(500);
     driveTurn2(42.5);
     driveStraightSC(-700, 80);
-    driveClampS(-700, 100, 40);
+    driveClampS(-700, 100, 50);
     driveTurn2(200);
     Intake.move(127);
-    driveStraightC(300);
+    driveStraightC(245);
     driveTurn2(151);
-    driveStraightSC(525, 30);
-    driveTurn2(34.5);
-    driveStraight2(900);
-    driveTurn2(0);
+    driveStraightSC(450, 25);
+    driveTurn2(160);
+    driveStraightC(-400);
+    driveTurn2(130);
+     driveStraightSC(525,110);
+     driveTurn2(-7.5);
+     driveStraightC(1300);
+     driveTurn2(-40);
+     delay(100);
+     Intake.move(-40);
+     Intake.move(127);
     Mogo.set_value(false);
-    driveStraightC(725);
-    driveTurn2(-38.5);
-    driveStraightSlow(800, 40);
-    delay(300);
-    driveStraightSlow(450, 55);
+    driveStraightSlow(500, 40);
+    delay(50);
+    driveStraightSlow(350, 55);
     Intake.move(0);
-    driveTurn2(52.5);
-    driveClampS(-1000, 50, 85);
+    driveTurn2(72.5);
+    driveClampS(-800, 50, 75);
     Intake.move(127);
-
-  
-
- 
-  
-
-
-    
-
-      
-
-
-
-      // driveStraightSlow(500, 80);
-      // delay(150);
-      // Intake.move(0);
-
-
-
-
-
-    //   Intake.move(0);
+    driveTurn2(200);
+    LIFTS.move(127);
 
     // LIFTS.move(127);
     // delay(550);
@@ -93,18 +78,11 @@ void autonomous() {
     // LIFTS.move(0);
   
   
-
-
- 
-
-
-  
-
     
 
     }
     if(atn == 1) {
-      //Blue Ring
+      //Blue right Safe
 
     color = 2;
     Intake.move(0);
@@ -139,10 +117,60 @@ void autonomous() {
     }
 
     if(atn == 2){ 
-    //red mogo safe
+    //red left rush
     color = 2;
+    Intake.move(127);
+    Mogo.set_value(false);
+    driveStraightC(920);
+    driveArcLF(27.5, 625, 900);
+    delay(100);
+    driveStraightC(-225);
+    driveArcRF(-45, 200, 850);
+    Intake.move(0);
+    driveClampS(-600, 50, 500); 
+    Intake.move(-25);
+    delay(20);
+    Intake.move(127);
+    driveTurn2(-55);
+    driveStraight2(1100);
+  
+
+   //
+    }
+
+
+
+    if(atn == 3){
+    //blue right rush
+    color = 1;
+
+
+
+    }
+
+
+
+    if(atn == 4){
+      // red left elim
+      color = 0;
+     
+
+
+    }
+
+
+
+    if(atn == 5) {
+      //blue right elim 
+      color = 1;
       
-   
+
+      
+    }
+    
+    if(atn == 6) {
+    // red right safe
+    color = 0;
     Intake.move(0);
     LIFTS.move(127);
     delay(550);
@@ -171,19 +199,15 @@ void autonomous() {
     driveTurn2(70);
     driveStraight2(1650);
     LIFTS.move(127);
-    
 
-  
-    
-  
 
-   //
+
     }
 
 
 
-    if(atn == 3){
-    //blue mogo safe
+    if(atn == 7)  {
+    //blue left safe
     color = 1;
     Intake.move(0);
     LIFTS.move(127);
@@ -214,15 +238,31 @@ void autonomous() {
     driveStraight2(1650);
     LIFTS.move(127);
 
+     }
 
+     if(atn == 8){
+    //red right 
+    color = 0;
+     }
+
+    if(atn == 9){
+    //blue left 
+    color = 1;
+     }
+
+    if(atn == 10) {
+     //red right elim 
+    color = 2;  
+   
     }
 
-
-
-    if(atn == 4){
-      // safe sigawp red
-      color = 0;
-     
+      if(atn == 11) {
+     //blue left elim
+    
+    
+    }
+    if(atn == 12) {
+      //SigAwpRedSafe
       color= 2;
       LIFTS.move(127);
       delay(550);
@@ -254,98 +294,73 @@ void autonomous() {
      driveStraightC(-400);
      driveTurn2(166);
      LIFTS.move(127);
-
-    }
-
-
-
-    if(atn == 5) {
-      //safe blue sigawp
-      color = 1;
-      
-    color= 2;
-    LIFTS.move(127);
-    delay(550);
-    LIFTS.move(0);
-    LIFTS.move(-127);
-    delay(500);
-    driveTurn2(-42);
-    driveStraightSC(-700, 80);
-    driveClampS(-700, 100, 40);
-    driveTurn2(-150);
-    Intake.move(127);
-    driveStraightSC(500, 70);
-    Intake.move(70);
-    driveTurn2(-10);
-    Intake.move(127);
-    driveStraightSC(910, 60);
-    driveTurn2(29);
-    Mogo.set_value(false);
-    driveStraightSlow(700, 40);
-    delay(625);
-    driveStraightSlow(600, 55);
-    Intake.move(0);
-    driveTurn2(-85);
-    driveClampS(-950, 50, 60);
-    driveTurn2(31);
-    Intake.move(127);
-    driveStraightSlow(700, 70);
-    delay(200);
-   driveStraightC(-400);
-   driveTurn2(-166);
-   LIFTS.move(127);
-      
-    }
-    
-    if(atn == 6) {
-    // red ring rush
-    color = 0;
-      
-    Intake.move(127);
-    Mogo.set_value(false);
-    driveStraightC(920);
-    driveArcLF(27.5, 625, 900);
-    delay(100);
-    driveStraightC(-225);
-    driveArcRF(-45, 200, 850);
-    Intake.move(0);
-    driveClampS(-600, 50, 500); 
-    Intake.move(-25);
-    delay(20);
-    Intake.move(127);
-    driveTurn2(-55);
-    driveStraight2(1100);
-    }
-
-
-
-    if(atn == 7)  {
-    //blue ring elim
-    color = 1;
-
+     
+     }     
+    if(atn == 13) {
+      //SigAwpBlueSafe
+      color= 2;
+      LIFTS.move(127);
+      delay(550);
+      LIFTS.move(0);
+      LIFTS.move(-127);
+      delay(500);
+      driveTurn2(-42);
+      driveStraightSC(-700, 80);
+      driveClampS(-700, 100, 40);
+      driveTurn2(-150);
+      Intake.move(127);
+      driveStraightSC(500, 70);
+      Intake.move(70);
+      driveTurn2(-10);
+      Intake.move(127);
+      driveStraightSC(910, 60);
+      driveTurn2(29);
+      Mogo.set_value(false);
+      driveStraightSlow(700, 40);
+      delay(625);
+      driveStraightSlow(600, 55);
+      Intake.move(0);
+      driveTurn2(-85);
+      driveClampS(-950, 50, 60);
+      driveTurn2(31);
+      Intake.move(127);
+      driveStraightSlow(700, 70);
+      delay(200);
+     driveStraightC(-400);
+     driveTurn2(-166);
+     LIFTS.move(127);
+     
      }
-
-     if(atn == 8){
-    //red mogo elim
-    color = 0;
+     if(atn == 14) {
+      //SigAwpRed
+     
+     
      }
-
-    if(atn == 9){
-    //blue mogo elim
-    color = 1;
+     if(atn == 15) {
+      //SigAwpBlue
+     
+     
      }
-
-    if(atn == 10) {
-     //skills 
-    color = 2;  
-   
-    }
-
-      if(atn == 11) {
-     //safety
-    
-    driveStraight2(700);
-    }
+     if(atn == 16) {
+      //CenterRushREDRBLUEL
+     
+     
+     }
+     if(atn == 17) {
+      //CenterRushREDLBLUER
+     
+     
+     }
+     if(atn == 18) {
+      //Skills
+     
+     
+     }
+     if(atn == 19) {
+      //Safety
+     driveStraight2(500);
+     
+     }
 
 
 

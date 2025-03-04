@@ -92,49 +92,86 @@ while(true){
 	//autons here ===>
 
 	if(atn == 0) {
-		autstr = "RedLeft";
+		autstr = "RedLeftSafe";
 		con.print(0,0, "aut 0: %s", autstr);
 	}
 	else if(atn == 1) {
-		autstr = "BlueRight";
+		autstr = "BlueRightSafe";
 		con.print(0,0, "aut 1: %s", autstr);
 	}
 	else if(atn == 2) {
-		autstr = "RedRight";
+		autstr = "RedLeft";
 		con.print(0,0, "aut 2: %s", autstr);
 	}
 	else if(atn == 3) {
-		autstr = "BlueLeft";
+		autstr = "BlueRight";
 		con.print(0,0, "aut 3: %s", autstr);
 	}
 	else if(atn == 4) {
-		autstr = "Sig Awp Red";
+		autstr = "RedLeftElim";
 		con.print(0,0, "aut 4: %s", autstr);
 	}
 	else if(atn == 5) {
-		autstr = "Sig Awp Blue";
+		autstr = "BlueRightElim";
 		con.print(0,0, "aut 5: %s", autstr);
 	}
 	else if(atn == 6) {
-		autstr = "Skills";
+		autstr = "RedRightSafe";
 		con.print(0,0, "aut 6: %s", autstr);
 	}
 	else if(atn == 7) {
-		autstr = "Safety";
+		autstr = "BlueLeftSafe";
 		con.print(0,0, "aut 7: %s", autstr);
+	}
+	else if(atn == 8) {
+		autstr = "RedRight";
+		con.print(0,0, "aut 8: %s", autstr);
+	}
+	else if(atn == 9) {
+		autstr = "BlueLeft";
+		con.print(0,0, "aut 9: %s", autstr);
+	}
+	else if(atn == 10) {
+		autstr = "RedRightElim";
+		con.print(0,0, "aut 10: %s", autstr);
+	}
+	else if(atn == 11) {
+		autstr = "BlueLeftElim";
+		con.print(0,0, "aut 11: %s", autstr);
+	}
+	else if(atn == 12) {
+		autstr = "SigAwpSafeRED";
+		con.print(0,0, "aut 12: %s", autstr);
+	}
+	else if(atn == 13) {
+		autstr = "SigAwpSafeBLUE";
+		con.print(0,0, "aut 13: %s", autstr);
+	}
+	else if(atn == 14) {
+		autstr = "SigAwpRED";
+		con.print(0,0, "aut 14: %s", autstr);
+	}
+	else if(atn == 15) {
+		autstr = "SigAwpBLUE";
+		con.print(0,0, "aut 15: %s", autstr);
+	}
+	else if(atn == 16) {
+		autstr = "CenterRushRRBL";
+		con.print(0,0, "aut 16: %s", autstr);
+	}
+	else if(atn == 17) {
+		autstr = "CenterRushRLBR";
+		con.print(0,0, "aut 17: %s", autstr);
+	}
+	else if(atn == 18) {
+		autstr = "Skills";
+		con.print(0,0, "aut 18: %s", autstr);
+	}
+	else if(atn == 19) {
+		autstr = "Safety";
+		con.print(0,0, "aut 19: %s", autstr);
 		atn = 0;
 	}
-	// else if(atn == 8) {
-	// 	autstr = "Skills";
-	// 	con.print(0,0, "aut 8: %s", autstr);
-	// }
-	// else if(atn == 9) {
-	// 	autstr = "Safety";
-	// 	con.print(0,0, "aut 9: %s", autstr);
-	// }
-	// else if(atn == 10){
-	// 	atn = 0;
-	// }
 
 	con.clear();}
 	
