@@ -66,19 +66,110 @@ int integrall;
 int derivitivel;
 int timel;
 
+
+
+bool InitColor = false;
+bool InitCorrect = false;
+int ColorCount;
+bool Backwards = false;
+bool sortOn = false;
+int colorCount = 0;
+void ColorSort(){
+    Opticala.set_led_pwm(100);
+    if (color == 0){ //blue
+        if(Opticala.get_hue()<250 && Opticala.get_hue()>180){
+            sortOn = true;
+        }
+
+
+        if(sortOn && colorCount<200){
+            DoinkerTwo.set_value(true);
+            colorCount+=10;
+        } else {
+            sortOn = false;
+            colorCount = 0;
+            DoinkerTwo.set_value(false);
+        }
+
+    }  else if (color == 1){ //red
+        if(Opticala.get_hue()<30 || Opticala.get_hue()>335){
+            sortOn = true;
+        }
+        if(sortOn && colorCount<200){
+            DoinkerTwo.set_value(true);
+            colorCount+=10;
+        } else {
+            sortOn = false;
+            colorCount = 0;
+            DoinkerTwo.set_value(false);
+        }
+    }
+}
+
+// void ColorSort(){
+//     Opticala.set_led_pwm(100);
+//     if (color == 0){ //blue
+//         if(Opticala.get_hue()<250 && Opticala.get_hue()>180){
+//             InitColor = true;
+//         }
+
+//         if(InitColor){
+//             if(Backwards == false){
+//                 Intake.move(100);
+//                 if(Intake.get_position() > 530){ //need to tune. Encoder units for how far from sensed position to fling
+//                     Backwards = true;
+//                 }
+//             } else {
+//                 Intake.move(-50);//-127
+//                 if(Intake.get_position() < 200){ //100
+//                     Backwards = false;
+//                     InitColor = false;
+//                 } 
+//             }
+//         } else {
+//             Intake.move(127);
+//             Intake.tare_position();
+//         }
+
+//     }  else if (color == 1){ //red
+//         if(Opticala.get_hue()<30 && Opticala.get_hue()>330){
+//             InitColor = true;
+//         }
+
+//         if(InitColor){
+//             if(Backwards == false){
+//                 Intake.move(127);
+//                 if(Intake.get_position() > 500){ //need to tune. Encoder units for how far from sensed position to fling
+//                     Backwards = true;
+//                 }
+//             } else {
+//                 Intake.move(-127);
+//                 if(Intake.get_position() < 200){
+//                     Backwards = false;
+//                     InitColor = false;
+//                 }
+//             }
+//         } else {
+//             Intake.move(127);
+//             Intake.tare_position();
+//         }
+//     }
+// }
+
+
 void liftauton(){
     if (automacro == 0) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(500, roto.get_angle(), 0, 0, 3));
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD2);
+ 		LIFT.move(-calcPIDlift(36000, roto.get_angle(), 0, 0, 3));
 	} else if (automacro == 1) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(3800, roto.get_angle(), .01, 1, 3));
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD2);
+ 		LIFT.move(-calcPIDlift(32925, roto.get_angle(), .01, 1, 3));
 	} else if (automacro == 2) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(5300, roto.get_angle(), 0, 0, 3));
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD2);
+ 		LIFT.move(-calcPIDlift(30000, roto.get_angle(), 0, 0, 3));
     } else if (automacro == 3){
-        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(15000, roto.get_angle(), 0, 0, 1));
+        setConstants(LIFT_KP, LIFT_KI, LIFT_KD2);
+ 		LIFT.move(-calcPIDlift(17000, roto.get_angle(), 0, 0, 1));
     } 
     else {
         LIFT.move(0);
@@ -235,58 +326,6 @@ double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegr
 
 } 
 
-bool InitColor = false;
-bool InitCorrect = false;
-int ColorCount;
-bool Backwards = false;
-void ColorSort(){
-    if (color == 0){ //blue
-        if(Opticala.get_hue()<250 && Opticala.get_hue()>180){
-            InitColor = true;
-        }
-
-        if(InitColor){
-            if(Backwards == false){
-                Intake.move(127);
-                if(Intake.get_position() > 650){ //need to tune. Encoder units for how far from sensed position to fling
-                    Backwards = true;
-                }
-            } else {
-                Intake.move(-127);
-                if(Intake.get_position() < 100){
-                    Backwards = false;
-                    InitColor = false;
-                } 
-            }
-        } else {
-            Intake.move(127);
-            Intake.tare_position();
-        }
-
-    }  else if (color == 1){ //red
-        if(Opticala.get_hue()<30 && Opticala.get_hue()>330){
-            InitColor = true;
-        }
-
-        if(InitColor){
-            if(Backwards == false){
-                Intake.move(127);
-                if(Intake.get_position() > 500){ //need to tune. Encoder units for how far from sensed position to fling
-                    Backwards = true;
-                }
-            } else {
-                Intake.move(-127);
-                if(Intake.get_position() < 200){
-                    Backwards = false;
-                    InitColor = false;
-                }
-            }
-        } else {
-            Intake.move(127);
-            Intake.tare_position();
-        }
-    }
-}
 
 
 
@@ -607,7 +646,7 @@ void driveStraight2(int target) {
 
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
         if(abs(target - encoderAVG) < 22.5) {
-            setConstants(2.25, 0, 0);
+            setConstants(2.25, 0, 0); //2.25
         } else {
             setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         }
@@ -707,6 +746,11 @@ void driveStraightSlow(int target, int speed) {
     while (true){
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0); //2.25
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        }
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 if(init_heading > 180) {
@@ -806,6 +850,11 @@ void driveStraightC(int target) {
     while (true){
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0); //2.25
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        } 
         voltage = calcPID2(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 if(init_heading > 180) {
@@ -916,6 +965,11 @@ void driveStraightSC(int target, int speed) {
     while (true){
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0); //2.25
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        }  
         voltage = calcPID2(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 if(init_heading > 180) {
@@ -1017,6 +1071,11 @@ void driveClamp(int target, int clampDistance) {
     while (true){
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0); //2.25
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        }   
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 if(init_heading > 180) {
@@ -1113,6 +1172,11 @@ void driveClampS(int target, int clampDistance, int speed) {
     while (true){
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0); //2.25
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        }
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 if(init_heading > 180) {
@@ -1213,6 +1277,11 @@ void driveClampSC(int target, int clampDistance, int speed) {
     while (true){
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0); //2.25
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        }  
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 if(init_heading > 180) {

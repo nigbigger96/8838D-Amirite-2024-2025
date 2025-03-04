@@ -215,7 +215,7 @@ void opcontrol() {
 	bool PistonsForMogo = false;
 	int lift_macroDA = 0;
 	int lift_macro = 0;
-	int color = 2;
+	color = 2;
 	bool lift_toggle = false;
 	bool lift_toggleDA = false;
 	bool doinker = false;
@@ -399,7 +399,7 @@ if (rotoangle > 33000){
 }}
 
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-	driveStraight2(400);
+	driveStraight2(500);
 }
 
 
