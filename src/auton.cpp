@@ -11,55 +11,88 @@ using namespace pros;
 void autonomous() {
 
 
+
     
     if(atn == 0){    
-    //Red left Safe    
-    //Mogo.set_value(true);
-    color = 0;
-    //     Intake.move(127);
+   // Red left Safe  
+
+
     // for(int i = 0; i < 15000; i+=10){
     //   ColorSort();
+    //   liftauton();
     //   delay(10);
-    // }
+    // }  
+    ColorSort();
+    color = 0;
+    Intake.move(0);
+    Mogo.set_value(false);
+    LIFTS.move(-40);
+    Doinker.set_value(true);
+    delay(200);
+    driveTurn2(-75);
+    driveStraightC(-700);
+    driveClampS(-200, 75, 50);
+    Intake.move(127);
+    Doinker.set_value(false);
+    delay(150);
+    driveTurn2(-50);
+    driveStraightSC(500, 60);
+    driveStraightSC(-200, 50);
+    driveStraightC(-100);
+    driveTurn2(46);
+    Intake.move(0);
+    driveStraightC(300);
+    driveStraightSC(250, 20);
+    Doinker.set_value(true);
+    driveStraight2(-550);
+    driveTurn2(177);
+    Doinker.set_value(false);
+    delay(200);
+    driveStraightSC(-50, 70);
+    driveTurn2(-172);
+    Intake.move(127);
+    driveStraightSlow(500, 50);
+    delay(400);
+    driveTurn2(-168);
+    driveStraight2(450);
+    driveTurn2(-122);
+    driveStraightSC(1000, 80);
+    driveTurn2(-145);
+    driveStraight2(550);
+    driveStraightSlow(-450, 70);
+    Doinker.set_value(true);
+    driveStraightSC(250, 50);
+    driveTurn2(0);
+    Mogo.set_value(false);
+    driveStraightSlow(-450, 60);
+    driveStraight2(-500);
+
+
+
+
+
+
+  
+
+    // color = 0;
+    // Mogo.set_value(false);
+    // LIFTS.move(-127);
+    // LIFTS.move(0);
+    // Intake.move(100);
+    // driveStraightC(1200);
+    // DoinkerTwo.set_value(true);
+    // driveStraightC(-250);
+    // driveTurn2(60);
+    // Intake.move(0);
+    // DoinkerTwo.set_value(false);
+    // driveClampS(-850, 50, 65);
+    // Intake.move(127);
+
 
     
-    LIFTS.move(127);
-    delay(550);
-    LIFTS.move(0);
-    LIFTS.move(-127);
-    delay(500);
-    driveTurn2(35);
-    driveStraightSC(-700, 60);
-    driveClampS(-600, 100, 50);
-    driveTurn2(215);
-    Intake.move(127);
-    driveStraightC(245);
-    driveTurn2(151);
-    driveStraightSC(550, 32.5);
-    driveTurn2(160);
-    driveStraightC(-400);
-    driveTurn2(130);
-    delay(150);
-     driveStraightSC(525,110);
-     driveTurn2(-7.5);
-     driveStraightC(1325);
-     driveTurn2(-40);
-     delay(100);
-     Intake.move(-40);
-     Intake.move(127);
-    Mogo.set_value(false);
-    driveStraightSlow(500, 40);
-    delay(250);
-    Intake.move(0);
-    driveStraightSlow(350, 55);
-    driveTurn2(72.5);
-    driveClampS(-825, 50, 80);
-    Intake.move(127);
-    driveTurn2(200);
-    LIFTS.move(127);
 
 
-
+    //Mogo.set_value(false);
     // LIFTS.move(127);
     // delay(550);
     // LIFTS.move(0);
@@ -96,6 +129,7 @@ void autonomous() {
 
     color = 2;
     Intake.move(0);
+    Mogo.set_value(false);
   LIFTS.move(127);
   delay(550);
   LIFTS.move(0);
@@ -182,6 +216,7 @@ void autonomous() {
     // red right safe
     color = 0;
     Intake.move(0);
+    Mogo.set_value(false);
     LIFTS.move(127);
     delay(550);
     LIFTS.move(0);
@@ -274,6 +309,7 @@ void autonomous() {
     if(atn == 12) {
       //SigAwpRedSafe
       color= 2;
+      Mogo.set_value(false);
       LIFTS.move(127);
       delay(550);
       LIFTS.move(0);
@@ -290,7 +326,7 @@ void autonomous() {
       Intake.move(127);
       driveStraightSC(910, 60);
       driveTurn2(-29);
-      Mogo.set_value(false);
+      Mogo.set_value(true);
       driveStraightSlow(700, 40);
       delay(625);
       driveStraightSlow(580, 55);
@@ -309,6 +345,7 @@ void autonomous() {
     if(atn == 13) {
       //SigAwpBlueSafe
       color= 2;
+      Mogo.set_value(false);
       LIFTS.move(127);
       delay(550);
       LIFTS.move(0);
@@ -325,7 +362,7 @@ void autonomous() {
       Intake.move(127);
       driveStraightSC(910, 60);
       driveTurn2(29);
-      Mogo.set_value(false);
+      Mogo.set_value(true);
       driveStraightSlow(700, 40);
       delay(625);
       driveStraightSlow(600, 55);
@@ -343,37 +380,38 @@ void autonomous() {
      }
      if(atn == 14) {
       //SigAwpRed
-      color= 2;
+      Mogo.set_value(false);
       LIFTS.move(127);
       delay(550);
       LIFTS.move(0);
       LIFTS.move(-127);
       delay(500);
-      driveTurn2(42.5);
-      driveStraightSC(-700, 80);
-      driveClampS(-700, 100, 50);
-      driveTurn2(200);
+      driveTurn2(35);
+      driveStraightSC(-700, 60);
+      driveClampS(-600, 100, 50);
+      driveTurn2(205);
       Intake.move(127);
-      driveStraightC(245);
+      driveStraightC(210);
       driveTurn2(151);
-      driveStraightSC(450, 25);
+      driveStraightSC(550, 32.5);
       driveTurn2(160);
       driveStraightC(-400);
       driveTurn2(130);
-       driveStraightSC(525,110);
+      delay(150);
+       driveStraightSC(475,110);
        driveTurn2(-7.5);
-       driveStraightC(1300);
+       driveStraightC(1450);
        driveTurn2(-40);
        delay(100);
        Intake.move(-40);
        Intake.move(127);
-      Mogo.set_value(false);
-      driveStraightSlow(500, 40);
-      delay(50);
-      driveStraightSlow(350, 55);
+      Mogo.set_value(true);
+      driveStraightSlow(500, 30);
+      delay(250);
       Intake.move(0);
+      driveStraightSlow(350, 55);
       driveTurn2(72.5);
-      driveClampS(-800, 50, 75);
+      driveClampS(-875, 50, 80);
       Intake.move(127);
       driveTurn2(200);
       LIFTS.move(127);
@@ -381,8 +419,8 @@ void autonomous() {
      }
      if(atn == 15) {
       //SigAwpBlue
-     
       color= 2;
+      Mogo.set_value(false);
       LIFTS.move(127);
       delay(550);
       LIFTS.move(0);
@@ -406,7 +444,7 @@ void autonomous() {
       delay(100);
       Intake.move(-40);
       Intake.move(127);
-      Mogo.set_value(false);
+      Mogo.set_value(true);
       driveStraightSlow(500, 40);
       delay(50);
       driveStraightSlow(350, 40);

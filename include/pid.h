@@ -40,6 +40,8 @@ extern void wallResetF(int resetTime);
 extern void moveLift(int targetHeight);
 extern void driveDoink(int target, int doinkDistance);
 extern void driveDoinkC(int target, int doinkDistance);
+extern void driveDoink2(int target, int doinkDistance);
+extern void driveDoinkC2(int target, int doinkDistance);
 
 
 extern double totalError;
@@ -73,7 +75,7 @@ extern double totalError;
 #define ARC_HEADING_MAX_INTEGRAL 0
 #define ARC_HEADING_INTEGRAL_KI 0
 
-#define LIFT_KP 0.02
+#define LIFT_KP 0.022
 #define LIFT_KI 0
 #define LIFT_KD 5
 #define LIFT_KD2 0.5

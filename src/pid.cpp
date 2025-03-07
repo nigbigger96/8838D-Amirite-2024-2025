@@ -12,7 +12,6 @@ int color = 2;
 int automacro = 4;
 
 double totalError;
-bool DaSortMaster = false;
 int ringTime = 0;
 double vKp;
 double vKi;
@@ -39,7 +38,7 @@ float error2;
 int integral2;
 int derivitive2;
 int time3;
-// round three of variables :/ :/
+// round three of variables :/ :/ 
 double vKp3;
 double vKi3;
 double vKd3;
@@ -83,12 +82,12 @@ void ColorSort(){
 
 
         if(sortOn && colorCount<200){
-            DoinkerTwo.set_value(true);
+            D1Discriminator.set_value(true);
             colorCount+=10;
         } else {
             sortOn = false;
             colorCount = 0;
-            DoinkerTwo.set_value(false);
+            D1Discriminator.set_value(false);
         }
 
     }  else if (color == 1){ //red
@@ -96,12 +95,12 @@ void ColorSort(){
             sortOn = true;
         }
         if(sortOn && colorCount<200){
-            DoinkerTwo.set_value(true);
+            D1Discriminator.set_value(true);
             colorCount+=10;
         } else {
             sortOn = false;
             colorCount = 0;
-            DoinkerTwo.set_value(false);
+            D1Discriminator.set_value(false);
         }
     }
 }
@@ -2081,7 +2080,7 @@ void driveDoink(int target, int doinkDistance) {
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
+    timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
 
     double voltage;
     double encoderAVG;
@@ -2096,6 +2095,11 @@ void driveDoink(int target, int doinkDistance) {
     resetEncoders();
 
     while (true){
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0); //2.25
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        } 
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
@@ -2132,10 +2136,11 @@ if(init_heading > 180) {
         } else if (voltage < -127){
             voltage = -127;
         }
+        
 
          if(abs(target - encoderAVG) < doinkDistance){
             Doinker.set_value(true);
-        }
+         }
 
 
         chasMove((voltage + headingError), (voltage + headingError), (voltage + headingError), (voltage - headingError), (voltage - headingError),(voltage - headingError));
@@ -2171,13 +2176,117 @@ if(init_heading > 180) {
 }
 
 
+void driveDoink2(int target, int doinkDistance) {
+
+    int timeout = 30000;
+
+    double x = 0;
+    x = double(abs(target));
+    timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
+
+    double voltage;
+    double encoderAVG;
+    int count = 0;
+    double init_heading = imu.get_heading();
+    double headingError = 0;
+    int cycleTime = 0;
+    time2 = 0;
+
+    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    
+    resetEncoders();
+
+    while (true){
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0); //2.25
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        } 
+        encoderAVG = (LF.get_position() + RF.get_position()) / 2;
+        setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
+        voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
+
+if(init_heading > 180) {
+    init_heading = (360 - init_heading);
+}
+
+
+        
+       double position = imu.get_heading();
+
+      if(position > 180){
+        position = position - 360;
+      }
+
+    if((init_heading < 0) && (position > 0)){
+        if((position - init_heading ) >= 180){
+            init_heading = init_heading + 360;
+            position = imu.get_heading();
+        }
+    } else if((init_heading > 0) && (position < 0)){
+        if ((init_heading - position) >= 180){
+            position = imu.get_heading();
+        }
+     }
+    
+    setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
+        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        headingError = 0;
+
+        if(voltage > 127){
+            voltage = 127;
+        } else if (voltage < -127){
+            voltage = -127;
+        }
+        
+
+         if(abs(target - encoderAVG) < doinkDistance){
+            DoinkerTwo.set_value(true);
+         }
+
+
+        chasMove((voltage + headingError), (voltage + headingError), (voltage + headingError), (voltage - headingError), (voltage - headingError),(voltage - headingError));
+        if (abs(target - encoderAVG) <= 4) count++;
+        if (count >= 20 || time2 > timeout){
+           break;
+        }
+
+        delay(10);
+        if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
+            con.print(0,0, "ERROR: %f           ", float(error));
+        }
+         if(time2 % 50 == 0 && time2 % 100 != 0){
+            con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
+        }
+         if(time2 % 50 == 0){
+            con.print(1,0, "Time2: %f           ", float(time2));
+        }
+        
+        
+        time2 += 10;
+
+
+    }
+    LF.brake();
+    RF.brake();
+    LM.brake();
+    RM.brake();
+    LB.brake();
+    RB.brake();
+
+    
+}
+
+
+
+
 void driveDoinkC(int target, int doinkDistance){
 
     int timeout = 30000;
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0 * pow(x,5)) +  (0 * pow(x,4)) + (0 * pow(x,3)) + (0 * pow(x,2)) + (0 * x) + 0;
+    timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
 
 
  if (target > 0){
@@ -2201,7 +2310,12 @@ void driveDoinkC(int target, int doinkDistance){
     while (true){
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
-        voltage = calcPID2(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
+        voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0); //2.25
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        } 
 
 if(init_heading > 180) {
     init_heading = (init_heading - 360);
@@ -2236,9 +2350,133 @@ if(init_heading > 180) {
             voltage = -127;
         }
 
-        if(abs(target - encoderAVG) < doinkDistance){
-        Doinker.set_value(true);
+
+            if(abs(target - encoderAVG) < doinkDistance){
+               Doinker.set_value(true);
+            }
+
+   
+        
+        chasMove((voltage + headingError), (voltage + headingError), (voltage + headingError), (voltage - headingError), (voltage - headingError),(voltage - headingError));
+        if(target > 0){
+            if((encoderAVG - (target-500)) > 0){
+                over = true;
+            }
+        } else if(((target+500) - encoderAVG) > 0){
+        over = true;
         }
+
+        if(over || time2 > timeout){
+            break;
+        }
+
+
+
+        delay(10);
+        if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
+            con.print(0,0, "ERROR: %f           ", float(time2));
+        }
+         if(time2 % 50 == 0 && time2 % 100 != 0){
+            con.print(2,0, "EncoderAVG: %f           ", float(LF.get_encoder_units()));
+        }
+         if(time2 % 50 == 0){
+            con.print(1,0, "error: %f           ", float(error));
+        }
+        
+        
+        time2 += 10;
+
+
+    }
+    LF.brake();
+    RF.brake();
+    LM.brake();
+    RM.brake();
+    LB.brake();
+    RB.brake();
+
+    
+}
+
+
+
+
+void driveDoinkC2(int target, int doinkDistance){
+
+    int timeout = 30000;
+
+    double x = 0;
+    x = double(abs(target));
+    timeout = (0.000000000000109572 * pow(x,5)) +  ( -0.000000000539012 * pow(x,4)) + (0.000000775841 * pow(x,3)) + (-0.000327561  * pow(x,2)) + (0.674506 * x) + 543.33301;
+
+
+ if (target > 0){
+    target = target + 500;
+ } else{
+    target = target - 500;
+ }
+    double voltage;
+    double encoderAVG;
+    int count = 0;
+    double init_heading = imu.get_heading();
+    double headingError = 0;
+    int cycleTime = 0;
+    time2 = 0;
+    bool over = false;
+
+    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    
+    resetEncoders();
+
+    while (true){
+        encoderAVG = (LF.get_position() + RF.get_position()) / 2;
+        setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
+        voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
+        if(abs(target - encoderAVG) < 22.5) {
+            setConstants(2.25, 0, 0); //2.25
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        } 
+
+if(init_heading > 180) {
+    init_heading = (init_heading - 360);
+}
+
+
+        
+       double position = imu.get_heading();
+
+      if(position > 180){
+        position = position - 360;
+      }
+
+    if((init_heading < 0) && (position > 0)){
+        if((position - init_heading ) >= 180){
+            init_heading = init_heading + 360;
+            position = imu.get_heading();
+        }
+    } else if((init_heading > 0) && (position < 0)){
+        if ((init_heading - position) >= 180){
+            position = imu.get_heading();
+        }
+     }
+    
+    
+    setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
+        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+
+        if(voltage > 127){
+            voltage = 127;
+        } else if (voltage < -127){
+            voltage = -127;
+        }
+
+
+            if(abs(target - encoderAVG) < doinkDistance){
+               DoinkerTwo.set_value(true);
+            }
+
+   
         
         chasMove((voltage + headingError), (voltage + headingError), (voltage + headingError), (voltage - headingError), (voltage - headingError),(voltage - headingError));
         if(target > 0){
