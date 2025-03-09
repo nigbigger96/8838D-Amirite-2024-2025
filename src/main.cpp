@@ -156,20 +156,28 @@ while(true){
 		con.print(0,0, "aut 15: %s", autstr);
 	}
 	else if(atn == 16) {
-		autstr = "CenterRushRRBL";
+		autstr = "CenterRushRR";
 		con.print(0,0, "aut 16: %s", autstr);
 	}
 	else if(atn == 17) {
-		autstr = "CenterRushRLBR";
+		autstr = "CenterRushRL";
 		con.print(0,0, "aut 17: %s", autstr);
 	}
 	else if(atn == 18) {
-		autstr = "Skills";
+		autstr = "CenterRushBL";
 		con.print(0,0, "aut 18: %s", autstr);
 	}
 	else if(atn == 19) {
-		autstr = "Safety";
+		autstr = "CenterRushBB";
 		con.print(0,0, "aut 19: %s", autstr);
+	}
+	else if(atn == 20) {
+		autstr = "Skills";
+		con.print(0,0, "aut 20: %s", autstr);
+	}
+	else if(atn == 21) {
+		autstr = "Safety";
+		con.print(0,0, "aut 21: %s", autstr);
 		atn = 0;
 	}
 
