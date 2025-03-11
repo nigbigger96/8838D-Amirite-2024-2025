@@ -7,7 +7,7 @@ using namespace pros;
 using namespace c;
 using namespace std;
 
-
+int Jam = 1;
 int color = 2;
 int automacro = 4;
 
@@ -236,7 +236,7 @@ double calcPID(double target, double input, int integralKI, int maxIntegral){
 
 double calcPID2(double target2, double input2, int integralKI2, int maxIntegral2){
 
-
+    ColorSort();
     int integral2;
     prevError2 = error2;
     error2 = target2 - input2;
@@ -620,6 +620,9 @@ void driveStraight(int target){ //int macro = 4)
         RB.brake();
 
 }
+
+
+
 
 void driveStraight2(int target) {
 
@@ -1848,10 +1851,10 @@ int count = 0;
 bool over = false;
 resetEncoders();
 ltargetF = double(( theta/360) *2 * pi * radius);
-rtargetF = double((theta / 360) * 2 * pi *(radius + 475 ));
+rtargetF = double((theta / 360) * 2 * pi *(radius + 490 ));
 theta = theta + 45;
 ltarget = double(( theta/360) *2 * pi * radius);
-rtarget = double((theta / 360) * 2 * pi *(radius + 475 ));
+rtarget = double((theta / 360) * 2 * pi *(radius + 490 ));
 while(true){
 
 if(init_heading > 180){

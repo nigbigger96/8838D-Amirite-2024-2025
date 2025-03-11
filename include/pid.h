@@ -11,6 +11,7 @@ extern float error;
 extern int time2;
 extern int automacro;
 extern int color;
+
 extern void liftauton();
 extern void ColorSort(); //i added
 extern double calcPID(double target, double input, int integralKI, int maxIntegral);

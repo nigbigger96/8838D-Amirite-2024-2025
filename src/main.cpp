@@ -156,26 +156,10 @@ while(true){
 		con.print(0,0, "aut 15: %s", autstr);
 	}
 	else if(atn == 16) {
-		autstr = "CenterRushRR";
-		con.print(0,0, "aut 16: %s", autstr);
-	}
-	else if(atn == 17) {
-		autstr = "CenterRushRL";
-		con.print(0,0, "aut 17: %s", autstr);
-	}
-	else if(atn == 18) {
-		autstr = "CenterRushBL";
-		con.print(0,0, "aut 18: %s", autstr);
-	}
-	else if(atn == 19) {
-		autstr = "CenterRushBB";
-		con.print(0,0, "aut 19: %s", autstr);
-	}
-	else if(atn == 20) {
 		autstr = "Skills";
 		con.print(0,0, "aut 20: %s", autstr);
 	}
-	else if(atn == 21) {
+	else if(atn == 17) {
 		autstr = "Safety";
 		con.print(0,0, "aut 21: %s", autstr);
 		atn = 0;
@@ -262,11 +246,7 @@ while (true){
 		NEWR2 = false;
 	}
 
-// if (con.get_digital(E_CONTROLLER_DIGITAL_LEFT)) {
-// 	Intakepiston.set_value(true);
-// } else {
-// 	Intakepiston.set_value(false);
-// }
+
 
 	if (tankToggle){
  LF.move(con.get_analog(E_CONTROLLER_ANALOG_LEFT_Y));
@@ -358,6 +338,10 @@ DoinkerTwo.set_value(doinkertwo);
 
 
 
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)){
+	driveStraightSlow(-300, 40);
+}
+
 if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 	LIFTS.move(127);
 	lift_angle = LIFT.get_position();
@@ -406,9 +390,7 @@ if (rotoangle > 33000){
 	rotoangle = rotoangle - 36000;
 }}
 
-if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-	driveStraight2(500);
-}
+
 
 
 
