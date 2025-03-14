@@ -60,7 +60,7 @@ void disabled() {
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-int atn = 0;
+int atn = 2;
 int pressed = 0;
 string autstr;
 
@@ -146,20 +146,11 @@ while(true){
 	else if(atn == 13) {
 		autstr = "SigAwpSafeBLUE";
 		con.print(0,0, "aut 13: %s", autstr);
-	}
-	else if(atn == 14) {
-		autstr = "SigAwpRED";
-		con.print(0,0, "aut 14: %s", autstr);
-	}
-	else if(atn == 15) {
-		autstr = "SigAwpBLUE";
-		con.print(0,0, "aut 15: %s", autstr);
-	}
-	else if(atn == 16) {
+	}else if(atn == 14) {
 		autstr = "Skills";
 		con.print(0,0, "aut 20: %s", autstr);
 	}
-	else if(atn == 17) {
+	else if(atn == 15) {
 		autstr = "Safety";
 		con.print(0,0, "aut 21: %s", autstr);
 		atn = 0;
@@ -339,7 +330,10 @@ DoinkerTwo.set_value(doinkertwo);
 
 
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)){
-	driveStraightSlow(-300, 40);
+	driveStraightSlow(-280, 40);
+	// automacro = 1;
+	// stall = true;
+	// driveStraight2(20000);
 }
 
 if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
