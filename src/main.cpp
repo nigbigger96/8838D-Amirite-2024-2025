@@ -60,7 +60,7 @@ void disabled() {
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-int atn = 2;
+int atn = 8;
 int pressed = 0;
 string autstr;
 
