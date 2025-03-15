@@ -179,12 +179,12 @@ void autonomous() {
     delay(325);
     color = 2;
     LIFTS.move(16);
-    driveStraightSlow(525, 70);
+    driveStraightSlow(450, 70);
     LIFTS.move(0);
     LIFTS.brake();
     driveStraightSC(-160, 90);
     Doinker.set_value(true);
-    driveTurn2(187);
+    driveTurn2(184);
     Doinker.set_value(false);
     delay(200);
     driveStraightSlow(300, 75);
@@ -632,7 +632,7 @@ void autonomous() {
         delay(10);
        Intake.move(127);
        stallProtection();
-       stall = false;
+       stall = true;
       LIFTS.move(-40);
       delay(500);
       Intake.move(0);
@@ -642,20 +642,20 @@ void autonomous() {
       driveTurn2(0);
       Intake.move(127);
       driveStraightC(525);
-      driveTurn2(52.5);
-      driveStraight2(1300);
+      driveTurn2(55);
+      driveStraightSC(1450, 80);
       delay(150);
-      driveStraightC(-85);
+      driveStraightC(-225);
       driveTurn2(182);
       driveStraightSC(900, 50);
-      driveTurn2(181);
+      driveTurn2(183);
       delay(300);
-      driveStraightSC(500, 35);     
+      driveStraightSC(950, 50);     
       delay(250);
       driveStraightC(-500);
       driveTurn2(155);
       driveStraightC(1000);
-      driveStraightC(-150);
+      driveStraight2(-150);
       delay(50);
       driveTurn2(-30);
       Mogo.set_value(false);
@@ -663,11 +663,29 @@ void autonomous() {
       Intake.move(-40);
       delay(400);
       driveStraightSlow(600, 80);
-      driveTurn2(90);
-      Intake.move(0);
+      driveTurn2(87);
+      Intake.move(20);
       driveStraightSC(-500, 70);
-      driveClampS(-2000, 50, 55);
+      driveTurn2(87);
+      driveStraightC(-1300);
+      driveClampS(-750, 50, 50);
       driveTurn2(0);
+      Intake.move(127);
+      driveStraightC(450);
+      driveTurn2(-47.5);
+      driveStraightC(1375);
+      delay(150);
+      driveStraightC(-210);
+      driveTurn2(-182);
+      driveStraightSC(1100, 50);
+      driveTurn2(-183);
+      delay(300);
+      driveStraightSlow(1100, 50);
+      driveStraightC(-550);
+      driveTurn2(-155);
+      driveStraightC(1000);
+      driveStraight2(150);
+
 
  
     
