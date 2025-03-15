@@ -473,11 +473,11 @@ void autonomous() {
   LIFTS.move(-40);
   Intake.move(80);
   Doinker.set_value(true);
-  driveStraightC(1260);
+  driveStraightC(1150);
   driveStraightSC(75, 5);
   Doinker.set_value(false);
   delay(150);
-  driveStraightSlow(-400, 60);
+  driveStraightSlow(-500, 60);
   Intake.move(0);
   Doinker.set_value(true);
   driveStraightSlow(-150, 55);
@@ -491,10 +491,10 @@ void autonomous() {
   driveStraightC(100);
   driveTurn2(-82);
   driveClampS(-600, 60, 70);
-  driveTurn2(-155);
-  driveStraightSC(700, 75);
+  driveTurn2(-157.5);
+  driveStraightSC(875, 75);
   driveStraightSC(-400, 75);
-  driveTurn2(-115);
+  driveTurn2(-117.5);
   driveStraightSC(1000, 90);
   driveTurn2(-115);
   driveStraightSlow(1500, 70);
