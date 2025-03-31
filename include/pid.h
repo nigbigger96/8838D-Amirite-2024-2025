@@ -80,7 +80,7 @@ extern double totalError;
 #define ARC_HEADING_MAX_INTEGRAL 0
 #define ARC_HEADING_INTEGRAL_KI 0
 
-#define LIFT_KP 0.022
+#define LIFT_KP 0.0175
 #define LIFT_KI 0
 #define LIFT_KD 6
 #define LIFT_KD2 0.5

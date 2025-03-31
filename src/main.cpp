@@ -60,7 +60,7 @@ void disabled() {
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-int atn = 9;
+int atn = 1;
 int pressed = 0;
 string autstr;
 
@@ -153,8 +153,13 @@ while(true){
 	else if(atn == 15) {
 		autstr = "Safety";
 		con.print(0,0, "aut 21: %s", autstr);
+	}
+	else if(atn == 16) {
+		autstr = "Safety";
+		con.print(0,0, "aut 21: %s", autstr);
 		atn = 0;
 	}
+
 
 	con.clear();}
 	
