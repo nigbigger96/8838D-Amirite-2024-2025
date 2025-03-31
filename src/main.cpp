@@ -60,7 +60,7 @@ void disabled() {
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-int atn = 1;
+int atn = 0;
 int pressed = 0;
 string autstr;
 
@@ -92,71 +92,56 @@ while(true){
 	//autons here ===>
 
 	if(atn == 0) {
-		autstr = "RedLeftSafe";
+		autstr = "RedRing";
 		con.print(0,0, "aut 0: %s", autstr);
 	}
 	else if(atn == 1) {
-		autstr = "BlueRightSafe";
+		autstr = "BlueRing";
 		con.print(0,0, "aut 1: %s", autstr);
 	}
 	else if(atn == 2) {
-		autstr = "RedLeft";
+		autstr = "RedMogo";
 		con.print(0,0, "aut 2: %s", autstr);
 	}
 	else if(atn == 3) {
-		autstr = "BlueRight";
+		autstr = "BlueMogo";
 		con.print(0,0, "aut 3: %s", autstr);
 	}
 	else if(atn == 4) {
-		autstr = "RedLeftElim";
+		autstr = "RedSigawp";
 		con.print(0,0, "aut 4: %s", autstr);
 	}
 	else if(atn == 5) {
-		autstr = "BlueRightElim";
+		autstr = "BlueSigawp";
 		con.print(0,0, "aut 5: %s", autstr);
 	}
 	else if(atn == 6) {
-		autstr = "RedRightSafe";
+		autstr = "RedRingElim";
 		con.print(0,0, "aut 6: %s", autstr);
 	}
 	else if(atn == 7) {
-		autstr = "BlueLeftSafe";
+		autstr = "BlueRingElim";
 		con.print(0,0, "aut 7: %s", autstr);
 	}
 	else if(atn == 8) {
-		autstr = "RedRight";
+		autstr = "RedMogoElim";
 		con.print(0,0, "aut 8: %s", autstr);
 	}
 	else if(atn == 9) {
-		autstr = "BlueLeft";
+		autstr = "BlueMogoElim";
 		con.print(0,0, "aut 9: %s", autstr);
 	}
 	else if(atn == 10) {
-		autstr = "RedRightElim";
+		autstr = "Safety";
 		con.print(0,0, "aut 10: %s", autstr);
 	}
 	else if(atn == 11) {
-		autstr = "BlueLeftElim";
+		autstr = "Skills";
 		con.print(0,0, "aut 11: %s", autstr);
 	}
 	else if(atn == 12) {
-		autstr = "SigAwpSafeRED";
+		autstr = "Resetter";
 		con.print(0,0, "aut 12: %s", autstr);
-	}
-	else if(atn == 13) {
-		autstr = "SigAwpSafeBLUE";
-		con.print(0,0, "aut 13: %s", autstr);
-	}else if(atn == 14) {
-		autstr = "Skills";
-		con.print(0,0, "aut 20: %s", autstr);
-	}
-	else if(atn == 15) {
-		autstr = "Safety";
-		con.print(0,0, "aut 21: %s", autstr);
-	}
-	else if(atn == 16) {
-		autstr = "Safety";
-		con.print(0,0, "aut 21: %s", autstr);
 		atn = 0;
 	}
 
@@ -201,14 +186,12 @@ void opcontrol() {
 	bool arcToggle = true;
 	bool tankToggle = false;
 	bool PistonsForMogo = false;
-	int lift_macroDA = 0;
 	int lift_macro = 0;
 	color = 2;
 	bool lift_toggle = false;
-	bool lift_toggleDA = false;
 	bool doinker = false;
 	bool doinkertwo = false;
-	// bool intakepiston = true;
+	bool intakepiston = true;
 	bool NEWR1 = false;
 	bool NEWR2 = false;
 	double lift_angle = 0;
@@ -217,7 +200,7 @@ void opcontrol() {
 	string red;
 	string blue;
 	int color_selec = 1;
-	//Eyesight.set_led_pwm(100);
+	
 while (true){
 	   
 
@@ -225,10 +208,10 @@ while (true){
 
 
 
-	if (con.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
-		arcToggle = !arcToggle;
-		tankToggle = !tankToggle;
-	}
+	// if (con.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
+	// 	arcToggle = !arcToggle;
+	// 	tankToggle = !tankToggle;
+	// }
 
 	if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_R1)){
 		NEWR1 = true;
@@ -334,25 +317,21 @@ DoinkerTwo.set_value(doinkertwo);
 
 
 
-if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)){
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
 	driveStraightSlow(-280, 40);
-	// automacro = 1;
-	// stall = true;
-	// driveStraight2(20000);
 }
 
 if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
-	LIFTS.move(127);
+	LIFT.move(127);
 	lift_angle = LIFT.get_position();
 	lift_toggle = false;
 } else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
-	LIFTS.move(-127);
+	LIFT.move(-127);
 	lift_angle = LIFT.get_position();
 	lift_toggle = false;
 } else {
 	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
-	LIFTS.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
-	LIFTS.set_brake_modes(E_MOTOR_BRAKE_HOLD);
+	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
 } 
 
 
@@ -367,9 +346,8 @@ if (rotoangle > 33000){
 
 }}
 
-
-if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)) {
-	lift_macro = 6;
+if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
+	lift_macro = 3;
 	lift_toggle = true;
 rotoangle = roto.get_angle();
 if (rotoangle > 33000){
@@ -377,17 +355,7 @@ if (rotoangle > 33000){
 
 }}
 
-if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_LEFT)) {
-	if (lift_macro < 3){
-		lift_macro = 3;
-	} else {
-	lift_macro = (lift_macro < 5) ? lift_macro + 1 : 3;
-}
-	lift_toggle = true;
-rotoangle = roto.get_angle();
-if (rotoangle > 33000){
-	rotoangle = rotoangle - 36000;
-}}
+
 
 
 
@@ -397,26 +365,21 @@ if (rotoangle > 33000){
 
 if (lift_toggle){
 	if (lift_macro == 0) {
+		//zero position
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(36000, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(-calcPIDlift(36000, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 1) {
+		//first prime
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(32800, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(-calcPIDlift(32800, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 2){
+		//second prime
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(30000, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(-calcPIDlift(30000, roto.get_angle(), 0, 0, 1));
     } else if (lift_macro == 3){
+		//descore
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(17000, roto.get_angle(), 0, 0, 1)); 
-	} else if (lift_macro == 4){
-        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(20400, roto.get_angle(), 0, 0, 1)); 
-	}  else if (lift_macro == 5){
-        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFTS.move(-calcPIDlift(35450, roto.get_angle(), 0, 0, 1)); 
-	} else if (lift_macro == 6){
-        setConstants(TOP_KP, TOP_KI, TOP_KD);
- 		LIFTS.move(-calcPIDlift(29800, roto.get_angle(), 0, 0, 1)); 
+ 		LIFT.move(-calcPIDlift(17000, roto.get_angle(), 0, 0, 1)); 
 	} else  {
 		lift_macro = 0;
 	} 

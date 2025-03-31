@@ -13,19 +13,18 @@ extern pros::Motor RB;
 extern pros::Motor Intake;
 // extern pros::Motor Hooks;
 extern pros::Motor LIFT;
-extern pros::Motor LIFTTWO;
+extern pros::MotorGroup Scoring;
 extern pros::ADIDigitalOut Mogo;
 // extern pros::ADIDigitalOut DaSorter;
 extern pros::ADIDigitalOut Doinker;
 extern pros::ADIDigitalOut DoinkerTwo;
-extern pros::ADIDigitalOut D1Discriminator;
-// extern pros::ADIDigitalOut Intakepiston;
+extern pros::ADIDigitalOut Intakepiston;
 // extern pros::ADIDigitalOut Flipout;
 extern pros::Controller con; 
 extern pros::Imu imu;
 extern pros::Optical Opticala;
 extern pros::ADIDigitalIn selec;
 extern pros::Rotation roto;
-extern pros::MotorGroup LIFTS;
+
 
 #endif

@@ -68,43 +68,46 @@ int timel;
 
 
 
-bool InitColor = false;
-bool InitCorrect = false;
-int ColorCount;
-bool Backwards = false;
-bool sortOn = false;
-int colorCount = 0;
-void ColorSort(){
-    Opticala.set_led_pwm(100);
-    if (color == 0){ //blue
-        if(Opticala.get_hue()<250 && Opticala.get_hue()>180){
-            sortOn = true;
-        }
+// bool InitColor = false;
+// bool InitCorrect = false;
+// int ColorCount;
+// bool Backwards = false;
+// bool sortOn = false;
+// int colorCount = 0;
+// void ColorSort(){
+//     Opticala.set_led_pwm(100);
+//     if (color == 0){ //blue
+//         if(Opticala.get_hue()<250 && Opticala.get_hue()>180){
+//             sortOn = true;
+//         }
 
 
-        if(sortOn && colorCount<250){
-            D1Discriminator.set_value(true);
-            colorCount+=10;
-        } else {
-            sortOn = false;
-            colorCount = 0;
-            D1Discriminator.set_value(false);
-        }
+//         if(sortOn && colorCount<250){
+//             D1Discriminator.set_value(true);
+//             colorCount+=10;
+//         } else {
+//             sortOn = false;
+//             colorCount = 0;
+//             D1Discriminator.set_value(false);
+//         }
 
-    }  else if (color == 1){ //red
-        if(Opticala.get_hue()<30 || Opticala.get_hue()>335){
-            sortOn = true;
-        }
-        if(sortOn && colorCount<250){
-            D1Discriminator.set_value(true);
-            colorCount+=10;
-        } else {
-            sortOn = false;
-            colorCount = 0;
-            D1Discriminator.set_value(false);
-        }
-    }
-}
+//     }  else if (color == 1){ //red
+//         if(Opticala.get_hue()<30 || Opticala.get_hue()>335){
+//             sortOn = true;
+//         }
+//         if(sortOn && colorCount<250){
+//             D1Discriminator.set_value(true);
+//             colorCount+=10;
+//         } else {
+//             sortOn = false;
+//             colorCount = 0;
+//             D1Discriminator.set_value(false);
+//         }
+//     }
+// }
+
+
+
 
 // void ColorSort(){
 //     Opticala.set_led_pwm(100);
