@@ -292,9 +292,9 @@ while (true){
 
 
 	if (con.get_digital(E_CONTROLLER_DIGITAL_R1)){
-	Intake.move(127);
-	} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
 	Intake.move(-127);
+	} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+	Intake.move(127);
 	} else {
 	Intake.move(0);
 	}
