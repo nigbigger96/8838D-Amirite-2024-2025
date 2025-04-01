@@ -250,8 +250,8 @@ void chasMove(int voltageLF, int voltageLM, int voltageLB, int voltageRF, int vo
 }
 
 double calcPID(double target, double input, int integralKI, int maxIntegral){
-    liftauton();
-    ColorSort();
+    // liftauton();
+    // ColorSort();
     stallProtection();
     int integral;
     prevError = error;
@@ -280,7 +280,7 @@ double calcPID(double target, double input, int integralKI, int maxIntegral){
 
 double calcPID2(double target2, double input2, int integralKI2, int maxIntegral2){
 
-    ColorSort();
+    // ColorSort();
     int integral2;
     prevError2 = error2;
     error2 = target2 - input2;

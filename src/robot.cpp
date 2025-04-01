@@ -11,11 +11,11 @@ using namespace pros;
 #define RM_PORT 5
 #define RB_PORT 6  
 #define HOOKS_PORT 7 
-#define INTAKE_PORT 8 
-#define LIFT_PORT 9 
-#define IMU_PORT 10 
-#define OPTICAL_PORT 11
-#define ROTO_PORT 12
+#define INTAKE_PORT 21
+#define LIFT_PORT 10 
+#define IMU_PORT 13
+#define OPTICAL_PORT 12
+#define ROTO_PORT 11
 
 
 
@@ -27,11 +27,11 @@ pros::Motor LB (LB_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor RF (RF_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor RM (RM_PORT, pros::E_MOTOR_GEARSET_06,true);
 pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06,true);
-pros::Motor Hooks(INTAKE_PORT, pros::E_MOTOR_GEARSET_06);
-pros::Motor Intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_18);
+pros::Motor Hooks(INTAKE_PORT, pros::E_MOTOR_GEARSET_06,false);
+pros::Motor Intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_18,true);
 pros::Optical Opticala (OPTICAL_PORT);
 pros::Motor LIFT(LIFT_PORT, pros::E_MOTOR_GEARSET_18, true);
-pros::MotorGroup Scoring({Motor(7), Motor(8)});
+pros::MotorGroup Scoring({Motor(7), Motor(21)});
 pros::ADIDigitalOut Mogo ('A', false);
 // pros::ADIDigitalOut DaSorter ('B', false);
 pros::ADIDigitalOut Doinker ('B', false);

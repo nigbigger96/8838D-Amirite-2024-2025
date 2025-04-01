@@ -239,8 +239,8 @@ while (true){
   int RX = con.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
   int power = con.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
   int turn = int(pow(RX, 5)/ pow(127, 4));
-  int left = power + turn;
-  int right = power - turn;
+  int left = power - turn;
+  int right = power + turn;
 
  LF.move(left);
  LM.move(left);
@@ -265,7 +265,7 @@ while (true){
 		atn++;
 	}
 ////////////////////////////////////////////////change values
-//da
+
 
 // if (con.get_digital(E_CONTROLLER_DIGITAL_X)) { 
 // //	driveTurn2(175);
@@ -292,11 +292,11 @@ while (true){
 
 
 	if (con.get_digital(E_CONTROLLER_DIGITAL_R1)){
-	Intake.move(-127);
+	Scoring.move(-127);
 	} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
-	Intake.move(127);
+	Scoring.move(127);
 	} else {
-	Intake.move(0);
+	Scoring.move(0);
 	}
 
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
@@ -356,30 +356,23 @@ if (rotoangle > 33000){
 }}
 
 
-
-
-
-
-
-
-
 if (lift_toggle){
 	if (lift_macro == 0) {
 		//zero position
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(-calcPIDlift(36000, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(calcPIDlift(35500, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 1) {
 		//first prime
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(-calcPIDlift(32800, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(calcPIDlift(32200, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 2){
 		//second prime
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(-calcPIDlift(30000, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(calcPIDlift(30800, roto.get_angle(), 0, 0, 1));
     } else if (lift_macro == 3){
 		//descore
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(-calcPIDlift(17000, roto.get_angle(), 0, 0, 1)); 
+ 		LIFT.move(calcPIDlift(17000, roto.get_angle(), 0, 0, 1)); 
 	} else  {
 		lift_macro = 0;
 	} 
