@@ -72,6 +72,7 @@ void opcontrol(void);
 #endif
 extern int atn;
 extern int selecs;
+extern int automacro;
 
 #ifdef __cplusplus
 /**

@@ -9,7 +9,6 @@
 
 extern float error;
 extern int time2;
-extern int automacro;
 extern int color;
 extern bool stall;
 
@@ -33,12 +32,12 @@ extern void driveStraightSlow(int target, int speed);
 extern void driveClampS(int target, int clampDistanceFromTarget, int speed);
 extern void driveArcLS(double theta, double radius, int timeout, int speed);
 extern void driveArcRS(double theta, double radius, int timeout, int speed);
-extern void driveArcL(double theta, double radius, int timeout);
-extern void driveArcR(double theta, double radius, int timeout);
-extern void driveArcLF(double theta, double radius, int timeout);
+extern void driveArcL(double theta, double radius, int timeout, int speed = 100);
+extern void driveArcR(double theta, double radius, int timeout, int speed = 100);
+extern void driveArcLF(double theta, double radius, int timeout, int speed = 100);
 extern void driveArcLFS(double theta, double radius, int timeout, int speed);
 extern void driveArcRFS(double theta, double radius, int timeout, int speed);
-extern void driveArcRF(double theta, double radius, int timeout);
+extern void driveArcRF(double theta, double radius, int timeout, int speed = 100);
 //extern void ColorSort(int color);
 extern void wallResetB(int resetTime);
 extern void wallResetF(int resetTime);
@@ -89,6 +88,11 @@ extern double totalError;
 #define TOP_KP 0.1
 #define TOP_KI 0
 #define TOP_KD 1
+
+
+#define BRAKE_KP 0.1
+#define BRAKE_KI 0
+#define BRAKE_KD 0
 
 
 

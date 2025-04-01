@@ -62,6 +62,7 @@ void disabled() {
  */
 int atn = 0;
 int pressed = 0;
+int automacro = 0;
 string autstr;
 
 
@@ -330,7 +331,7 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 	lift_angle = LIFT.get_position();
 	lift_toggle = false;
 } else {
-	setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+	setConstants(BRAKE_KP, BRAKE_KI, BRAKE_KD);
 	LIFT.move(calcPID(lift_angle, LIFT.get_position(), 0, 0));
 } 
 

@@ -9,6 +9,13 @@
 
 // void autonomous() {
 
+/////////new stuff :)
+// for(int i = 0; i < 5000; i++) {
+//   automacro = 1;
+//   liftauton();
+//   delay(1);
+// } 
+
     
 // if(atn == 0){    
 //    // Red Ring
