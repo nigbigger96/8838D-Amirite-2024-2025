@@ -369,7 +369,7 @@ if (lift_toggle){
 		//second prime
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFT.move(calcPIDlift(30800, roto.get_angle(), 0, 0, 1));
-    } else if (lift_macro == 3){
+    } else if (lift_macro == 3){ 
 		//descore
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFT.move(calcPIDlift(17000, roto.get_angle(), 0, 0, 1)); 
