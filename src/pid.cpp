@@ -72,6 +72,7 @@ double hookPos = 0;
 double prevHook = 0;
 bool stalled = false;
 int stallTime = 0;
+
 void ColorSort() {
     if (color == 1) {
         if((Opticala.get_hue()<240 && Opticala.get_hue()>180) && Opticala.get_proximity()>100) {
@@ -255,45 +256,42 @@ void ColorSort() {
 //     }
 // }
 
-int stallCount = 0;
-bool stalled = false;
-int HooksPosition = 0;
-int prevHooksPosition = 0;
-int stallTime = 0;
+//int stallCount = 0;
+// bool stalled = false;
+// int HooksPosition = 0;
+// int prevHooksPosition = 0;
+// int stallTime = 0;
 
-void stallProtection() {
+// void stallProtection() {
    
-    if (stall) {
-        prevHooksPosition = HooksPosition;
-        HooksPosition = Intake.get_position(); 
-        if (HooksPosition == prevHooksPosition) {
-            stallCount += 10;
-        } else {
-            stallCount = 0;
-        } 
+//     if (stall) {
+//         prevHooksPosition = HooksPosition;
+//         HooksPosition = Intake.get_position(); 
+//         if (HooksPosition == prevHooksPosition) {
+//             stallCount += 10;
+//         } else {
+//             stallCount = 0;
+//         } 
 
-        if (stallCount > 130) {
-            stalled = true;
-        }
+//         if (stallCount > 130) {
+//             stalled = true;
+//         }
         
-        if (stalled){
-            stallTime += 10;
-            Intake.move(-80);
-            if (stallTime >= 200) {
-                stalled = false;
-                stallTime = 0;
-            }
-        } else {
-            Intake.move(127);
-            stallTime = 0;
+//         if (stalled){
+//             stallTime += 10;
+//             Intake.move(-80);
+//             if (stallTime >= 200) {
+//                 stalled = false;
+//                 stallTime = 0;
+//             }
+//         } else {
+//             Intake.move(127);
+//             stallTime = 0;
 
-        }
+//         }      
 
-        
-
-          
-    }
-}
+//     }
+// }
 
 void liftauton(){
     if (automacro == 0) {
@@ -348,7 +346,7 @@ void chasMove(int voltageLF, int voltageLM, int voltageLB, int voltageRF, int vo
 double calcPID(double target, double input, int integralKI, int maxIntegral){
     // liftauton();
     // ColorSort();
-    stallProtection();
+   // stallProtection();
     int integral;
     prevError = error;
     error = target - input;
@@ -498,7 +496,7 @@ void driveStraight(int target){ //int macro = 4)
 
     double x = 0;
     x = double(abs(target));
-    timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232;
+   // timeout = (0.000000000000222338 * pow(x,5)) +  (-0.00000000156125 * pow(x,4)) + (0.0000040982 * pow(x,3)) + (-0.00494966 * pow(x,2)) + (3.01987 * x) + 360.01232; ///variable timeout
 
     imu.tare();
 
@@ -771,14 +769,14 @@ void driveStraight2(int target) {
 
     while (true){
         encoderAVG = (LF.get_position() + RF.get_position()) / 2;
-
+/*
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
         if(abs(target - encoderAVG) < 22.5) {
-            setConstants(2.25, 0, 0); //2.25
+            setConstants(2.25, 0, 0); //2.25 ///Only KP 
         } else {
             setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         }
-
+*/
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 if(init_heading > 180) {

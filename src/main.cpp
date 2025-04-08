@@ -240,8 +240,8 @@ while (true){
   int RX = con.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
   int power = con.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
   int turn = int(pow(RX, 5)/ pow(127, 4));
-  int left = power - turn;
-  int right = power + turn;
+  int left = power + turn;
+  int right = power - turn;
 
  LF.move(left);
  LM.move(left);
@@ -320,6 +320,7 @@ DoinkerTwo.set_value(doinkertwo);
 
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
 	driveStraightSlow(-280, 40);
+	
 }
 
 if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){

@@ -4,12 +4,12 @@
 #include "pros/motors.h"
 using namespace pros;
 
-#define LF_PORT 1
-#define LM_PORT 2   
-#define LB_PORT 3
-#define RF_PORT 4  
-#define RM_PORT 5
-#define RB_PORT 6  
+#define LF_PORT 4
+#define LM_PORT 5   
+#define LB_PORT 6
+#define RF_PORT 1
+#define RM_PORT 2
+#define RB_PORT 3
 #define HOOKS_PORT 7 
 #define INTAKE_PORT 21
 #define LIFT_PORT 10 
@@ -21,12 +21,12 @@ using namespace pros;
 
 //#define
 pros::Imu imu (IMU_PORT);
-pros::Motor LF (LF_PORT, pros::E_MOTOR_GEARSET_06,true);
-pros::Motor LM (LM_PORT, pros::E_MOTOR_GEARSET_06,false);
-pros::Motor LB (LB_PORT, pros::E_MOTOR_GEARSET_06,false);
-pros::Motor RF (RF_PORT, pros::E_MOTOR_GEARSET_06,false);
-pros::Motor RM (RM_PORT, pros::E_MOTOR_GEARSET_06,true);
-pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06,true);
+pros::Motor LF (LF_PORT, pros::E_MOTOR_GEARSET_06,false);
+pros::Motor LM (LM_PORT, pros::E_MOTOR_GEARSET_06,true);
+pros::Motor LB (LB_PORT, pros::E_MOTOR_GEARSET_06,true);
+pros::Motor RF (RF_PORT, pros::E_MOTOR_GEARSET_06,true);
+pros::Motor RM (RM_PORT, pros::E_MOTOR_GEARSET_06,false);
+pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor Hooks(INTAKE_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor Intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_18,true);
 pros::Optical Opticala (OPTICAL_PORT);
