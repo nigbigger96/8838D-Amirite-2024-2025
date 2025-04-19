@@ -13,8 +13,9 @@ using namespace pros;
 #define HOOKS_PORT 7 
 #define INTAKE_PORT 21
 #define LIFT_PORT 10 
-#define IMU_PORT 13
-#define OPTICAL_PORT 12
+
+#define IMU_PORT 12
+#define OPTICAL_PORT 13
 #define ROTO_PORT 11
 
 
@@ -27,7 +28,7 @@ pros::Motor LB (LB_PORT, pros::E_MOTOR_GEARSET_06,true);
 pros::Motor RF (RF_PORT, pros::E_MOTOR_GEARSET_06,true);
 pros::Motor RM (RM_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06,false);
-pros::Motor Hooks(INTAKE_PORT, pros::E_MOTOR_GEARSET_06,false);
+pros::Motor Hooks(HOOKS_PORT, pros::E_MOTOR_GEARSET_06,false);
 pros::Motor Intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_18,true);
 pros::Optical Opticala (OPTICAL_PORT);
 pros::Motor LIFT(LIFT_PORT, pros::E_MOTOR_GEARSET_18, true);
@@ -35,9 +36,9 @@ pros::MotorGroup Scoring({Motor(7), Motor(21)});
 pros::ADIDigitalOut Mogo ('A', false);
 // pros::ADIDigitalOut DaSorter ('B', false);
 pros::ADIDigitalOut Doinker ('B', false);
-pros::ADIDigitalOut DoinkerTwo ('C', false);
-pros::ADIDigitalIn selec ('D');
-pros::ADIDigitalOut Intakepiston ('E');
+pros::ADIDigitalOut DoinkerTwo ('E', false);
+pros::ADIDigitalIn selec ('F');
+pros::ADIDigitalOut Intakepiston ('D');
 pros::Controller con (pros::E_CONTROLLER_MASTER);
 pros::Rotation roto(ROTO_PORT);
 

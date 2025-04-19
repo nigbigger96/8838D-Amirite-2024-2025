@@ -1,207 +1,311 @@
-// #include "api.h"
-// #include "auton.h"
-// #include "main.h"
-// #include "robot.h"
-// #include "pid.h"
-// using namespace std;
-// using namespace pros;
+#include "api.h"
+#include "auton.h"
+#include "main.h"
+#include "robot.h"
+#include "pid.h"
+#include <iostream>
+using namespace std;
+using namespace pros;
 
 
-// void autonomous() {
+void autonomous() {
 
-/////////new stuff :)
-// for(int i = 0; i < 5000; i++) {
-//   automacro = 1;
-//   liftauton();
-//   delay(1);
-// } 
+///////new stuff :)
 
     
-// if(atn == 0){    
-//    // Red Ring
-//    color = 0;
-//    for(int i = 0; i < 15000; i+=10){
-//     ColorSort();
-//     stall = true;
-//     stallProtection();
-//     // automacro = 1;
-//     delay(10);
+if(atn == 0){  
+
+   // Red Ring
+   color = 1;
+   for(int i = 0; i < 5000; i++) {
+liftauton();
+
+
+    // Doinker.set_value(true);
+    // driveStraightC(1000);
+    // Intake.move(-127);
+    // driveStraightSlow(700, 45);
+    // delay(25);
+    // driveTurn2(-27.5);
+    // driveClampS(-975, 50, 57.5);
+    // Doinker.set_value(false);
+    // Scoring.move(-127);
+    // driveTurn2(-60);
+    // driveStraightSC(865, 50);
+    // driveTurn2(-160);
+    // delay(200);
+    // driveStraightSC(775, 80);
+    // driveTurn2(-103.5);
+    // Scoring.move(0);
+    // driveStraightSlow(1000, 75);
+    // Intake.move(-127);
+    // delay(475);
+    // driveStraightSC(-475, 45);
+    // driveTurn2(-248.5);
+    // Scoring.move(-127);
+    // driveStraightSC(675, 60);
+    // driveStraightSlow(375, 30);
+    // delay(500);
+    // Scoring.move(0);
+    LIFT.move(-127);
+    delay(300);
+    
+//    Intakepiston.set_value(true);
+//     Intake.move(-127);
+//     delay(300);
+//     driveStraightSlow(750, 25);
+//     delay(250);
+//     Intakepiston.set_value(false);
+//     driveStraightSC(-125, 55);
+//     delay(200);
+//     Scoring.move(-127);
+    // DoinkerTwo.set_value(true);
+    // driveStraightSC(250, 60);
+    // driveTurn2(-160);
+
+
+    
+ 
+
+    
+  break;
+  
+  }
  
    
-//     break;
-//    }
-//     }
+    
+   }
+    
   
 
-// if(atn == 1){    
-//     // Blue Ring 
-//     color = 0;
-//     for(int i = 0; i < 15000; i+=10){
-//      ColorSort();
-//      stall = true;
-//      stallProtection();
-//      // automacro = 1;
-//      delay(10);
+if(atn == 1){    
+    // Blue Ring 
+    color = 0;
+    for(int i = 0; i < 15000; i+=10){
+     ColorSort();
+     
+     // automacro = 1;
+     delay(10);
   
     
-//     break;
-//     }
-//      }
+    break;
+    }
+     }
 
-// if(atn == 2){    
-//     // Red Mogo 
-//     color = 0;
-//     for(int i = 0; i < 15000; i+=10){
-//      ColorSort();
-//      stall = true;
-//      stallProtection();
-//      // automacro = 1;
-//      delay(10);
+if(atn == 2){    
+    // Red Mogo 
+    color = 0;
+    for(int i = 0; i < 15000; i+=10){
+     ColorSort();
+
+     automacro = 1;
+    delay(10);
+
+     LIFT.move(-127);
+     delay(450);
+     LIFT.move(0);
+     delay(250);
+     driveStraightSlow(-375, 50);
+     LIFT.move(127);
+     driveTurn2(60);
+     Intakepiston.set_value(true);
+     Intake.move(-127);
+     driveStraightSlow(750, 35);
+     delay(200);
+     Intakepiston.set_value(false);
+     delay(100);
+     driveTurn2(-12.5);
+    driveStraightSC(-780, 50);
+    driveClampS(-500, 50, 42.5);
+    driveTurn2(76.75);
+    Intake.move(0);
+    DoinkerTwo.set_value(true);
+    driveStraightSlow(645, 45);
+    delay(200);
+    driveStraightSC(-300,65);
+    Scoring.move(-127);
+    DoinkerTwo.set_value(false);
+    delay(250);
+    driveTurn2(80);
+    Scoring.move(0);
+    driveStraightSC(350, 40);
+    Intake.move(-127);
+    driveStraightSC(-200, 60);
+    driveTurn2(-145);
+    driveStraightC(650);
+    driveTurn2(-15);
+    
+
   
     
-//     break;
-//     }
-//      }
+    break;
+    }
+     }
     
    
-// if(atn == 3){    
-//     // Blue Mogo
-//     color = 0;
-//     for(int i = 0; i < 15000; i+=10){
-//     ColorSort();
-//     stall = true;
-//     stallProtection();
-//     // automacro = 1;
-//     delay(10);
+if(atn == 3){    
+    // Blue Mogo
+    color = 0;
+    for(int i = 0; i < 15000; i+=10){
+    ColorSort();
+  
+    // automacro = 1;
+    delay(10);
     
       
-//     break;
-//     }
-//       }
+    break;
+    }
+      }
 
-// if(atn == 4){    
-//     // Red Sigawp
-//     color = 0;
-//     for(int i = 0; i < 15000; i+=10){
-//     ColorSort();
-//     stall = true;
-//     stallProtection();
-//     // automacro = 1;
-//     delay(10);
+if(atn == 4){    
+    // Red Sigawp
+    color = 0;
+    for(int i = 0; i < 15000; i+=10){
+    ColorSort();
+
+    // automacro = 1;
+    delay(10);
+
+    LIFT.move(-127);
+    delay(450);
+    LIFT.move(0);
+    delay(250);
+    driveStraightSlow(-150, 50);
+    LIFT.move(127);
+    driveTurn2(43.5);
+    driveClampS(-1550, 50, 50);
+    driveTurn2(145);
+    LIFT.move(0);
+    Scoring.move(-127);
+    driveStraightSlow(745, 65);
+    delay(200);
+    driveTurn2(-9);
+    delay(50);
+    driveStraightSC(600, 55);
+    Mogo.set_value(false);
+    delay(100);
+    driveStraightSC(1000 , 40);
+    driveStraightSlow(1950, 25);
+    delay(550);
+    Scoring.move(0);
+    Intake.move(-127);
+    driveTurn2(84);
+    driveClampS(-1400, 50, 60);
+    Scoring.move(-127);
+    delay(100);
+    driveTurn2(-32.5);
+    driveStraightSlow(700, 50);
+    delay(350);
+    driveStraightSC(-500, 75);
+    driveTurn2(145);
+    driveStraightSlow(700, 40);
+    driveStraightSlow(100, 10);
+
+    break;
+    }
+     }
+
+   if(atn == 5){    
+      // Blue Sigawp
+      color = 0;
+      for(int i = 0; i < 15000; i+=10){
+      ColorSort();
+    
+      // automacro = 1;
+      delay(10);
+        
+          
+      break;
+      }
+       }
+
+    if(atn == 6){    
+      // Red Ring Elim
+      color = 0;
+      for(int i = 0; i < 15000; i+=10){
+      ColorSort();
       
-        
-//     break;
-//     }
-//      }
-
-//    if(atn == 5){    
-//       // Blue Sigawp
-//       color = 0;
-//       for(int i = 0; i < 15000; i+=10){
-//       ColorSort();
-//       stall = true;
-//       stallProtection();
-//       // automacro = 1;
-//       delay(10);
-        
-          
-//       break;
-//       }
-//        }
-
-//     if(atn == 6){    
-//       // Red Ring Elim
-//       color = 0;
-//       for(int i = 0; i < 15000; i+=10){
-//       ColorSort();
-//       stall = true;
-//       stallProtection();
-//       // automacro = 1;
-//       delay(10);
+      // automacro = 1;
+      delay(10);
           
             
-//       break;
-//       }
-//        }
+      break;
+      }
+       }
 
 
-//     if(atn == 7){    
-//       // Blue Ring Elim
-//       color = 0;
-//       for(int i = 0; i < 15000; i+=10){
-//       ColorSort();
-//       stall = true;
-//       stallProtection();
-//       // automacro = 1;
-//       delay(10);
+    if(atn == 7){    
+      // Blue Ring Elim
+      color = 0;
+      for(int i = 0; i < 15000; i+=10){
+      ColorSort();
+     
+      // automacro = 1;
+      delay(10);
             
               
-//       break;
-//       }
-//        }
+      break;
+      }
+       }
 
-//     if(atn == 8){    
-//       // Red Mogo Elim
-//       color = 0;
-//       for(int i = 0; i < 15000; i+=10){
-//       ColorSort();
-//       stall = true;
-//       stallProtection();
-//       // automacro = 1;
-//       delay(10);
+    if(atn == 8){    
+      // Red Mogo Elim
+      color = 0;
+      for(int i = 0; i < 15000; i+=10){
+      ColorSort();
+    
+      // automacro = 1;
+      delay(10);
             
               
-//       break;
-//       }
-//        }
+      break;
+      }
+       }
   
   
-//     if(atn == 9){    
-//       // Blue Mogo Elim
-//       color = 0;
-//       for(int i = 0; i < 15000; i+=10){
-//       ColorSort();
-//       stall = true;
-//       stallProtection();
-//       // automacro = 1;
-//       delay(10);
+    if(atn == 9){    
+      // Blue Mogo Elim
+      color = 0;
+      for(int i = 0; i < 15000; i+=10){
+      ColorSort();
+      
+      // automacro = 1;
+      delay(10);
               
                 
-//       break;
-//       }
-//        }
+      break;
+      }
+       }
 
-//     if(atn == 10){    
-//       // Safety
-//       color = 0;
-//       for(int i = 0; i < 15000; i+=10){
-//       ColorSort();
-//       stall = true;
-//       stallProtection();
-//       // automacro = 1;
-//       delay(10);
+    if(atn == 10){    
+      // Safety
+      color = 0;
+      for(int i = 0; i < 15000; i+=10){
+      ColorSort();
+     
+      // automacro = 1;
+      delay(10);
               
                 
-//       break;
-//       }
-//        }
+      break;
+      }
+       }
     
     
-//     if(atn == 11){    
-//       // Skills
-//       color = 0;
-//       for(int i = 0; i < 15000; i+=10){
-//       ColorSort();
-//       stall = true;
-//       stallProtection();
-//       // automacro = 1;
-//       delay(10);
+    if(atn == 11){    
+      // Skills
+      color = 0;
+      for(int i = 0; i < 15000; i+=10){
+      ColorSort();
+   
+      // automacro = 1;
+      delay(10);
                 
                   
-//       break;
-//       }
-//        }
+      break;
+      }
+       }
 
 
            
-//       }
+      }

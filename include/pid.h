@@ -11,6 +11,7 @@ extern float error;
 extern int time2;
 extern int color;
 extern bool stall;
+extern void braketypeshi();
 
 extern void liftauton();
 extern void ColorSort(); //i added
@@ -41,7 +42,6 @@ extern void driveArcRF(double theta, double radius, int timeout, int speed = 100
 //extern void ColorSort(int color);
 extern void wallResetB(int resetTime);
 extern void wallResetF(int resetTime);
-extern void moveLift(int targetHeight);
 extern void driveDoink(int target, int doinkDistance);
 extern void driveDoinkC(int target, int doinkDistance);
 extern void driveDoink2(int target, int doinkDistance);
@@ -51,16 +51,16 @@ extern void driveDoinkC2(int target, int doinkDistance);
 extern double totalError;
 
 // straight stuff
-#define STRAIGHT_KP 1// 2.2 //14 //3 
+#define STRAIGHT_KP 0.485 // 2.2 //14 //3 
 #define STRAIGHT_KI 0 ///0.04
-#define STRAIGHT_KD 0 //22.5 //90
+#define STRAIGHT_KD 4.15 //22.5 //90
 #define STRAIGHT_INTEGRAL_KI 40
 #define STRAIGHT_MAX_INTEGRAL 14.5
 
 // turn stuff
-#define TURN_KP 1
+#define TURN_KP 5.15
 #define TURN_KI 0
-#define TURN_KD 1
+#define TURN_KD 64.85
 #define TURN_INTEGRAL_KI 30
 #define TURN_MAX_INTEGRAL 25
 
@@ -73,16 +73,16 @@ extern double totalError;
 #define HEADING_MAX_INTEGRAL 0
 #define HEADING_INTEGRAL_KI 0
 
-#define ARC_HEADING_KP 2
+#define ARC_HEADING_KP 17.5
 #define ARC_HEADING_KI 0
-#define ARC_HEADING_KD 1
+#define ARC_HEADING_KD 12.5
 #define ARC_HEADING_MAX_INTEGRAL 0
 #define ARC_HEADING_INTEGRAL_KI 0
 
 #define LIFT_KP 0.04
 #define LIFT_KI 0
 #define LIFT_KD 16.5
-#define LIFT_KD2 0.5
+#define LIFT_KD2 16.5
 
 
 #define TOP_KP 0.1
