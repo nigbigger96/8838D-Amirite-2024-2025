@@ -21,44 +21,41 @@ if(atn == 0){
 liftauton();
 
 
-    // Doinker.set_value(true);
-    // driveStraightC(1000);
-    // Intake.move(-127);
-    // driveStraightSlow(700, 45);
-    // delay(25);
-    // driveTurn2(-27.5);
-    // driveClampS(-975, 50, 57.5);
-    // Doinker.set_value(false);
-    // Scoring.move(-127);
-    // driveTurn2(-60);
-    // driveStraightSC(865, 50);
-    // driveTurn2(-160);
-    // delay(200);
-    // driveStraightSC(775, 80);
-    // driveTurn2(-103.5);
-    // Scoring.move(0);
-    // driveStraightSlow(1000, 75);
-    // Intake.move(-127);
-    // delay(475);
-    // driveStraightSC(-475, 45);
-    // driveTurn2(-248.5);
-    // Scoring.move(-127);
-    // driveStraightSC(675, 60);
-    // driveStraightSlow(375, 30);
-    // delay(500);
-    // Scoring.move(0);
-    LIFT.move(-127);
+    Doinker.set_value(true);
+    driveStraightC(1000);
+    Intake.move(-127);
+    driveStraightSlow(700, 45);
+    delay(25);
+    driveTurn2(-27.5);
+    driveClampS(-975, 50, 57.5);
+    Doinker.set_value(false);
+    Scoring.move(-127);
+    driveTurn2(-60);
+    driveStraightSC(865, 50);
+    driveTurn2(-160);
+    delay(200);
+    driveStraightSC(775, 80);
+    driveTurn2(-103.5);
+    Scoring.move(0);
+    driveStraightSlow(1000, 75);
+    Intake.move(-127);
+    delay(475);
+    driveStraightSC(-475, 45);
+    driveTurn2(-248.5);
+    Scoring.move(-127);
+    driveStraightSC(675, 60);
+    driveStraightSlow(375, 30);
+    delay(500);
+    Scoring.move(0);
+   Intakepiston.set_value(true); 
+    Intake.move(-127);
     delay(300);
-    
-//    Intakepiston.set_value(true);
-//     Intake.move(-127);
-//     delay(300);
-//     driveStraightSlow(750, 25);
-//     delay(250);
-//     Intakepiston.set_value(false);
-//     driveStraightSC(-125, 55);
-//     delay(200);
-//     Scoring.move(-127);
+    driveStraightSlow(750, 25);
+    delay(250);
+    Intakepiston.set_value(false);
+   //  driveStraightSC(-125, 55);
+   //  delay(200);
+   //  Scoring.move(-127);
     // DoinkerTwo.set_value(true);
     // driveStraightSC(250, 60);
     // driveTurn2(-160);
@@ -151,6 +148,41 @@ if(atn == 3){
   
     // automacro = 1;
     delay(10);
+
+    LIFT.move(-127);
+     delay(450);
+     LIFT.move(0);
+     delay(250);
+     driveStraightSlow(-375, 50);
+     LIFT.move(127);
+     driveTurn2(-60);
+     Intakepiston.set_value(true);
+     Intake.move(-127);
+     driveStraightSlow(750, 35);
+     delay(200);
+     Intakepiston.set_value(false);
+     delay(100);
+     driveTurn2(12.5);
+    driveStraightSC(-780, 50);
+    driveClampS(-500, 50, 42.5);
+    driveTurn2(-76.75);
+    Intake.move(0);
+    Doinker.set_value(true);
+    driveStraightSlow(645, 45);
+    delay(200);
+    driveStraightSC(-300,65);
+    Scoring.move(-127);
+    Doinker.set_value(false);
+    delay(250);
+    driveTurn2(-80);
+    Scoring.move(0);
+    driveStraightSC(350, 40);
+    Intake.move(-127);
+    driveStraightSC(-200, 60);
+    driveTurn2(145);
+    driveStraightC(650);
+    driveTurn2(15);
+    
     
       
     break;
@@ -227,6 +259,10 @@ if(atn == 4){
       
       // automacro = 1;
       delay(10);
+
+      driveClampS(-1500,50, 60);
+      Scoring.move(-127);
+      delay(1000);
           
             
       break;
