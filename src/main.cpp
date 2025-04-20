@@ -60,7 +60,7 @@ void disabled() {
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-int atn = 2;
+int atn = 1;
 int pressed = 0;
 int automacro = 0;
 string autstr;
@@ -212,7 +212,10 @@ while (true){
 	if (con.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
 	// 	arcToggle = !arcToggle;
 	// 	tankToggle = !tankToggle;
-      driveStraightSlow(-275, 55);
+	LIFT.move(-127);
+      driveStraightSlow(-275, 30);
+	  delay(200);
+	  lift_macro = 0;
 
 	}
 
@@ -369,15 +372,16 @@ if (lift_toggle){
 	if (lift_macro == 0) {
 		//zero position
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(35500, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(calcPIDlift(35000, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 1) {
 		//first prime
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(32200, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(calcPIDlift(32600, roto.get_angle(), 0, 0, 1));
 
 	} else if (lift_macro == 2){
 		//second prime
-        setConstants(1, 0, 16.5);
+		
+        setConstants(3, 0, 16.5);
  		LIFT.move(calcPIDlift(30800, roto.get_angle(), 0, 0, 1));
     } else if (lift_macro == 3){ 
 		//descore
