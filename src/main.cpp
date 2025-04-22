@@ -380,8 +380,8 @@ if (lift_toggle){
 
 	} else if (lift_macro == 2){
 		//second prime
-		
-        setConstants(3, 0, 16.5);
+	
+        setConstants(6, 0, 16.5);
  		LIFT.move(calcPIDlift(30800, roto.get_angle(), 0, 0, 1));
     } else if (lift_macro == 3){ 
 		//descore
