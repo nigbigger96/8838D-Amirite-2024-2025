@@ -7,6 +7,8 @@ using namespace pros;
 using namespace c;
 using namespace std;
 
+double trueTarget = 0;
+
 int Jam = 1;
 int color = 0;
 bool stall = false;
@@ -74,27 +76,28 @@ bool stalled = false;
 int stallTime = 0;
 
 void ColorSort() {
+    Opticala.set_led_pwm(100);
     if (color == 1) {
-        if((Opticala.get_hue()<240 && Opticala.get_hue()>180) && Opticala.get_proximity()>100) {
+        if((Opticala.get_hue()<260 && Opticala.get_hue()>215) && Opticala.get_proximity()>100) {
             InitColor = true;
             Hooks.tare_position();
         }
 
         if (InitColor) {
             if(Backwards == false) {
-            Hooks.move(127);
-            if(Hooks.get_position()> 500) {
+            Hooks.move(-127);
+            if(Hooks.get_position()< -10) {
                 Backwards = true;
             }     } else{
-                Hooks.move(-127);
-                if(Hooks.get_position() < 200) {
+                Hooks.move(127);
+                if(Hooks.get_position() > 0) {
                     Backwards = false;
                     InitColor = false;
                 }
 
             } 
         } else {
-            Hooks.move(127);
+            Hooks.move(-127);
             prevHook = hookPos;
             hookPos = Hooks.get_position();
             if(prevHook ==hookPos) {
@@ -105,7 +108,7 @@ void ColorSort() {
                 stalled = true;
             }
             if(stalled) {
-                Hooks.move(-127);
+                Hooks.move(127);
                 stallTime++;
                 if(stallTime > 300) {
                     hookCount = 0;
@@ -113,32 +116,32 @@ void ColorSort() {
                     stallTime = 0;
                 }
             }   else {
-                Hooks.move(127);
+                Hooks.move(-127);
             }
             
-
+        
     }
 } else if (color == 2) {
-    if((Opticala.get_hue()>330 | Opticala.get_hue()<30) && Opticala.get_proximity()>100) {
+    if((Opticala.get_hue()>330 || Opticala.get_hue()<30) && Opticala.get_proximity()>100) {
         InitColor = true;
         Hooks.tare_position();
     }
 
     if (InitColor) {
         if(Backwards == false) {
-        Hooks.move(127);
-        if(Hooks.get_position()> 500) {
+        Hooks.move(-127);
+        if(Hooks.get_position()<-10) {
             Backwards = true;
         }     } else{
-            Hooks.move(-127);
-            if(Hooks.get_position() < 200) {
+            Hooks.move(127);
+            if(Hooks.get_position() > 0) {
                 Backwards = false;
                 InitColor = false;
             }
 
         } 
     } else {
-        Hooks.move(127);
+        Hooks.move(-127);
         prevHook = hookPos;
         hookPos = Hooks.get_position();
         if(prevHook ==hookPos) {
@@ -149,7 +152,7 @@ void ColorSort() {
             stalled = true;
         }
         if(stalled) {
-            Hooks.move(-127);
+            Hooks.move(127);
             stallTime++;
             if(stallTime > 300) {
                 hookCount = 0;
@@ -157,7 +160,7 @@ void ColorSort() {
                 stallTime = 0;
             }
         }   else {
-            Hooks.move(127);
+            Hooks.move(-127);
         }
         
 
@@ -294,20 +297,25 @@ void ColorSort() {
 // }
 
 void liftauton(){
-    if (automacro == 0) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD2);
- 		LIFT.move(calcPIDlift(36000, roto.get_angle(), 0, 0, 3));
-	} else if (automacro == 1) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD2);
- 		LIFT.move(calcPIDlift(32200, roto.get_angle(), .01, 1, 3));
+    if (automacro == 1) {
+		//zero position
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(35000, roto.get_angle(), 0, 0, 1));
 	} else if (automacro == 2) {
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD2);
- 		LIFT.move(calcPIDlift(30000, roto.get_angle(), 0, 0, 3));
-    } else if (automacro == 3){
-        setConstants(LIFT_KP, LIFT_KI, LIFT_KD2);
- 		LIFT.move(calcPIDlift(17000, roto.get_angle(), 0, 0, 1));
-    } 
-    else {
+		//first prime
+		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(31750, roto.get_angle(), 0, 0, 1));
+
+	} else if (automacro == 3){
+		//second prime
+		
+        setConstants(3, 0, 16.5);
+ 		LIFT.move(calcPIDlift(30800, roto.get_angle(), 0, 0, 1));
+    } else if (automacro == 3){ 
+		//descore
+        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(17000, roto.get_angle(), 0, 0, 1)); 
+	} else {
         LIFT.move(0);
         LIFT.brake();
     }}
@@ -348,7 +356,7 @@ void chasMove(int voltageLF, int voltageLM, int voltageLB, int voltageRF, int vo
 }
 
 double calcPID(double target, double input, int integralKI, int maxIntegral){
-    // liftauton();
+     liftauton();
     // ColorSort();
    // stallProtection();
     int integral;
@@ -647,7 +655,7 @@ void driveStraight(int target){ //int macro = 4)
 }
 
  void driveTurn2(int target){
-   
+    trueTarget = target;
     int turnv;
     double voltage;
     double position;
@@ -762,7 +770,7 @@ void driveStraight2(int target) {
     double voltage;
     double encoderAVG;
     int count = 0;
-    double init_heading = imu.get_heading();
+   
     double headingError = 0;
     int cycleTime = 0;
     time2 = 0;
@@ -783,8 +791,8 @@ void driveStraight2(int target) {
 
      voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
-if(init_heading > 180) {
-    init_heading = (360 - init_heading);
+if(trueTarget > 180) {
+    trueTarget = (360 - trueTarget);
 }
 
 
@@ -795,19 +803,19 @@ if(init_heading > 180) {
         position = position - 360;
       }
 
-    if((init_heading < 0) && (position > 0)){
-        if((position - init_heading ) >= 180){
-            init_heading = init_heading + 360;
+    if((trueTarget < 0) && (position > 0)){
+        if((position - trueTarget ) >= 180){
+            trueTarget = trueTarget + 360;
             position = imu.get_heading();
         }
-    } else if((init_heading > 0) && (position < 0)){
-        if ((init_heading - position) >= 180){
+    } else if((trueTarget > 0) && (position < 0)){
+        if ((trueTarget - position) >= 180){
             position = imu.get_heading();
         }
      }
     
     setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
-        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        headingError = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
         headingError = 0;
 
         if(voltage > 127){
@@ -831,7 +839,7 @@ if(init_heading > 180) {
             con.print(0,0, "error: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
-            con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
+            con.print(2,0, "EncoderAVG: %f           ", float(trueTarget));
         }
          if(time2 % 50 == 0){
             con.print(1,0, "Time2: %f           ", float(time2));
@@ -864,7 +872,6 @@ void driveStraightSlow(int target, int speed) {
     double voltage;
     double encoderAVG;
     int count = 0;
-    double init_heading = imu.get_heading();
     double headingError = 0;
     int cycleTime = 0;
     time2 = 0;
@@ -885,8 +892,8 @@ void driveStraightSlow(int target, int speed) {
 
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
-if(init_heading > 180) {
-    init_heading = (360 - init_heading);
+if(trueTarget > 180) {
+    trueTarget = (360 - trueTarget);
 }
 
 
@@ -897,19 +904,19 @@ if(init_heading > 180) {
         position = position - 360;
       }
 
-    if((init_heading < 0) && (position > 0)){
-        if((position - init_heading ) >= 180){
-            init_heading = init_heading + 360;
+    if((trueTarget < 0) && (position > 0)){
+        if((position - trueTarget ) >= 180){
+            trueTarget = trueTarget + 360;
             position = imu.get_heading();
         }
-    } else if((init_heading > 0) && (position < 0)){
-        if ((init_heading - position) >= 180){
+    } else if((trueTarget > 0) && (position < 0)){
+        if ((trueTarget - position) >= 180){
             position = imu.get_heading();
         }
      }
     
     setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
-        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        headingError = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
         headingError = 0;
 
         if(voltage > 127 * double(speed)/100){
@@ -929,7 +936,7 @@ if(init_heading > 180) {
             con.print(0,0, "error: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
-            con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
+            con.print(2,0, "EncoderAVG: %f           ", float(trueTarget));
         }
          if(time2 % 50 == 0){
             con.print(1,0, "Time2: %f           ", float(time2));
@@ -968,7 +975,6 @@ void driveStraightC(int target) {
     double voltage;
     double encoderAVG;
     int count = 0;
-    double init_heading = imu.get_heading();
     double headingError = 0;
     int cycleTime = 0;
     time2 = 0;
@@ -990,8 +996,8 @@ void driveStraightC(int target) {
 
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
-if(init_heading > 180) {
-    init_heading = (init_heading - 360);
+if(trueTarget > 180) {
+    trueTarget = (trueTarget - 360);
 }
 
 
@@ -1002,20 +1008,20 @@ if(init_heading > 180) {
         position = position - 360;
       }
 
-    if((init_heading < 0) && (position > 0)){
-        if((position - init_heading ) >= 180){
-            init_heading = init_heading + 360;
+    if((trueTarget < 0) && (position > 0)){
+        if((position - trueTarget ) >= 180){
+            trueTarget = trueTarget + 360;
             position = imu.get_heading();
         }
-    } else if((init_heading > 0) && (position < 0)){
-        if ((init_heading - position) >= 180){
+    } else if((trueTarget > 0) && (position < 0)){
+        if ((trueTarget - position) >= 180){
             position = imu.get_heading();
         }
      }
     
     
     setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
-        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        headingError = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
 
         if(voltage > 127){
             voltage = 127;
@@ -1085,7 +1091,6 @@ void driveStraightSC(int target, int speed) {
     double voltage;
     double encoderAVG;
     int count = 0;
-    double init_heading = imu.get_heading();
     double headingError = 0;
     int cycleTime = 0;
     time2 = 0;
@@ -1107,8 +1112,8 @@ void driveStraightSC(int target, int speed) {
 
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
-if(init_heading > 180) {
-    init_heading = (init_heading - 360);
+if(trueTarget > 180) {
+    trueTarget = (trueTarget - 360);
 }
 
 
@@ -1119,20 +1124,20 @@ if(init_heading > 180) {
         position = position - 360;
       }
 
-    if((init_heading < 0) && (position > 0)){
-        if((position - init_heading ) >= 180){
-            init_heading = init_heading + 360;
+    if((trueTarget < 0) && (position > 0)){
+        if((position - trueTarget ) >= 180){
+            trueTarget = trueTarget + 360;
             position = imu.get_heading();
         }
-    } else if((init_heading > 0) && (position < 0)){
-        if ((init_heading - position) >= 180){
+    } else if((trueTarget > 0) && (position < 0)){
+        if ((trueTarget - position) >= 180){
             position = imu.get_heading();
         }
      }
     
     
     setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
-        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        headingError = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
 
         if(voltage > 127 * double(speed)/100){
             voltage = 127 * double(speed)/100;
@@ -1194,7 +1199,6 @@ void driveClamp(int target, int clampDistance) {
     double voltage;
     double encoderAVG;
     int count = 0;
-    double init_heading = imu.get_heading();
     double headingError = 0;
     int cycleTime = 0;
     time2 = 0;
@@ -1215,8 +1219,8 @@ void driveClamp(int target, int clampDistance) {
 
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
-if(init_heading > 180) {
-    init_heading = (360 - init_heading);
+if(trueTarget > 180) {
+    trueTarget = (360 - trueTarget);
 }
 
 
@@ -1227,19 +1231,19 @@ if(init_heading > 180) {
         position = position - 360;
       }
 
-    if((init_heading < 0) && (position > 0)){
-        if((position - init_heading ) >= 180){
-            init_heading = init_heading + 360;
+    if((trueTarget < 0) && (position > 0)){
+        if((position - trueTarget ) >= 180){
+            trueTarget = trueTarget + 360;
             position = imu.get_heading();
         }
-    } else if((init_heading > 0) && (position < 0)){
-        if ((init_heading - position) >= 180){
+    } else if((trueTarget > 0) && (position < 0)){
+        if ((trueTarget - position) >= 180){
             position = imu.get_heading();
         }
      }
     
     setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
-        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        headingError = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
         headingError = 0;
 
         if(voltage > 127){
@@ -1264,7 +1268,7 @@ if(init_heading > 180) {
             con.print(0,0, "error: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
-            con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
+            con.print(2,0, "EncoderAVG: %f           ", float(trueTarget));
         }
          if(time2 % 50 == 0){
             con.print(1,0, "Time2: %f           ", float(time2));
@@ -1297,7 +1301,6 @@ void driveClampS(int target, int clampDistance, int speed) {
     double voltage;
     double encoderAVG;
     int count = 0;
-    double init_heading = imu.get_heading();
     double headingError = 0;
     int cycleTime = 0;
     time2 = 0;
@@ -1318,8 +1321,8 @@ void driveClampS(int target, int clampDistance, int speed) {
 
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
-if(init_heading > 180) {
-    init_heading = (360 - init_heading);
+if(trueTarget > 180) {
+    trueTarget = (360 - trueTarget);
 }
 
 
@@ -1330,19 +1333,19 @@ if(init_heading > 180) {
         position = position - 360;
       }
 
-    if((init_heading < 0) && (position > 0)){
-        if((position - init_heading ) >= 180){
-            init_heading = init_heading + 360;
+    if((trueTarget < 0) && (position > 0)){
+        if((position - trueTarget ) >= 180){
+            trueTarget = trueTarget + 360;
             position = imu.get_heading();
         }
-    } else if((init_heading > 0) && (position < 0)){
-        if ((init_heading - position) >= 180){
+    } else if((trueTarget > 0) && (position < 0)){
+        if ((trueTarget - position) >= 180){
             position = imu.get_heading();
         }
      }
     
     setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
-        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        headingError = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
         headingError = 0;
 
 
@@ -1373,7 +1376,7 @@ if(init_heading > 180) {
             con.print(0,0, "ERROR: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
-            con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
+            con.print(2,0, "EncoderAVG: %f           ", float(trueTarget));
         }
          if(time2 % 50 == 0){
             con.print(1,0, "Time2: %f           ", float(time2));
@@ -1404,7 +1407,6 @@ void driveClampSC(int target, int clampDistance, int speed) {
     double voltage;
     double encoderAVG;
     int count = 0;
-    double init_heading = imu.get_heading();
     double headingError = 0;
     int cycleTime = 0;
     time2 = 0;
@@ -1425,8 +1427,8 @@ void driveClampSC(int target, int clampDistance, int speed) {
 
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
-if(init_heading > 180) {
-    init_heading = (360 - init_heading);
+if(trueTarget > 180) {
+    trueTarget = (360 - trueTarget);
 }
 
 
@@ -1437,19 +1439,19 @@ if(init_heading > 180) {
         position = position - 360;
       }
 
-    if((init_heading < 0) && (position > 0)){
-        if((position - init_heading ) >= 180){
-            init_heading = init_heading + 360;
+    if((trueTarget < 0) && (position > 0)){
+        if((position - trueTarget ) >= 180){
+            trueTarget = trueTarget + 360;
             position = imu.get_heading();
         }
-    } else if((init_heading > 0) && (position < 0)){
-        if ((init_heading - position) >= 180){
+    } else if((trueTarget > 0) && (position < 0)){
+        if ((trueTarget - position) >= 180){
             position = imu.get_heading();
         }
      }
     
     setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
-        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        headingError = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
         headingError = 0;
 
 
@@ -1491,7 +1493,7 @@ if(init_heading > 180) {
             con.print(0,0, "ERROR: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
-            con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
+            con.print(2,0, "EncoderAVG: %f           ", float(trueTarget));
         }
          if(time2 % 50 == 0){
             con.print(1,0, "Time2: %f           ", float(time2));
@@ -1639,10 +1641,9 @@ double ltarget = 0;
 double rtarget = 0;
 double pi = 3.14159265359;
 // . I'm sorry :/ Now deal with pi. cole. why the sigma are you doing this - carlos
-double init_heading = imu.get_heading();
 
-if(init_heading > 180){
-    init_heading = init_heading - 360;
+if(trueTarget > 180){
+    trueTarget = trueTarget - 360;
 }
 int time = 0;
 int count = 0;
@@ -1690,12 +1691,13 @@ if((leftcorrect < 0) && (position > 0)){
         }
      }
     setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-    int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
+    int fix = calcPID3((trueTarget + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
     totalError += (abs(error3));   
     if (abs(ltarget - encoderAvgL) <= 25) fix = 0;   
         chasMove( (voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
         if ((abs(ltarget - encoderAvgL) <= 10) && (abs(rtarget - encoderAvgR) <= 10)) count++;
         if (count >= 20 || time > timeout){
+            trueTarget -= theta;
             break;
         }
 
@@ -1726,10 +1728,10 @@ double ltarget = 0;
 double rtarget = 0;
 double pi = 3.14159265359;
 // . I'm sorry :/ Now deal with pi. cole. why the sigma are you doing this - carlos
-double init_heading = imu.get_heading();
 
-if(init_heading > 180){
-    init_heading = init_heading - 360;
+
+if(trueTarget > 180){
+    trueTarget = trueTarget - 360;
 }
 int time = 0;
 int count = 0;
@@ -1779,12 +1781,13 @@ if((leftcorrect < 0) && (position > 0)){
         }
      }
     setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-    int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
+    int fix = calcPID3((trueTarget + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
     totalError += (abs(error3));   
     if (abs(ltarget - encoderAvgL) <= 25) fix = 0;   
         chasMove( (voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
         if ((abs(ltarget - encoderAvgL) <= 10) && (abs(rtarget - encoderAvgR) <= 10)) count++;
         if (count >= 20 || time > timeout){
+            trueTarget -= theta;
             break;
         }
 
@@ -1802,7 +1805,7 @@ if((leftcorrect < 0) && (position > 0)){
         time+= 10;
         delay(10);
 
-
+    
     }
 }
 
@@ -1816,9 +1819,8 @@ void driveArcR(double theta, double radius, int timeout, int speed){
 double ltarget = 0;
 double rtarget = 0;
 double pi =  3.14159265359;
-double init_heading = imu.get_heading();
-if(init_heading > 180){
-    init_heading = init_heading - 360;
+if(trueTarget > 180){
+    trueTarget = trueTarget - 360;
 }
 int count = 0;
 time2 = 0;
@@ -1829,8 +1831,8 @@ ltarget = double((theta / 360) * 2 * pi *(radius + 480));
 
 while (true){
 
-if(init_heading > 180){
-    init_heading = init_heading - 360;
+if(trueTarget > 180){
+    trueTarget = trueTarget - 360;
 }
 double position = imu.get_heading();
 
@@ -1868,12 +1870,13 @@ if((rightcorrect < 0) && (position > 0)){
     }
     
     setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-int fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
+int fix = calcPID3((trueTarget + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
     if (abs(rtarget - encoderAVGR) <= 25) fix = 0;  
 
     chasMove( (voltageL + fix), (voltageL + fix ), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
     if ((abs(ltarget - encoderAVGL) <= 4) && (abs(rtarget - encoderAVGR)<= 4)) count++;
     if (count >= 20  || time2 > timeout){
+        trueTarget += theta;
        break;
     }
      if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
@@ -1881,7 +1884,7 @@ int fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL
         } else if(time2 % 50 == 0 && time2 % 100 != 0){
             con.print(1,0, "position: %f           ", float(position));
         }else if(time2 % 50 == 0){
-            con.print(2,0, "init_heading: %f         ", float(init_heading + rightcorrect));
+            con.print(2,0, "init_heading: %f         ", float(trueTarget + rightcorrect));
         }
         time2 += 10;
         delay(10);
@@ -1984,7 +1987,6 @@ double ltargetF = 0;
 double rtargetF = 0;
 double pi = 3.14159265359;
 // . I'm sorry :/ Now deal with pi. 
-double init_heading = imu.get_heading();
 int time = 0;
 int count = 0;
 bool over = false;
@@ -1996,8 +1998,8 @@ ltarget = double(( theta/360) *2 * pi * radius);
 rtarget = double((theta / 360) * 2 * pi *(radius + 490 ));
 while(true){
 
-if(init_heading > 180){
-    init_heading = init_heading - 360;
+if(trueTarget > 180){
+    trueTarget = trueTarget - 360;
 }
 double position = imu.get_heading();
 
@@ -2009,13 +2011,13 @@ double encoderAvgL = LF.get_position();
 double encoderAvgR = RB.get_position();
 double leftcorrect = -(encoderAvgL * 360) / (2 * pi * radius);
 
-if((init_heading + leftcorrect < 0) && (position > 0)){
-        if((position - (init_heading + leftcorrect)) >= 180){
+if((trueTarget + leftcorrect < 0) && (position > 0)){
+        if((position - (trueTarget + leftcorrect)) >= 180){
             leftcorrect = leftcorrect + 360;
             position = imu.get_heading();
         }
-    } else if(((init_heading + leftcorrect) > 0) && (position < 0)){
-        if (((init_heading + leftcorrect) - position) >= 180){
+    } else if(((trueTarget + leftcorrect) > 0) && (position < 0)){
+        if (((trueTarget + leftcorrect) - position) >= 180){
             position = imu.get_heading();
         }
      }
@@ -2042,7 +2044,7 @@ if((init_heading + leftcorrect < 0) && (position > 0)){
     }
 
  setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
+int fix = calcPID3((trueTarget + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
 
         chasMove( (voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
         
@@ -2055,10 +2057,11 @@ int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_
         //         over = true;
         //     }
         // }
-        if (abs(init_heading - position) > trueTheta - 20){
+        if (abs(trueTarget - position) > trueTheta - 20){
         over = true;
 }
         if (over || time > timeout){
+            trueTarget -= trueTheta;
             break;
         }
 
@@ -2092,7 +2095,6 @@ void driveArcLFS(double theta, double radius, int timeout, int speed){
 
     double pi = 3.14159265359;
     // . I'm sorry :/ Now deal with pi. 
-    double init_heading = imu.get_heading();
     int time = 0;
     int count = 0;
     bool over = false;
@@ -2104,8 +2106,8 @@ void driveArcLFS(double theta, double radius, int timeout, int speed){
     rtarget = double((theta / 360) * 2 * pi *(radius + 490 ));
     while(true){
     
-    if(init_heading > 180){
-        init_heading = init_heading - 360;
+    if(trueTarget > 180){
+        trueTarget = trueTarget - 360;
     }
     double position = imu.get_heading();
     
@@ -2117,13 +2119,13 @@ void driveArcLFS(double theta, double radius, int timeout, int speed){
     double encoderAvgR = RB.get_position();
     double leftcorrect = -(encoderAvgL * 360) / (2 * pi * radius);
     
-    if((init_heading + leftcorrect < 0) && (position > 0)){
-            if((position - (init_heading + leftcorrect)) >= 180){
+    if((trueTarget + leftcorrect < 0) && (position > 0)){
+            if((position - (trueTarget + leftcorrect)) >= 180){
                 leftcorrect = leftcorrect + 360;
                 position = imu.get_heading();
             }
-        } else if(((init_heading + leftcorrect) > 0) && (position < 0)){
-            if (((init_heading + leftcorrect) - position) >= 180){
+        } else if(((trueTarget + leftcorrect) > 0) && (position < 0)){
+            if (((trueTarget + leftcorrect) - position) >= 180){
                 position = imu.get_heading();
             }
          }
@@ -2150,7 +2152,7 @@ void driveArcLFS(double theta, double radius, int timeout, int speed){
         }
     
      setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-    int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
+    int fix = calcPID3((trueTarget + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
     
             chasMove( (voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
             
@@ -2163,10 +2165,11 @@ void driveArcLFS(double theta, double radius, int timeout, int speed){
             //         over = true;
             //     }
             // }
-            if (abs(init_heading - position) > trueTheta - 20){
+            if (abs(trueTarget - position) > trueTheta - 20){
             over = true;
     }
             if (over || time > timeout){
+                trueTarget -= trueTheta;
                 break;
             }
     
@@ -2202,9 +2205,8 @@ double pi =  3.14159265359;
 double rightcorrect = 0;
 int fix = 0;
 // . I'm sorry :/ Now deal with pi. 
-double init_heading = imu.get_heading();
-if(init_heading > 180){
-    init_heading = init_heading - 360;
+if(trueTarget > 180){
+    trueTarget = trueTarget - 360;
 }
 int count = 0;
 int time2 = 0;
@@ -2217,8 +2219,8 @@ ltarget = double((theta / 360) * 2 * pi *(radius + 475));
 
 while (true){
 
-if(init_heading > 180){
-    init_heading = init_heading - 360;
+if(trueTarget > 180){
+    trueTarget = trueTarget - 360;
 }
 double position = imu.get_heading();
 
@@ -2226,13 +2228,13 @@ if(position > 180){
     position = position - 360;
 }
 
-if(((init_heading + rightcorrect) < 0) && (position > 0)){
-        if((position - (init_heading + rightcorrect)) >= 180){
-            init_heading = init_heading + 360;
+if(((trueTarget + rightcorrect) < 0) && (position > 0)){
+        if((position - (trueTarget + rightcorrect)) >= 180){
+            trueTarget = trueTarget + 360;
             position = imu.get_heading();
         }
-    } else if(((init_heading + rightcorrect) > 0) && (position < 0)){
-        if (((init_heading + rightcorrect) - position) >= 180){
+    } else if(((trueTarget + rightcorrect) > 0) && (position < 0)){
+        if (((trueTarget + rightcorrect) - position) >= 180){
             position = imu.get_heading();
         }
      }
@@ -2254,7 +2256,7 @@ if(((init_heading + rightcorrect) < 0) && (position > 0)){
     }
     rightcorrect = (encoderAVGR * 360) / (2 * pi * radius);
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
+fix = calcPID3((trueTarget + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
 // if (abs(rtarget - encoderAVGR) <= 25) fix = 0;
 //fix = 0;
 
@@ -2275,10 +2277,11 @@ fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI,
 //    }
 
 
-if (abs(init_heading - position) > trueTheta){
+if (abs(trueTarget - position) > trueTheta){
     over = true;
 }
     if (over || time2 > timeout){
+        trueTarget += trueTheta;
         break;
     }
 
@@ -2308,9 +2311,8 @@ double pi =  3.14159265359;
 double rightcorrect = 0;
 int fix = 0;
 // . I'm sorry :/ Now deal with pi. 
-double init_heading = imu.get_heading();
-if(init_heading > 180){
-    init_heading = init_heading - 360;
+if(trueTarget > 180){
+    trueTarget = trueTarget - 360;
 }
 int count = 0;
 int time2 = 0;
@@ -2323,8 +2325,8 @@ ltarget = double((theta / 360) * 2 * pi *(radius + 475));
 
 while (true){
 
-if(init_heading > 180){
-    init_heading = init_heading - 360;
+if(trueTarget > 180){
+    trueTarget = trueTarget - 360;
 }
 double position = imu.get_heading();
 
@@ -2332,13 +2334,13 @@ if(position > 180){
     position = position - 360;
 }
 
-if(((init_heading + rightcorrect) < 0) && (position > 0)){
-        if((position - (init_heading + rightcorrect)) >= 180){
-            init_heading = init_heading + 360;
+if(((trueTarget + rightcorrect) < 0) && (position > 0)){
+        if((position - (trueTarget + rightcorrect)) >= 180){
+            trueTarget = trueTarget + 360;
             position = imu.get_heading();
         }
-    } else if(((init_heading + rightcorrect) > 0) && (position < 0)){
-        if (((init_heading + rightcorrect) - position) >= 180){
+    } else if(((trueTarget + rightcorrect) > 0) && (position < 0)){
+        if (((trueTarget + rightcorrect) - position) >= 180){
             position = imu.get_heading();
         }
      }
@@ -2362,7 +2364,7 @@ if(((init_heading + rightcorrect) < 0) && (position > 0)){
     }
     rightcorrect = (encoderAVGR * 360) / (2 * pi * radius);
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
+fix = calcPID3((trueTarget + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
 // if (abs(rtarget - encoderAVGR) <= 25) fix = 0;
 //fix = 0;
 
@@ -2383,10 +2385,11 @@ fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI,
 //    }
 
 
-if (abs(init_heading - position) > trueTheta){
+if (abs(trueTarget - position) > trueTheta){
     over = true;
 }
     if (over || time2 > timeout){
+        trueTarget += trueTheta;
         break;
     }
 
@@ -2446,7 +2449,6 @@ void driveDoink(int target, int doinkDistance) {
     double voltage;
     double encoderAVG;
     int count = 0;
-    double init_heading = imu.get_heading();
     double headingError = 0;
     int cycleTime = 0;
     time2 = 0;
@@ -2465,8 +2467,8 @@ void driveDoink(int target, int doinkDistance) {
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);   
         voltage = calcPID(target, encoderAVG, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
-if(init_heading > 180) {
-    init_heading = (360 - init_heading);
+if(trueTarget > 180) {
+    trueTarget = (360 - trueTarget);
 }
 
 
@@ -2477,19 +2479,19 @@ if(init_heading > 180) {
         position = position - 360;
       }
 
-    if((init_heading < 0) && (position > 0)){
-        if((position - init_heading ) >= 180){
-            init_heading = init_heading + 360;
+    if((trueTarget < 0) && (position > 0)){
+        if((position - trueTarget ) >= 180){
+            trueTarget = trueTarget + 360;
             position = imu.get_heading();
         }
-    } else if((init_heading > 0) && (position < 0)){
-        if ((init_heading - position) >= 180){
+    } else if((trueTarget > 0) && (position < 0)){
+        if ((trueTarget - position) >= 180){
             position = imu.get_heading();
         }
      }
     
     setConstants(HEADING_KP, HEADING_KI, HEADING_KD);  
-        headingError = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        headingError = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
         headingError = 0;
 
         if(voltage > 127){
@@ -2515,7 +2517,7 @@ if(init_heading > 180) {
             con.print(0,0, "ERROR: %f           ", float(error));
         }
          if(time2 % 50 == 0 && time2 % 100 != 0){
-            con.print(2,0, "EncoderAVG: %f           ", float(init_heading));
+            con.print(2,0, "EncoderAVG: %f           ", float(trueTarget));
         }
          if(time2 % 50 == 0){
             con.print(1,0, "Time2: %f           ", float(time2));
