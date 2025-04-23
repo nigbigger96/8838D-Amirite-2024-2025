@@ -17,13 +17,13 @@ if(atn == 0){
    Mogo.set_value(false);
    // Red Ring
    color = 1;
+ 
     for(int i = 0; i < 150000; i++) {
-      
       ColorSort();
       color = 1;
       Scoring.move(0);
       Doinker.set_value(true);
-      driveStraightC(1000);
+      driveStraightC(1025);
       Intake.move(-127);
       driveStraightSlow(700, 40);
       delay(25);
@@ -32,14 +32,14 @@ if(atn == 0){
       Doinker.set_value(false);
       Scoring.move(-127);
       driveTurn2(-60);
-      driveStraightSC(850, 50);
+      driveStraightSC(875, 50);
       driveTurn2(-160);
       delay(200);
-      driveStraightSC(725, 65);
+      driveStraightSC(700, 65);
       driveTurn2(-103.5);
       delay(200);
       Scoring.move(0);
-      driveStraightSlow(1000, 60);
+      driveStraightSlow(1250, 60);
       Intake.move(-127);
       delay(475);
       driveStraightSC(-625, 47.5);
@@ -48,38 +48,31 @@ if(atn == 0){
       Scoring.move(-127);
       driveStraightSC(500, 70);
       driveStraightSlow(150, 40);
-      delay(450);
-      // automacro = 2;
+      delay(500);
      Intakepiston.set_value(true);
       Intake.move(-127);
-      // for(int i = 0; i < 1000; i++) {
-      //   liftauton();
-      //   automacro = 1;
-      //   }
-       
       driveStraightSlow(950, 25);
-      Scoring.move(-127);
-      // for(int i = 0; i < 10000; i++) {
-      //   liftauton();
-      //   }
-          delay(250);
-    // Intakepiston.set_value(false);
-      delay(10);
-      break;
+ 
+  // for(int i = 0; i < 1000;) {
+  //     liftauton();
+  //     automacro = 2;
+  //     if (roto.get_angle() > 32200){
+  //       break;
+  //     }
+
+  // }
+  //     driveStraight2(400);
+   
+      
+
+
+      // Scoring.move(-127);
+
+  break;
+
          }
 
 
-
-
-
-
-
-
-
- 
- 
-
- 
    
     
    }
@@ -373,17 +366,30 @@ if(atn == 4){
        }
 
     if(atn == 6){    
-      // Red Ring Elim
-      color = 0;
+      // 6 ring sigawp red
+     
       for(int i = 0; i < 15000; i+=10){
-      ColorSort();
+
       
       // automacro = 1;
       delay(10);
 
-      driveClampS(-1500,50, 60);
-      Scoring.move(-127);
-      delay(1000);
+      LIFT.move(-127);
+      delay(450);
+      LIFT.move(0);
+      delay(250);
+      driveStraightSlow(-150, 50);
+      LIFT.move(127);
+      driveTurn2(43.5);
+      driveClampS(-1550, 50, 50);
+      driveTurn2(-160);
+      color = 1;
+      ColorSort();
+      Intake.move(-127);
+      driveStraightSC(400, 43.5);
+      driveTurn2(-225);
+      delay(100);
+      driveStraightSlow(350, 60);
           
             
       break;

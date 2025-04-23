@@ -304,26 +304,22 @@ void liftauton(){
 	} else if (automacro == 2) {
 		//first prime
 		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(31750, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(calcPIDlift(32150, roto.get_angle(), 0, 0, 1));
 
 	} else if (automacro == 3){
 		//second prime
 		
         setConstants(3, 0, 16.5);
  		LIFT.move(calcPIDlift(30800, roto.get_angle(), 0, 0, 1));
-    } else if (automacro == 3){ 
+    } else if (automacro == 4){ 
 		//descore
         setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFT.move(calcPIDlift(17000, roto.get_angle(), 0, 0, 1)); 
 	} else {
-        LIFT.move(0);
-        LIFT.brake();
+        // LIFT.move(0);
+         LIFT.brake();
     }}
 
-    void braketypeshi(){
-        LIFT.move(0);
-        LIFT.brake();
-    }
 
 
 
@@ -356,8 +352,8 @@ void chasMove(int voltageLF, int voltageLM, int voltageLB, int voltageRF, int vo
 }
 
 double calcPID(double target, double input, int integralKI, int maxIntegral){
-     liftauton();
-    // ColorSort();
+  liftauton();
+     //ColorSort();
    // stallProtection();
     int integral;
     prevError = error;
