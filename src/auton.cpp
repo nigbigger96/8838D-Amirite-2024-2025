@@ -14,9 +14,9 @@ void autonomous() {
 
     
 if(atn == 0){  
-   Mogo.set_value(false);
+   
    // Red Ring
-   color = 1;
+
  
     for(int i = 0; i < 150000; i++) {
       ColorSort();
@@ -85,8 +85,7 @@ if(atn == 1){
     for(int i = 0; i < 15000; i+=10){
      ColorSort();
      
-     // automacro = 1;
-     delay(10);
+\
      
     DoinkerTwo.set_value(true);
     driveStraightC(1000);
@@ -132,8 +131,6 @@ if(atn == 2){
     for(int i = 0; i < 15000; i+=10){
      ColorSort();
 
-     automacro = 1;
-    delay(10);
 
      LIFT.move(-127);
      delay(450);
@@ -273,8 +270,7 @@ if(atn == 4){
     for(int i = 0; i < 15000; i+=10){
     ColorSort();
 
-    // automacro = 1;
-    delay(10);
+  
 
     LIFT.move(-127);
     delay(450);
@@ -321,8 +317,7 @@ if(atn == 4){
       for(int i = 0; i < 15000; i+=10){
       ColorSort();
     
-      // automacro = 1;
-      delay(10);
+ 
 
       LIFT.move(-127);
     delay(450);
@@ -371,26 +366,53 @@ if(atn == 4){
       for(int i = 0; i < 15000; i+=10){
 
       
-      // automacro = 1;
-      delay(10);
-
+      
       LIFT.move(-127);
       delay(450);
       LIFT.move(0);
       delay(250);
-      driveStraightSlow(-150, 50);
+      driveStraightSlow(-150, 65);
       LIFT.move(127);
-      driveTurn2(43.5);
+      driveTurn2(46.5);
       driveClampS(-1550, 50, 50);
-      driveTurn2(-160);
+      LIFT.move(0);
+      driveTurn2(-172.5);
       color = 1;
       ColorSort();
       Intake.move(-127);
-      driveStraightSC(400, 43.5);
-      driveTurn2(-225);
-      delay(100);
-      driveStraightSlow(350, 60);
-          
+      driveStraightSlow(600, 65);
+      delay(300);
+      driveTurn2(-182.5);
+      driveStraightSlow(275, 70);
+      delay(150);
+      driveStraightSC(-100, 50);
+      driveTurn2(90);
+      driveStraightSC(210, 75);
+      driveTurn2(-7);
+      driveStraightSC(1100 , 60);
+      Intakepiston.set_value(true);
+      Mogo.set_value(false);
+      color = 0;
+      Hooks.move(0);
+      driveStraightSlow(2200, 30);
+      delay(50);
+      Intakepiston.set_value(false);
+    driveTurn2(100);
+    driveClampS(-1450, 50, 55);
+    color = 1;
+    Hooks.move(-127);
+    driveTurn2(-25);
+    driveStraightSlow(675, 60);
+    driveStraightSC(-235, 95);
+    driveTurn2(-140);
+driveStraightSC(500, 40);
+
+    
+
+      
+
+   
+   
             
       break;
       }
@@ -398,13 +420,58 @@ if(atn == 4){
 
 
     if(atn == 7){    
-      // Blue Ring Elim
-      color = 0;
+      // 6 ring blue sigawp
+      
       for(int i = 0; i < 15000; i+=10){
       ColorSort();
      
-      // automacro = 1;
-      delay(10);
+ 
+
+      LIFT.move(-127);
+      delay(450);
+      LIFT.move(0);
+      delay(250);
+      driveStraightSlow(-150, 65);
+      LIFT.move(127);
+      driveTurn2(-46.5);
+      driveClampS(-1550, 50, 50);
+      LIFT.move(0);
+      driveTurn2(172.5);
+      ColorSort();
+      color = 2;
+      Intake.move(-127);
+      driveStraightSlow(600, 65);
+      delay(300);
+      driveTurn2(182.5);
+      driveStraightSlow(275, 70);
+      delay(150);
+      driveStraightSC(-100, 50);
+      driveTurn2(-90);
+      driveStraightSC(210, 75);
+      driveTurn2(7);
+      driveStraightSC(1100 , 60);
+      Intakepiston.set_value(true);
+      Mogo.set_value(false);
+      color = 0;
+      Hooks.move(0);
+      driveStraightSlow(2200, 30);
+      delay(50);
+      Intakepiston.set_value(false);
+    driveTurn2(-100);
+    driveClampS(-1450, 50, 55);
+    ColorSort();
+    ColorSort();
+    color = 2;
+    Hooks.move(-127);
+    driveTurn2(25);
+    driveStraightSlow(675, 60);
+    driveStraightSC(-235, 95);
+    driveTurn2(140);
+driveStraightSC(500, 40);
+
+    
+
+
             
               
       break;
@@ -417,8 +484,8 @@ if(atn == 4){
       for(int i = 0; i < 15000; i+=10){
       ColorSort();
     
-      // automacro = 1;
-      delay(10);
+      // // automacro = 1;
+      // delay(10);
             
               
       break;
