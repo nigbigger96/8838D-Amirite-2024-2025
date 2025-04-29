@@ -60,7 +60,7 @@ void disabled() {
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-int atn = 6;
+int atn = 0;
 int pressed = 0;
 int automacro = 0;
 string autstr;
@@ -188,7 +188,8 @@ void opcontrol() {
 	bool tankToggle = false;
 	bool PistonsForMogo = true;
 	int lift_macro = 0;
-	color = 2;
+	color = 0;
+	
 	bool lift_toggle = false;
 	bool doinker = false;
 	bool doinkertwo = false;
@@ -212,10 +213,12 @@ while (true){
 	if (con.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
 	// 	arcToggle = !arcToggle;
 	// 	tankToggle = !tankToggle;
-	LIFT.move(-127);
-      driveStraightSlow(-275, 30);
-	  delay(200);
-	  lift_macro = 0;
+		//  LIFT.move(-127);
+		driveStraightSlow(-275, 30);
+	
+	
+	//   delay(500);
+	//    lift_macro = 0;
 
 	}
 
@@ -349,6 +352,9 @@ if (con.get_digital(E_CONTROLLER_DIGITAL_L1)){
 
 
 
+
+
+
 if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)) {
 	lift_macro = (lift_macro + 1) % 3;
 	lift_toggle = true;
@@ -371,22 +377,22 @@ if (rotoangle > 33000){
 if (lift_toggle){
 	if (lift_macro == 0) {
 		//zero position
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+		setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFT.move(calcPIDlift(35000, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 1) {
 		//first prime
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+		setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
  		LIFT.move(calcPIDlift(32200, roto.get_angle(), 0, 0, 1));
 
 	} else if (lift_macro == 2){
 		//second prime
-		
-        setConstants(3, 0, 16.5);
+		setConstants2(0.05, LIFT_KI, LIFT_KD);
+        //setConstants2(3, 0, 16.5);
  		LIFT.move(calcPIDlift(30800, roto.get_angle(), 0, 0, 1));
     } else if (lift_macro == 3){ 
 		//descore
-        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(17000, roto.get_angle(), 0, 0, 1)); 
+        setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(24000, roto.get_angle(), 0, 0, 1)); 
 	} else  {
 		lift_macro = 0;
 	} 
