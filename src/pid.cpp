@@ -311,28 +311,29 @@ void liftauton(){
         LIFT_angle += 36000;
     }
 
-    if (automacro == 1) {
-		//zero position
-		setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(35000, LIFT_angle, 0, 0, 1));
-	} else if (automacro == 2) {
-		//first prime
-		setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(32250, LIFT_angle, 0, 0, 1));
+//     if (automacro == 1) {
+// 		//zero position
+// 		setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(35000, LIFT_angle, 0, 0, 1));
+// 	} else if (automacro == 2) {
+// 		//first prime
+// 		setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(32250, LIFT_angle, 0, 0, 1));
 
-	} else if (automacro == 3){
-		//second prime
+// 	} else if (automacro == 3){
+// 		//second prime
 		
-        setConstants2(3, 0, 16.5);
- 		LIFT.move(calcPIDlift(30800, LIFT_angle, 0, 0, 1));
-    } else if (automacro == 4){ 
-		//descore
-        setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(17000, LIFT_angle, 0, 0, 1)); 
-	} else {
-        // LIFT.move(0);
-         LIFT.brake();
-    }}
+//         setConstants2(3, 0, 16.5);
+//  		LIFT.move(calcPIDlift(30800, LIFT_angle, 0, 0, 1));
+//     } else if (automacro == 4){ 
+// 		//descore
+//         setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
+//  		LIFT.move(calcPIDlift(17000, LIFT_angle, 0, 0, 1)); 
+// 	} else {
+//         // LIFT.move(0);
+//          LIFT.brake();
+//     }
+}
 
 
 

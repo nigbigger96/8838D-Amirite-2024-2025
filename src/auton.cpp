@@ -19,47 +19,45 @@ if(atn == 0){
 
 color = 1;
 
-  //   for(int i = 0; i < 150000; i++) {
+    for(int i = 0; i < 150000; i++) {
       
-  // break;
-
-//}
 
 
-// color = 0;
-//   ColorSort();
-//       Doinker.set_value(true);
-//       driveStraightC(1025);
-//       Intake.move(-127);
-//       driveStraightSlow(700, 40);
-//       delay(25);
-//       driveTurn2(-30);
-//       driveClampS(-975, 50, 57.5);
-//       // ColorSort();
-//       color = 1;
-//       Doinker.set_value(false);
-//       driveTurn2(-60);
-//       driveStraightSC(875, 50);
-//       driveTurn2(-160);
-//       delay(200);
-//       driveStraightSC(800, 65);
-//       driveTurn2(-103.5);
-//       delay(200);
-//       Hooks.move(0);
-//       driveStraightSlow(1375, 75);
-//       Intake.move(-127);
-//       delay(475);
-//       driveStraightSC(-625, 47.5);
-//       driveTurn2(110);
-//       delay(50);
-//       // ColorSort();
-//       color = 1;
-//       driveStraightSC(535, 70);
-//       driveStraightSlow(150, 40);
-//       delay(500);
-//      Intakepiston.set_value(true);
-//       Intake.move(-127);
-//       driveStraightSlow(950, 25);
+
+color = 0;
+  ColorSort();
+      Doinker.set_value(true);
+      driveStraightC(1025);
+      Intake.move(-127);
+      driveStraightSlow(700, 40);
+      delay(25);
+      driveTurn2(-30);
+      driveClampS(-975, 50, 57.5);
+      // ColorSort();
+      color = 1;
+      Doinker.set_value(false);
+      driveTurn2(-60);
+      driveStraightSC(875, 50);
+      driveTurn2(-160);
+      delay(200);
+      driveStraightSC(800, 65);
+      driveTurn2(-103.5);
+      delay(200);
+      Hooks.move(0);
+      driveStraightSlow(1375, 75);
+      Intake.move(-127);
+      delay(475);
+      driveStraightSC(-625, 47.5);
+      driveTurn2(110);
+      delay(50);
+      // ColorSort();
+      color = 1;
+      driveStraightSC(535, 70);
+      driveStraightSlow(150, 40);
+      delay(500);
+     Intakepiston.set_value(true);
+      Intake.move(-127);
+      driveStraightSlow(950, 25);
 
 //       for(int i = 0; i<300; i+=10){
 //         automacro = 2;
@@ -86,7 +84,9 @@ color = 1;
       // Scoring.move(-127);
 
 
+      break;
 
+    }
    
     
    }
@@ -147,7 +147,6 @@ if(atn == 2){
     for(int i = 0; i < 15000; i+=10){
 
 
-     delay(2000);
      LIFT.move(-127);
      delay(450);
      LIFT.move(0);
@@ -230,14 +229,12 @@ if(atn == 3){
     
   
     // automacro = 1;
-    delay(1000);
     LIFT.move(-127);
     delay(450);
-    LIFT.move(0);
     delay(250);
     driveStraightSlow(-375, 50);
-    LIFT.move(127);
     driveTurn2(-60);
+    LIFT.move(127);
     Intakepiston.set_value(true);
     Intake.move(-127);
     driveStraightSlow(750, 30);
