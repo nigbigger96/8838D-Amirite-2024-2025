@@ -60,7 +60,7 @@ void disabled() {
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-int atn = 6;
+int atn = 11;
 int pressed = 0;
 int automacro = 0;
 string autstr;
@@ -392,7 +392,7 @@ if (lift_toggle){
     } else if (lift_macro == 3){ 
 		//descore
         setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(24000, roto.get_angle(), 0, 0, 1)); 
+ 		LIFT.move(calcPIDlift(18606, roto.get_angle(), 0, 0, 1)); 
 	} else  {
 		lift_macro = 0;
 	} 

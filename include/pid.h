@@ -85,6 +85,12 @@ extern double totalError;
 #define LIFT_KD 16.5
 #define LIFT_KD2 16.5
 
+#define LIFT_KP2 0.04
+#define LIFT_KI2 0
+#define LIFT_KD3 16.5
+#define LIFT_KD4 16.5
+
+
 
 #define TOP_KP 0.1
 #define TOP_KI 0

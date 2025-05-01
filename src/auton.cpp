@@ -146,7 +146,7 @@ if(atn == 2){
   
     for(int i = 0; i < 15000; i+=10){
 
-
+automacro = false;
      LIFT.move(-127);
      delay(450);
      LIFT.move(0);
@@ -166,8 +166,8 @@ if(atn == 2){
     driveClampS(-500, 50, 25);
     driveTurn2(77);
     Intake.move(0);
+    driveStraightSC(710, 60);    
     DoinkerTwo.set_value(true);
-    driveStraightSC(710, 60);
     driveStraightSC(-550,45);
     ColorSort();
     color = 1;
@@ -199,7 +199,7 @@ if(atn == 2){
    driveStraightSlow(500, 70);
    delay(50);
    DoinkerTwo.set_value(true);
-   driveStraightSlow(-350, 70);
+   driveStraightSlow(-450, 70);
    Intake.move(0);
    ColorSort();
    color = 1;
@@ -247,8 +247,8 @@ if(atn == 3){
    driveClampS(-500, 50, 25);
    driveTurn2(-77);
    Intake.move(0);
-   Doinker.set_value(true);
    driveStraightSC(710, 60);
+   Doinker.set_value(true);
    driveStraightSC(-550,45);
    ColorSort();
    color = 2;
@@ -589,8 +589,8 @@ driveStraightSC(500, 40);
       driveStraightSC(-450, 45);
       driveClampS(-400, 50, 30);
       driveTurn2(0);
-      driveStraightSC(715, 65);
-      driveTurn2(76.5);
+      driveStraightSC(725, 65);
+      driveTurn2(72.5);
       driveStraightSC(750, 75);
       driveStraightSlow(650, 65);
       delay(100);
@@ -602,7 +602,7 @@ driveStraightSC(500, 40);
       driveStraightSlow(1100, 30);
       delay(150);
       driveStraightSC(-75, 30);
-      driveTurn2(67.5);
+      driveTurn2(60);
       driveStraightSC(200, 60);
       delay(750);
       driveStraightSC(-200, 50);
@@ -615,8 +615,38 @@ driveStraightSC(500, 40);
        driveStraightSC(470, 60);
        Hooks.move(0);
        driveTurn2(90);
-       driveStraightSC(-1600, 60);
-       driveClampS(-1100, 50, 60);
+       driveStraightSC(-1400, 60);
+       driveClampS(-1185, 50, 60);
+       driveTurn2(0);
+       Scoring.move(-127);
+       driveStraightSC(725, 65);
+       driveTurn2(-72.5);
+       driveStraightSC(750, 75);
+       driveStraightSlow(650, 65);
+       delay(100);
+       driveStraightSlow(-400, 70);
+       delay(200);
+       driveTurn2(180);
+       delay(350);
+       driveStraightSC(1150, 45);
+       driveStraightSlow(1100, 30);
+       delay(150);
+       driveStraightSC(-75, 30);
+       driveTurn2(-60);
+       driveStraightSC(200, 60);
+       delay(750);
+       driveStraightSC(-200, 50);
+       driveTurn2(45);
+       driveStraightSC(-800, 65);
+       Scoring.move(0);
+       Mogo.set_value(false);
+       Hooks.move(40);
+       delay(10);
+       driveStraightSC(470, 60);
+       Hooks.move(0);
+       driveTurn2(0);
+
+       
 
 
 
