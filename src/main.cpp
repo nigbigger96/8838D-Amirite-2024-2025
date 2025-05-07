@@ -117,19 +117,19 @@ while(true){
 		con.print(0,0, "aut 5: %s", autstr);
 	}
 	else if(atn == 6) {
-		autstr = "RedRingElim";
+		autstr = "Red 6 ring SIGAWP ";
 		con.print(0,0, "aut 6: %s", autstr);
 	}
 	else if(atn == 7) {
-		autstr = "BlueRingElim";
+		autstr = "Blue 6 Ring SIGAWP";
 		con.print(0,0, "aut 7: %s", autstr);
 	}
 	else if(atn == 8) {
-		autstr = "RedMogoElim";
+		autstr = "SAFETY RED";
 		con.print(0,0, "aut 8: %s", autstr);
 	}
 	else if(atn == 9) {
-		autstr = "BlueMogoElim";
+		autstr = "SAFETY BLUE";
 		con.print(0,0, "aut 9: %s", autstr);
 	}
 	else if(atn == 10) {
@@ -378,15 +378,15 @@ if (lift_toggle){
 	if (lift_macro == 0) {
 		//zero position
 		setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(35000, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(calcPIDlift(34900, roto.get_angle(), 0, 0, 1));
 	} else if (lift_macro == 1) {
 		//first prime
 		setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(32200, roto.get_angle(), 0, 0, 1));
+ 		LIFT.move(calcPIDlift(32343, roto.get_angle(), 0, 0, 1));
 
 	} else if (lift_macro == 2){
 		//second prime
-		setConstants2(0.05, LIFT_KI, LIFT_KD);
+		setConstants2(0.04, LIFT_KI, LIFT_KD);
         //setConstants2(3, 0, 16.5);
  		LIFT.move(calcPIDlift(30800, roto.get_angle(), 0, 0, 1));
     } else if (lift_macro == 3){ 
