@@ -21,6 +21,7 @@ extern double calcPID2(double target, double input, int integralKI, int maxInteg
 extern double calcPID3(double target, double input, int integralKI, int maxIntegral);
 extern double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegrall, int bias);
 extern void setConstants(double kp, double ki, double kd);
+extern void setConstants2(double kp, double ki, double kd);
 extern void driveStraight(int target);
 extern void driveTurn(int target);
 extern void driveTurn2(int target);
@@ -81,8 +82,14 @@ extern double totalError;
 
 #define LIFT_KP 0.04
 #define LIFT_KI 0
-#define LIFT_KD 16.5
+#define LIFT_KD 15.75
 #define LIFT_KD2 16.5
+
+// #define LIFT_KP2 0.04
+// #define LIFT_KI2 0
+// #define LIFT_KD3 16.5
+// #define LIFT_KD4 16.5
+
 
 
 #define TOP_KP 0.1

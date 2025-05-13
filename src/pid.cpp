@@ -75,6 +75,15 @@ double prevHook = 0;
 bool stalled = false;
 int stallTime = 0;
 
+double LIFT_angle = 0;
+
+void setConstants2(double kp, double ki, double kd){
+
+    vKp2 = kp;
+    vKi2 = ki;
+    vKd2 = kd;
+}
+
 void ColorSort() {
     Opticala.set_led_pwm(100);
     if (color == 1) {
@@ -109,8 +118,8 @@ void ColorSort() {
             }
             if(stalled) {
                 Hooks.move(127);
-                stallTime++;
-                if(stallTime > 300) {
+                stallTime+=10;
+                if(stallTime > 400) {
                     hookCount = 0;
                     stalled = false;
                     stallTime = 0;
@@ -153,8 +162,8 @@ void ColorSort() {
         }
         if(stalled) {
             Hooks.move(127);
-            stallTime++;
-            if(stallTime > 300) {
+            stallTime+=10;
+            if(stallTime > 400) {
                 hookCount = 0;
                 stalled = false;
                 stallTime = 0;
@@ -297,28 +306,38 @@ void ColorSort() {
 // }
 
 void liftauton(){
+    LIFT_angle = roto.get_angle();
+    if (LIFT_angle < 3000) {
+        LIFT_angle += 36000;
+    }
+
     if (automacro == 1) {
 		//zero position
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(35000, roto.get_angle(), 0, 0, 1));
+		setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(35000, LIFT_angle, 0, 0, 1));
 	} else if (automacro == 2) {
 		//first prime
-		setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(32150, roto.get_angle(), 0, 0, 1));
+		setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(32150, LIFT_angle, 0, 0, 1));
 
 	} else if (automacro == 3){
 		//second prime
 		
-        setConstants(3, 0, 16.5);
- 		LIFT.move(calcPIDlift(30800, roto.get_angle(), 0, 0, 1));
+        setConstants2(3, 0, 16.5);
+ 		LIFT.move(calcPIDlift(14000, LIFT_angle, 0, 0, 1));
     } else if (automacro == 4){ 
 		//descore
-        setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
- 		LIFT.move(calcPIDlift(17000, roto.get_angle(), 0, 0, 1)); 
+        setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
+ 		LIFT.move(calcPIDlift(17000, LIFT_angle, 0, 0, 1)); 
 	} else {
-        // LIFT.move(0);
+         LIFT.move(0);
          LIFT.brake();
-    }}
+    }
+
+
+
+
+}
 
 
 
@@ -329,6 +348,7 @@ void setConstants(double kp, double ki, double kd){
     vKi = ki;
     vKd = kd;
 }
+
  void resetEncoders(){
 
     LF.tare_position();
@@ -353,7 +373,7 @@ void chasMove(int voltageLF, int voltageLM, int voltageLB, int voltageRF, int vo
 
 double calcPID(double target, double input, int integralKI, int maxIntegral){
   liftauton();
-     //ColorSort();
+     ColorSort();
    // stallProtection();
     int integral;
     prevError = error;
@@ -434,7 +454,7 @@ double calcPID3(double target3, double input3, int integralKI3, int maxIntegral3
 } 
 
 double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegrall,int bias){
-    setConstants(LIFT_KP, LIFT_KI, LIFT_KD);
+    // setConstants2(LIFT_KP, LIFT_KI, LIFT_KD);
     int integrall;
     prevErrorl = errorl;
     errorl = targetl - inputl;
@@ -453,7 +473,7 @@ double calcPIDlift(double targetl, double inputl, int integralKIl, int maxIntegr
     }
     derivitivel = errorl - prevErrorl;
 
-    powerl = (vKp * errorl) + (vKi * integrall) + (vKd * derivitivel);
+    powerl = (vKp2 * errorl) + (vKi2 * integrall) + (vKd2 * derivitivel);
 ///// first way of powering lift ( only multiplying on the way up)
     // if(error > 0 ) {
     //     powerl= powerl * bias;
@@ -721,7 +741,7 @@ void driveStraight(int target){ //int macro = 4)
         turnv = abs(abs(position) - abs(target));
      }
 
-        voltage = calcPID2(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
+        voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 
         chasMove(voltage, voltage, voltage, - voltage, - voltage, - voltage);
 
@@ -2053,12 +2073,19 @@ int fix = calcPID3((trueTarget + leftcorrect), position, ARC_HEADING_INTEGRAL_KI
         //         over = true;
         //     }
         // }
-        if (abs(trueTarget - position) > trueTheta - 20){
-        over = true;
-}
+        if(theta > 0) {
+            if(abs((trueTarget - position)) > trueTheta) {
+                over = true;
+            }
+        } else {
+            if((position - trueTarget) < - trueTheta) {
+                over = true;
+            }
+        }
+        
         if (over || time > timeout){
             trueTarget -= trueTheta;
-            break;
+           break;
         }
 
      if(time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150!= 0){
